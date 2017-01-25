@@ -1,0 +1,239 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<textarea id="inserted" style="width: 60%; height: 20%; margin-top: 20px;" placeholder="Please Enter the Meeting Schedule with Leads, Room Numbers, and Meetings"></textarea>
+
+<button id="text_complete" onclick="processFirst()">Import</button>
+<div id="firsttable"></div>
+<div id="timeimport"></div>
+<div id="secondtable"></div>
+<div id="finalImport"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+function processFirst() {
+	var lines = $('#inserted').val().split('\n');
+	//header
+	var inserted_table = "<table id='table_1' class='mytable'><thead>";
+	
+	for(var i = 0;i < lines.length;i++){
+		var vals = lines[i].split(/[\t]+/);
+		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
+		
+
+		for (var j = 0; j < vals.length; j++) {
+			if(i==0){
+				inserted_table = inserted_table.concat("<th class='col-"+ j +"'>" + vals[j] + "</th>");
+			}
+			else {
+				inserted_table = inserted_table.concat("<td class='col-"+ j +"'>" + vals[j] + "</td>");
+			}
+
+		}
+		
+		inserted_table = inserted_table.concat("</tr>");
+
+		if (i == 0) {
+			inserted_table = inserted_table.concat("</thead></tbody>");
+		}
+
+		lines[i] = vals;
+	}
+	inserted_table += "</tbody></table>";
+
+	var time_import =  "<textarea id='timings' placeholder='Please Enter the Meeting Timings By Meeting Number, Start Time, and End Time' style='width: 40%; height: 20%; margin-top: 20px;'></textarea> <button id='time_complete' onclick='processSecond()'>Import</button>";
+
+	var clarifications = "Number of Leads: <select required id='lead_count'><option value='1'>1</option><option value='2' selected='selected'>2</option><option value='3'>3</option></select> Number of Meetings Slots: <input id='meeting_count' type='number' min='0' value='4' style='width: 3em;'></input>";
+
+	$("#inserted").remove();
+	$("#text_complete").remove();
+	$("#firsttable").append(inserted_table);
+	$("#firsttable").append(clarifications);
+	$("#timeimport").append(time_import); 
+	//console.log(inserted_table);
+	//console.log(vals);
+}
+
+function processSecond(){
+	var lines = $('#timings').val().split('\n');
+	//header
+	var inserted_table = "<table id='table_2' class='mytable'><thead>";
+	
+	for(var i = 0;i < lines.length;i++){
+		var vals = lines[i].split(/[\t]+/);
+		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
+
+		for (var j = 0; j < vals.length; j++) {
+			if(i==0){
+				inserted_table = inserted_table.concat("<th class='col-"+ j +"'>" + vals[j] + "</th>");
+			}
+			else {
+				inserted_table = inserted_table.concat("<td class='col-"+ j +"'>" + vals[j] + "</td>");
+			}
+
+		}
+		
+		inserted_table = inserted_table.concat("</tr>");
+
+		if (i == 0) {
+			inserted_table = inserted_table.concat("</thead></tbody>");
+		}
+
+		lines[i] = vals;
+	}
+	inserted_table += "</tbody></table>";
+
+	$("#secondtable").append(inserted_table);
+	$("#timeimport").remove();
+	$("#timings").remove();
+	//console.log($("#lead_count option:selected").val());
+	//alternatively .text() can also be used
+
+
+	processTables($("#lead_count option:selected").val(), $('#meeting_count').val());
+}
+var globalMeetCount;
+var allstrings = [];
+
+function processTables(numLeads, numMeets){
+	var meets = document.getElementById("table_1");
+
+	var times = document.getElementById("table_2");
+
+	var meeting_identification = [];
+	var start_times = [];
+	var end_times = [];
+
+	for (var i = 1, row; row = times.rows[i]; i++) {
+		//skips the header row (i starting at 1)
+   		for (var j = 0, col; col = row.cells[j]; j++) {
+   			var cellText = $(col).html();
+   			if (j == 0) {
+   				meeting_identification.push(cellText);
+   			}
+   			if (j == 1) {
+   				start_times.push(cellText);
+   			}
+   			if (j == 2) {
+   				end_times.push(cellText);
+   			}
+   			//console.log(cellText);
+   			//use some kind of dictionary data structure
+
+   		}  
+	}
+	/*console.log(meeting_identification);
+	console.log(start_times);
+	console.log(end_times);*/
+
+	for (var i = 1, row; row = meets.rows[i]; i++) {
+		var insertions = "INSERT INTO Meetings (Room_Number, Lead_1, Lead_2, Lead_3, Time_Start, Time_End, Venture_Name, Meeting_Number) VALUES (";
+
+		//skips the header row (i starting at 1)
+		var c = '0';
+   		for (var j = 0, col; col = row.cells[j]; j++) {
+   			var cellText = $(col).html();
+   			//console.log(j);
+   			//console.log(numLeads);
+   			if (j == 0) {
+   				insertions += "'" + cellText + "', ";
+   				//room number
+   			}
+   			if ((j > 0) && (j <= numLeads)) {
+   				insertions += "'" + cellText + "', ";
+   			}
+   			if (j == numLeads) {
+   				for (var k = 0; k < (3-numLeads); k++) {
+   					insertions += "NULL, ";
+   				}
+   			}
+   			var final_insert = insertions;
+
+   			if (j > numLeads) {
+   				c++;
+   				//console.log(c);
+   				for (var p = 0; p < meeting_identification.length; p++) {
+   					//console.log(meeting_identification[p] + " " + c);
+
+   					if (meeting_identification[p] == c) {
+   						var st = start_times[p];
+   						var et = end_times[p];
+   						final_insert += "'" + st + "', '" + et + "', ";
+   						if (c > globalMeetCount) {
+   							globalMeetCount = c;
+   						}
+   						break;
+   					}
+   					
+   				}
+   				final_insert += "'" + cellText + "', '" + c + "');";
+				//console.log(final_insert);
+				allstrings.push(final_insert);
+				//allstrings is an array of strings that contains all (k, I guess not all since the breaks are not in there yet, will do and then remove this comment)the insertion commands that need to be performed by the php file
+   			}
+   			
+   		}
+	}
+	//console.log(allstrings);
+
+	for (var w = 0; w < meeting_identification.length; w++) {
+		if (meeting_identification[w] < 0 || meeting_identification > globalMeetCount) {
+			//basically if it is not really a "meeting" but still considered to be one of the things we have to add to the database (things like breakfast, or break)
+		}
+	}
+	$("#finalImport").append("<button id='beginImport' onclick='finalsubmit()'>Import to Database</button>");
+	// I have only done meetings so far, not break and other things in the schedule
+}
+//function processTables ends here
+
+function finalsubmit () {
+    $.ajax({
+        type: 'post',
+        url: 'process.php',
+        data: {
+            sqlInserts: allstrings
+        },
+        success: function( data ) {
+            console.log(data);
+        }
+    });
+};
+
+
+</script>
+
+<style type="text/css">
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+	table.mytable {
+		font-size: 12px;
+		border: 1px solid #CCC; 
+		font-family: Arial, Helvetica, sans-serif;
+		margin-top: 5px;
+	} 
+	.mytable td {
+		padding: 4px;
+		margin: 3px;
+		border: 1px solid #CCC;
+	}
+	.mytable th {
+		background-color: #104E8B; 
+		color: #FFF;
+		font-weight: bold;
+	}
+</style>
