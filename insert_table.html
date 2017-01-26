@@ -110,7 +110,7 @@ function processSecond(){
 	//^^ this needs to go after the very final import
 	//actually it might be okay to do this now because we should probably just push the track meetings to the database as they come in
 	//Then we will also need a way delete all rows that pretain to a track meeting because I can't really think of another way of doing this otherwise
-	
+
 }
 
 
@@ -118,10 +118,48 @@ function processSecond(){
 function addTrack(){
 	$("#allgroups").append("<textarea id='groupinsert' style='width: 60%; height: 20%; margin-top: 20px;' placeholder='Please Enter the Venture Names Followed By the Corresponding Lead'></textarea>");
 	$("#allgroups").append("<br>Start Time: <input id='gstime' type='time'></input> End Time: <input id='getime' type='time'></input><br>");
-	$("#allgroups").append("<button></button>");
-	//add button to actually import the table
+	$("#allgroups").append("<button onclick='processTrack()'>Import</button>");
 }
 
+var trackcounter = 2;
+
+function processTrack(){
+	//here is where we will push to the database immediately
+	//that way we don't have to store all the tables on hand and have it be a hastle
+
+	var lines = $('#groupinsert').val().split('\n');
+	trackcounter++;
+	//header
+
+	var inserted_table = "<table id='table_"+ trackcounter +"' class='mytable'><thead>";
+	
+	for(var i = 0;i < lines.length;i++){
+		var vals = lines[i].split(/[\t]+/);
+		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
+		
+
+		for (var j = 0; j < vals.length; j++) {
+			if(i==0){
+				inserted_table = inserted_table.concat("<th class='col-"+ j +"'>" + vals[j] + "</th>");
+			}
+			else {
+				inserted_table = inserted_table.concat("<td class='col-"+ j +"'>" + vals[j] + "</td>");
+			}
+
+		}
+		
+		inserted_table = inserted_table.concat("</tr>");
+
+		if (i == 0) {
+			inserted_table = inserted_table.concat("</thead></tbody>");
+		}
+
+		lines[i] = vals;
+	}
+	inserted_table += "</tbody></table>";
+	$("allgroups").append(inserted_table);
+	//var tmeets = document.getElementById("table_tr");
+}
 
 
 
