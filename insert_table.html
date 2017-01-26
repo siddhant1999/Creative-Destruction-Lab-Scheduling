@@ -17,6 +17,7 @@
 <div id="firsttable"></div>
 <div id="timeimport"></div>
 <div id="secondtable"></div>
+<div id="allgroups"></div>
 <div id="finalImport"></div>
 </body>
 </html>
@@ -98,11 +99,14 @@ function processSecond(){
 	$("#secondtable").append(inserted_table);
 	$("#timeimport").remove();
 	$("#timings").remove();
+	$("#allgroups").append("<textarea id='groupinsert' style='width: 60%; height: 20%; margin-top: 20px;' placeholder='Please Enter the Venture Names Followed By the Corresponding Lead'></textarea>");
+	$("#allgroups").append("<label>Enter Start and Time (Military)</label><input id='gstime' type='time'></input><input id='getime' type='time'></input>");
 	//console.log($("#lead_count option:selected").val());
 	//alternatively .text() can also be used
 
 
-	processTables($("#lead_count option:selected").val(), $('#meeting_count').val());
+	//processTables($("#lead_count option:selected").val(), $('#meeting_count').val());
+	//^^ this needs to go after the very final import
 }
 var globalMeetCount;
 var allstrings = [];
