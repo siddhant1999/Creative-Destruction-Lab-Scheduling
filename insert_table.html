@@ -17,8 +17,11 @@
 <div id="firsttable"></div>
 <div id="timeimport"></div>
 <div id="secondtable"></div>
+<div id="completetracks"></div>
 <div id="allgroups"></div>
 <div id="finalImport"></div>
+
+
 </body>
 </html>
 
@@ -118,7 +121,7 @@ function processSecond(){
 function addTrack(){
 	$("#allgroups").append("<textarea id='groupinsert' style='width: 60%; height: 20%; margin-top: 20px;' placeholder='Please Enter the Venture Names Followed By the Corresponding Lead'></textarea>");
 	$("#allgroups").append("<br><div id='timeid' >Start Time: <input id='gstime' type='time'></input> End Time: <input id='getime' type='time'></input></div><br>");
-	$("#allgroups").append("<button onclick='processTrack()'>Import</button>");
+	$("#allgroups").append("<button onclick='processTrack()'>Import This Group Meeting</button>");
 }
 
 var trackcounter = 2;
@@ -167,14 +170,15 @@ function processTrack(){
 		lines[i] = vals;
 	}
 	inserted_table += "</tbody></table>";
-	console.log(alltrackstrings);
-	pushTrackstoPHP(alltrackstrings);
-	$("#allgroups").append(inserted_table);
-	$("#groupinsert").empty();//also try .empty()
+	//console.log(alltrackstrings);
+	
+	$("#completetracks").append(inserted_table);
+	$("#allgroups").empty();//also try .empty()
+
 	$("#addtrack").remove();
 	$("#allgroups").append("<button id='addtrack' onclick='addTrack()'>Add a Group Meeting</button><br>");
 	$("#timeid").remove();
-
+	pushTrackstoPHP(alltrackstrings);
 
 	//var tmeets = document.getElementById("table_tr");
 }
@@ -187,7 +191,7 @@ function pushTrackstoPHP(arr){
             sqlInserts: arr
         },
         success: function( data ) {
-            console.log(data);
+            //console.log(data);
         }
     });
 }
@@ -284,12 +288,14 @@ function processTables(numLeads, numMeets){
 			//basically if it is not really a "meeting" but still considered to be one of the things we have to add to the database (things like breakfast, or break)
 		}
 	}
-	$("#finalImport").append("<button id='beginImport' onclick='finalsubmit()'>Import to Database</button>");
+	$("#finalImport").append("<button id='beginImport' onclick='finalsubmit()'>Import Just Meetings and Times (Not Track)</button>");
 	// I have only done meetings so far, not break and other things in the schedule
 }
 //function processTables ends here
 
 function finalsubmit () {
+	$("#finalImport").remove();
+
     $.ajax({
         type: 'post',
         url: 'processTables.php',
@@ -297,7 +303,8 @@ function finalsubmit () {
             sqlInserts: allstrings
         },
         success: function( data ) {
-            console.log(data);
+            //console.log(data);
+            alert("Complete");
         }
     });
 };
