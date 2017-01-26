@@ -143,8 +143,10 @@ function processTrack(){
 		var vals = lines[i].split(/[\t]+/);
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
 		
-		var insertions  = "INSERT INTO Meetings (Time_Start, Time_End, Lead_1, Venture_Name) VALUES ('" + $("#gstime").val() + "' , '" + $("#getime").val() + "', '" + vals[0] + "' , '" + vals[1] + "');";
-		alltrackstrings.push(insertions);
+		var insertions  = "INSERT INTO Meetings (Time_Start, Time_End,Venture_Name, Lead_1 ) VALUES ('" + $("#gstime").val() + "' , '" + $("#getime").val() + "', '" + vals[0] + "' , '" + vals[1] + "');";
+		if(i){
+			alltrackstrings.push(insertions);
+		}
 
 		for (var j = 0; j < vals.length; j++) {
 			if(i==0){
@@ -165,9 +167,11 @@ function processTrack(){
 		lines[i] = vals;
 	}
 	inserted_table += "</tbody></table>";
-
+	console.log(alltrackstrings);
 	pushTrackstoPHP(alltrackstrings);
 	$("#allgroups").append(inserted_table);
+	$("#groupinsert").remove();//also try .empty()
+
 	//var tmeets = document.getElementById("table_tr");
 }
 
@@ -176,7 +180,7 @@ function pushTrackstoPHP(arr){
         type: 'post',
         url: 'processTables.php',
         data: {
-            sqlInserts: allstrings
+            sqlInserts: arr
         },
         success: function( data ) {
             console.log(data);
