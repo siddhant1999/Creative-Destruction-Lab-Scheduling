@@ -106,8 +106,11 @@ function processSecond(){
 	//alternatively .text() can also be used
 
 
-	//processTables($("#lead_count option:selected").val(), $('#meeting_count').val());
+	processTables($("#lead_count option:selected").val(), $('#meeting_count').val());
 	//^^ this needs to go after the very final import
+	//actually it might be okay to do this now because we should probably just push the track meetings to the database as they come in
+	//Then we will also need a way delete all rows that pretain to a track meeting because I can't really think of another way of doing this otherwise
+	
 }
 
 
@@ -115,6 +118,8 @@ function processSecond(){
 function addTrack(){
 	$("#allgroups").append("<textarea id='groupinsert' style='width: 60%; height: 20%; margin-top: 20px;' placeholder='Please Enter the Venture Names Followed By the Corresponding Lead'></textarea>");
 	$("#allgroups").append("<br>Start Time: <input id='gstime' type='time'></input> End Time: <input id='getime' type='time'></input><br>");
+	$("#allgroups").append("<button></button>");
+	//add button to actually import the table
 }
 
 
