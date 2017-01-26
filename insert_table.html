@@ -117,7 +117,7 @@ function processSecond(){
 
 function addTrack(){
 	$("#allgroups").append("<textarea id='groupinsert' style='width: 60%; height: 20%; margin-top: 20px;' placeholder='Please Enter the Venture Names Followed By the Corresponding Lead'></textarea>");
-	$("#allgroups").append("<br>Start Time: <input id='gstime' type='time'></input> End Time: <input id='getime' type='time'></input><br>");
+	$("#allgroups").append("<br><div id='timeid' >Start Time: <input id='gstime' type='time'></input> End Time: <input id='getime' type='time'></input></div><br>");
 	$("#allgroups").append("<button onclick='processTrack()'>Import</button>");
 }
 
@@ -170,7 +170,11 @@ function processTrack(){
 	console.log(alltrackstrings);
 	pushTrackstoPHP(alltrackstrings);
 	$("#allgroups").append(inserted_table);
-	$("#groupinsert").remove();//also try .empty()
+	$("#groupinsert").empty();//also try .empty()
+	$("#addtrack").remove();
+	$("#allgroups").append("<button id='addtrack' onclick='addTrack()'>Add a Group Meeting</button><br>");
+	$("#timeid").remove();
+
 
 	//var tmeets = document.getElementById("table_tr");
 }
