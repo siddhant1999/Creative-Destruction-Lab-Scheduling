@@ -123,26 +123,28 @@ function addTrack(){
 
 var trackcounter = 2;
 
+
 function processTrack(){
 	//here is where we will push to the database immediately
 	//that way we don't have to store all the tables on hand and have it be a hastle
 	var lines = $('#groupinsert').val().split('\n');
 	trackcounter++;
 	//header
-
+	var alltrackstrings = [];
 	//reject if the time slots are empty
-	if ($.trim($("#gstime").val()) || $.trim($("#getime").val())) {
-		alert("Please Enter a Start & End Time");
+	if (!($.trim($("#gstime").val()) && $.trim($("#getime").val()))) {
+		alert("Enter a Valid Start & End Time");
 		return;
 	}
 	var inserted_table = "<table id='table_"+ trackcounter +"' class='mytable'><thead>";
 	
-	//var insertions = "INSERT INTO Meetings (Lead_1, Time_Start, Time_End, Venture_Name, Meeting_Number) VALUES (";
 
 	for(var i = 0;i < lines.length;i++){
 		var vals = lines[i].split(/[\t]+/);
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
 		
+		var insertions  = "INSERT INTO Meetings (Time_Start, Time_End, Lead_1, Venture_Name) VALUES ('" + $("#gstime").val() + "' , '" + $("#getime").val() + "', '" + vals[0] + "' , '" + vals[1] + "');";
+		alltrackstrings.push(insertions);
 
 		for (var j = 0; j < vals.length; j++) {
 			if(i==0){
@@ -163,10 +165,24 @@ function processTrack(){
 		lines[i] = vals;
 	}
 	inserted_table += "</tbody></table>";
+
+	pushTrackstoPHP(alltrackstrings);
 	$("#allgroups").append(inserted_table);
 	//var tmeets = document.getElementById("table_tr");
 }
 
+function pushTrackstoPHP(arr){
+    $.ajax({
+        type: 'post',
+        url: 'processTables.php',
+        data: {
+            sqlInserts: allstrings
+        },
+        success: function( data ) {
+            console.log(data);
+        }
+    });
+}
 
 
 var globalMeetCount;
@@ -268,7 +284,7 @@ function processTables(numLeads, numMeets){
 function finalsubmit () {
     $.ajax({
         type: 'post',
-        url: 'process.php',
+        url: 'processTables.php',
         data: {
             sqlInserts: allstrings
         },
