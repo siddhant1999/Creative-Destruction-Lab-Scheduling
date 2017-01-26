@@ -126,13 +126,19 @@ var trackcounter = 2;
 function processTrack(){
 	//here is where we will push to the database immediately
 	//that way we don't have to store all the tables on hand and have it be a hastle
-
 	var lines = $('#groupinsert').val().split('\n');
 	trackcounter++;
 	//header
 
+	//reject if the time slots are empty
+	if ($.trim($("#gstime").val()) || $.trim($("#getime").val())) {
+		alert("Please Enter a Start & End Time");
+		return;
+	}
 	var inserted_table = "<table id='table_"+ trackcounter +"' class='mytable'><thead>";
 	
+	//var insertions = "INSERT INTO Meetings (Lead_1, Time_Start, Time_End, Venture_Name, Meeting_Number) VALUES (";
+
 	for(var i = 0;i < lines.length;i++){
 		var vals = lines[i].split(/[\t]+/);
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
@@ -157,7 +163,7 @@ function processTrack(){
 		lines[i] = vals;
 	}
 	inserted_table += "</tbody></table>";
-	$("allgroups").append(inserted_table);
+	$("#allgroups").append(inserted_table);
 	//var tmeets = document.getElementById("table_tr");
 }
 
