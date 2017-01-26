@@ -197,7 +197,7 @@ function pushTrackstoPHP(arr){
 }
 
 
-var globalMeetCount;
+var globalMeetCount = 0;
 var allstrings = [];
 
 function processTables(numLeads, numMeets){
@@ -282,9 +282,12 @@ function processTables(numLeads, numMeets){
 	//console.log(allstrings);
 
 	for (var w = 0; w < meeting_identification.length; w++) {
-		if (meeting_identification[w] < 0 || meeting_identification > globalMeetCount) {
-			//fork
+			console.log(meeting_identification[w]);
+			console.log(globalMeetCount);
 
+		if (isNaN(meeting_identification[w])) {
+			var inser = "INSERT INTO Meetings (Time_Start, Time_End, Description) VALUES ('" + start_times[w] + "', '" + end_times[w] + "', '" + meeting_identification[w] + "');"
+			allstrings.push(inser);
 			//basically if it is not really a "meeting" but still considered to be one of the things we have to add to the database (things like breakfast, or break)
 		}
 	}
