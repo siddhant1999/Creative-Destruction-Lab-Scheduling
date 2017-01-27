@@ -21,8 +21,8 @@
 
 <!-- do all to lowercase first, before querying-->
 
-<select>
-<option value="Vertex.AI" >Vertex.AI</option>
+<select id="venture">
+
 <option value="A&K Robotics" >A&#38K Robotics</option>
 <option value="Acerta" > Acerta</option>
 <option value="Ada">Ada</option>
@@ -68,9 +68,41 @@
 <option value="Landmine Boys" >Landmine Boys</option>
 <option value="TREXO Robotics" >TREXO Robotics</option>
 <option value="Vention" >Vention</option>
+<option value="Vertex.AI" >Vertex.AI</option>
 <option value="Xanadu" >Xanadu</option>
 <option value="Yazabi" >Yazabi</option>
 </select>
 
+<button id="subven" onclick="startSearch()">Submit</button>
+
 </body>
 </html>
+
+<script type="text/javascript">
+
+function startSearch(){
+
+	var name = $("#venture option:selected").val();
+	//create the query
+	console.log(name);
+
+	var query = "SELECT * FROM Meetings WHERE LOWER(Venture_Name)=LOWER('" + name + "');";
+	//this query doesn't query everything we actually need
+	//we still need to query the track meetings and the general breaks/lunch etc...
+	console.log(query);
+
+	$.ajax({
+        type: 'post',
+        url: 'processQuery.php',
+        data: {
+            sqlQuery: query
+        },
+        success: function( data ) {
+        	console.log("Here is the data retrived:");
+            console.log(data);
+            //alert("Complete");
+        }
+    });
+}	
+
+</script>
