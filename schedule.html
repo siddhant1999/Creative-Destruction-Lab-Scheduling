@@ -41,7 +41,7 @@
 <option value="Fundmetric" >Fundmetric</option>
 <option value="Gbatteries" >Gbatteries</option>
 <option value="H2nanO" >H2nanO</option>
-<option value="ICSPI" >ICSPI</option>
+<option value="ICSPI" selected="selected">ICSPI</option>
 <option value="Knote" >Knote</option>
 <option value="Kyndi" >Kyndi</option>
 <option value="Elucid Labs" >Elucid Labs</option>
@@ -80,29 +80,48 @@
 
 <script type="text/javascript">
 
+var allstrings = [];
+
 function startSearch(){
 
 	var name = $("#venture option:selected").val();
 	//create the query
 	console.log(name);
 
-	var query = "SELECT * FROM Meetings WHERE LOWER(Venture_Name)=LOWER('" + name + "');";
+	//var query = "SELECT * FROM Meetings WHERE LOWER(Venture_Name)=LOWER('" + name + "');";
+	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' ORDER BY Time_Start;" ;
 	//this query doesn't query everything we actually need
 	//we still need to query the track meetings and the general breaks/lunch etc...
 	console.log(query);
+	//allstrings.push(query);
 
 	$.ajax({
         type: 'post',
         url: 'processQuery.php',
         data: {
             sqlQuery: query
+            //sqlInserts: allstrings
         },
         success: function( data ) {
         	console.log("Here is the data retrived:");
             console.log(data);
+            process(data);
+            //console.log(allstrings);
             //alert("Complete");
         }
     });
-}	
+}
+
+function process(arr){
+	for (var i = 0; i < arr.length; i++) {
+		for (var key in arr[i]) {
+			document.write(key);
+		}
+	}
+	/*for (var i = 0; i < arr.length; i++) {
+		document.write(arr[i]);
+		document.write("\n\n\n\n");
+	}*/
+}
 
 </script>
