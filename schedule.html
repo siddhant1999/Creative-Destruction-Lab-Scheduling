@@ -89,7 +89,7 @@ function startSearch(){
 	console.log(name);
 
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Venture_Name)=LOWER('" + name + "');";
-	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' ORDER BY Time_Start;" ;
+	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' OR Meeting_Number=NULLORDER BY Time_Start;" ;
 	//this query doesn't query everything we actually need
 	//we still need to query the track meetings and the general breaks/lunch etc...
 	console.log(query);
@@ -105,7 +105,7 @@ function startSearch(){
         success: function( data ) {
         	console.log("Here is the data retrived:");
             console.log(data);
-            process(data);
+            //process(data);
             //console.log(allstrings);
             //alert("Complete");
         }
@@ -113,11 +113,7 @@ function startSearch(){
 }
 
 function process(arr){
-	for (var i = 0; i < arr.length; i++) {
-		for (var key in arr[i]) {
-			document.write(key);
-		}
-	}
+	document.write(arr);
 	/*for (var i = 0; i < arr.length; i++) {
 		document.write(arr[i]);
 		document.write("\n\n\n\n");

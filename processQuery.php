@@ -17,12 +17,13 @@ if ($conn->connect_error) {
 
 //Execute the query and store it in $result
 
-//$src1= $_POST['sqlQuery'];
-$src1 = "SELECT * FROM Meetings WHERE Venture_Name='ICSPI' ORDER BY Time_Start;" ;
+$src1= $_POST['sqlQuery'];
+echo $scr1;
+//$src1 = "SELECT * FROM Meetings WHERE Venture_Name='ICSPI' ORDER BY Time_Start;" ;
 $result = $conn->query($src1);
 
 
-$fullArray = array(array());
+$fullArray = array();
 
 // there are 3 queries that I have to make
 //
@@ -39,7 +40,8 @@ while ($row = $result->fetch_array()){
     $row1["Room_Number"] = $row['Room_Number'];
     
     //array_push($fullArray, $row1);
-    break;
+    //trying bracket notation
+    $fullArray[] = $row1;
     //we don't need the venture name because we query by it
 
     /*
@@ -62,9 +64,21 @@ while ($row = $result->fetch_array()){
 }
 */
 
+function message($n){
+    return $n * $n;
+}
+
+
+//$abc = json_encode("{'errors': [{'message': 34}]}")
+/*$a = array(1,2,3,4,5);
+$abc = array_map("message", $a);
+$abc = json_encode($abc);*/
+//echo var_dump($abc);
+//$data = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
+//$manage = json_decode($data);
+//$manage = (array) json_decode($data);
+header('Content-Type: application/json');
 $abc = json_encode($fullArray);
-echo var_dump($abc);
-echo "hello";
 echo $abc;
 //echo var_dump($fullArray);
 //echo 
