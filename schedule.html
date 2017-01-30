@@ -92,7 +92,7 @@ function startSearch(){
 	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
 	//this query doesn't query everything we actually need
 	//we still need to query the track meetings and the general breaks/lunch etc...
-	console.log(query);
+	//console.log(query);
 	//allstrings.push(query);
 
 	$.ajax({
@@ -103,9 +103,9 @@ function startSearch(){
             //sqlInserts: allstrings
         },
         success: function( data ) {
-        	console.log("Here is the data retrived:");
+        	//console.log("Here is the data retrived:");
             console.log(data);
-            //process(data);
+            process(data);
             //console.log(allstrings);
             //alert("Complete");
         }
@@ -113,12 +113,29 @@ function startSearch(){
 }
 
 function process(arr){
+
+	var distable = "<table><thead><tr><th>Time</th><th>Agenda/Venture</th></tr></thead><tbody>"
 	for (var i = 0; i < arr.length; i++) {
 		var obj = arr[i];
-		for (var key in obj){
+		distable += "<tr>";
+		distable += "<td>" + arr["Time_Start"] + "-" + arr["Time_End"] + "</td>";
+		if (arr["Meeting_Number"]) {
+			distable += "<td>" + arr["Time_Start"] + "-" + arr["Time_End"] + "</td>";
+		}
+		else if (arr["Description"]) {
+			distable += "<td>" + arr["Description"] + "</td>";
+		}
+		else {
+			distable += "<td>" + arr["Venture"] + " Lead by: " + arr["Lead_1"] + "</td>";
+		}
+		
+		/*for (var key in obj){
     		var value = obj[key];
-    		document.write("<br> - " + key + ": " + value);
-  		}
+			//we may not necessarily need to iterate over all o
+    		//document.write(" " + key + ": " + value);
+  		}*/
+  		distable += "</tr>";
+  		//document.write("<br> ");
 	}
 }
 

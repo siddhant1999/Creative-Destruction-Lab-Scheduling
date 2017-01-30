@@ -38,6 +38,7 @@ while ($row = $result->fetch_array()){
     $row1["Time_Start"] = $row['Time_Start'];
     $row1["Time_End"] = $row['Time_End'];
     $row1["Room_Number"] = $row['Room_Number'];
+    $row1["Description"] = $row['Description'];
     
     //array_push($fullArray, $row1);
     //trying bracket notation
