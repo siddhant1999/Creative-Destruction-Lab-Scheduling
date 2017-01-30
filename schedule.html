@@ -113,11 +113,13 @@ function startSearch(){
 }
 
 function process(arr){
-	document.write(arr);
-	/*for (var i = 0; i < arr.length; i++) {
-		document.write(arr[i]);
-		document.write("\n\n\n\n");
-	}*/
+	for (var i = 0; i < arr.length; i++) {
+		var obj = arr[i];
+		for (var key in obj){
+    		var value = obj[key];
+    		document.write("<br> - " + key + ": " + value);
+  		}
+	}
 }
 
 </script>
