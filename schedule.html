@@ -86,10 +86,10 @@ function startSearch(){
 
 	var name = $("#venture option:selected").val();
 	//create the query
-	console.log(name);
+	//console.log(name);
 
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Venture_Name)=LOWER('" + name + "');";
-	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' OR Meeting_Number=NULLORDER BY Time_Start;" ;
+	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
 	//this query doesn't query everything we actually need
 	//we still need to query the track meetings and the general breaks/lunch etc...
 	console.log(query);
