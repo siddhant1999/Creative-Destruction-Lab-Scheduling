@@ -128,38 +128,40 @@ function helper(time){
 	timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
 	//timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;  // get seconds
 	timeValue += (hours >= 12) ? " PM" : " AM";  // get AM/PM
-}
-
-function timeConverter(time1, time2){
-	//var time = "16:30:00"; // your input
-	if (time1 == prev1 && time2==prev2) {
-		return false;
-	}
-
-	var a = helper(time1);
-	var b = helper(time2);
-	var c = "<td>" + a + " - " + b + "</td>";
-	prev1 = a;
-	prev2 = b;
-	// show
-	return c;
+	return timeValue;
 }
 
 function process(obj){
 
-	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Agenda/Venture</th><th>Discussion Leads</th></tr></thead><tbody>"
+	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Agenda/Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
+	var prev1 = "";
+	var prev2 = "";
+
+
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
 		distable += "<tr>";
-		var abc = timeConverter(arr["Time_Start"], arr["Time_End"]);
-		if (abc) {
-			distable += c;
-			//right now this will not work "as intended" becuase it doesnt know what the rowspan needs to be 
+		var a = helper(arr["Time_Start"]);
+		var b = helper(arr["Time_End"]);
+		
+
+		if (prev1 != a && prev2 != b) {
+			var p;			
+			for (p = i; p < obj.length; p++) {
+				var r = obj[p];
+				var c  = helper(r["Time_Start"]);
+				var d = helper(r["Time_Start"]);
+				if (c != a && d != b) {
+					p--;
+					break;
+				}
+			}
+			prev1 = a;
+			prev2 = b;
+
+			distable += "<td rowspan='" + (p-i) + "'>" + a + " - " + b +"</td>";
 		}
-		 
 
-
-		//inserting a small converter
 
 
 		if (arr["Meeting_Number"]) {
