@@ -75,6 +75,8 @@
 
 <button id="subven" onclick="startSearch()">Submit</button>
 
+<div id="scheduleTable"></div>
+
 </body>
 </html>
 
@@ -112,21 +114,52 @@ function startSearch(){
     });
 }
 
-function process(arr){
+function timeConverter(time){
+	//var time = "16:30:00"; // your input
 
-	var distable = "<table><thead><tr><th>Time</th><th>Agenda/Venture</th></tr></thead><tbody>"
-	for (var i = 0; i < arr.length; i++) {
-		var obj = arr[i];
+	time = time.split(':'); // convert to array
+	
+	// fetch
+	var hours = Number(time[0]);
+	var minutes = Number(time[1]);
+	//var seconds = Number(time[2]);
+	
+	// calculate
+	var timeValue = "" + ((hours >12) ? hours - 12 : hours);  // get hours
+	timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
+	//timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;  // get seconds
+	timeValue += (hours >= 12) ? " PM" : " AM";  // get AM/PM
+	
+	// show
+	return timeValue;
+}
+
+function process(obj){
+
+	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Agenda/Venture</th></tr></thead><tbody>"
+	for (var i = 0; i < obj.length; i++) {
+		var arr = obj[i];
 		distable += "<tr>";
-		distable += "<td>" + arr["Time_Start"] + "-" + arr["Time_End"] + "</td>";
+		distable += "<td>" + timeConverter(arr["Time_Start"]) + " - " + timeConverter(arr["Time_End"]) + "</td>";
+		//inserting a small converter
+
+
 		if (arr["Meeting_Number"]) {
-			distable += "<td>" + arr["Time_Start"] + "-" + arr["Time_End"] + "</td>";
+			distable += "<td>Individual Meeting with " + arr["Lead_1"];
+			for (var l = 2;l<4; l++) {
+				var tt = "Lead_" + l;
+				if (arr[tt]) {
+					distable += "and "  + arr[tt];
+				}else break;
+			}
+
+			distable += " in <b>Room " + arr["Room_Number"] + "</b></td>";
 		}
 		else if (arr["Description"]) {
 			distable += "<td>" + arr["Description"] + "</td>";
 		}
 		else {
-			distable += "<td>" + arr["Venture"] + " Lead by: " + arr["Lead_1"] + "</td>";
+			distable += "<td>" + arr["Venture_Name"] + " Lead by: " + arr["Lead_1"] + "</td>";
 		}
 		
 		/*for (var key in obj){
@@ -137,6 +170,32 @@ function process(arr){
   		distable += "</tr>";
   		//document.write("<br> ");
 	}
+	distable += "</tbody></table>";
+	$("#scheduleTable").append(distable);
 }
 
 </script>
+
+<style type="text/css">
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+	table.mytable {
+		font-size: 12px;
+		border: 1px solid #CCC; 
+		font-family: Arial, Helvetica, sans-serif;
+		margin-top: 5px;
+	} 
+	.mytable td {
+		padding: 4px;
+		margin: 3px;
+		border: 1px solid #CCC;
+	}
+	.mytable th {
+		background-color: #104E8B; 
+		color: #FFF;
+		font-weight: bold;
+	}
+</style>

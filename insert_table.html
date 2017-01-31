@@ -33,7 +33,7 @@ function processFirst() {
 	var inserted_table = "<table id='table_1' class='mytable'><thead>";
 	
 	for(var i = 0;i < lines.length;i++){
-		var vals = lines[i].split(/[\t]+/);
+		var vals = lines[i].split(/[\t]/);
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
 		
 
@@ -76,7 +76,7 @@ function processSecond(){
 	var inserted_table = "<table id='table_2' class='mytable'><thead>";
 	
 	for(var i = 0;i < lines.length;i++){
-		var vals = lines[i].split(/[\t]+/);
+		var vals = lines[i].split(/[\t]/);
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
 
 		for (var j = 0; j < vals.length; j++) {
@@ -143,7 +143,7 @@ function processTrack(){
 	
 
 	for(var i = 0;i < lines.length;i++){
-		var vals = lines[i].split(/[\t]+/);
+		var vals = lines[i].split(/[\t]/);
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
 		
 		var insertions  = "INSERT INTO Meetings (Time_Start, Time_End,Venture_Name, Lead_1 ) VALUES ('" + $("#gstime").val() + "' , '" + $("#getime").val() + "', '" + vals[0] + "' , '" + vals[1] + "');";
