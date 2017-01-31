@@ -21,7 +21,7 @@
 
 <!-- do all to lowercase first, before querying-->
 
-<select id="venture">
+<select id="venture" class="col-sm-4">
 
 <option value="A&K Robotics" >A&#38K Robotics</option>
 <option value="Acerta" > Acerta</option>
@@ -41,7 +41,7 @@
 <option value="Fundmetric" >Fundmetric</option>
 <option value="Gbatteries" >Gbatteries</option>
 <option value="H2nanO" >H2nanO</option>
-<option value="ICSPI" selected="selected">ICSPI</option>
+<option value="ICSPI">ICSPI</option>
 <option value="Knote" >Knote</option>
 <option value="Kyndi" >Kyndi</option>
 <option value="Elucid Labs" >Elucid Labs</option>
@@ -131,6 +131,8 @@ function helper(time){
 	return timeValue;
 }
 
+var isGrey = [];
+
 function process(obj){
 
 	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Agenda/Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
@@ -140,28 +142,25 @@ function process(obj){
 
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
-		distable += "<tr>";
+		distable += "<tr id='row_" + i + "'>";
 		var a = helper(arr["Time_Start"]);
 		var b = helper(arr["Time_End"]);
-		
-
-		if (prev1 != a && prev2 != b) {
-			var p;			
-			for (p = i; p < obj.length; p++) {
-				var r = obj[p];
-				var c  = helper(r["Time_Start"]);
-				var d = helper(r["Time_Start"]);
-				if (c != a && d != b) {
-					p--;
-					break;
-				}
-			}
+		if (prev1!=a && prev2 !=b) {
 			prev1 = a;
 			prev2 = b;
+			var k = i+1;
+			var count =1;
 
-			distable += "<td rowspan='" + (p-i) + "'>" + a + " - " + b +"</td>";
+			if (k < obj.length) {
+				while(a == helper(obj[k]["Time_Start"]) && b== helper(obj[k]["Time_End"])){
+					count++;
+					k++;
+					if (k == obj.length) {
+						break;
+					}
+				}
+			}distable += "<td rowspan='"+ count +"'>" + a + " - " + b +"</td>";
 		}
-
 
 
 		if (arr["Meeting_Number"]) {
@@ -177,6 +176,7 @@ function process(obj){
 		}
 		else if (arr["Description"]) {
 			distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+			isGrey.push(i);
 		}
 		else {
 			distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
@@ -192,6 +192,11 @@ function process(obj){
 	}
 	distable += "</tbody></table>";
 	$("#scheduleTable").append(distable);
+	for (var j = 0; j < isGrey.length; j++) {
+		var theid = "#row_" + isGrey[j];
+
+		$(theid).css("background-color", "#ececec");
+	}
 }
 
 </script>
@@ -201,20 +206,33 @@ function process(obj){
 body {
 	font-size: 12px;
 	font-family: Arial, Helvetica, sans-serif;
+	  -webkit-appearance: none; -moz-appearance: none;
+  /*display: block;*/
+  width: 100%; height: 40px;
+}
+
+select {
+	margin-left: auto;
+	margin-right: auto;
+}
+table {
+	width: 70%;
+		margin-left: auto;
+		margin-right: auto;
 }
 	table.mytable {
-		font-size: 12px;
+		font-size: 130%;
 		border: 1px solid #CCC; 
-		font-family: Arial, Helvetica, sans-serif;
+		font-family: Calibri, Arial, Helvetica, sans-serif;
 		margin-top: 5px;
 	} 
 	.mytable td {
 		padding: 4px;
 		margin: 3px;
-		border: 1px solid #CCC;
+		border: 1px solid #000;
 	}
 	.mytable th {
-		background-color: #104E8B; 
+		background-color: #000; 
 		color: #FFF;
 		font-weight: bold;
 	}
