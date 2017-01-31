@@ -87,7 +87,7 @@ var allstrings = [];
 function startSearch(){
 
 	var name = $("#venture option:selected").val();
-	$("#scheduleTable").append("<h1>Schedule: " + name +"</h1>");
+	
 	//create the query
 	//console.log(name);
 
@@ -192,12 +192,15 @@ function process(obj){
   		//document.write("<br> ");
 	}
 	distable += "</tbody></table>";
+	$("#scheduleTable").append("<h3><b><u>Schedule: " + name +"</u></b></h3>");
 	$("#scheduleTable").append(distable);
 	for (var j = 0; j < isGrey.length; j++) {
 		var theid = "#row_" + isGrey[j];
 
 		$(theid).css("background-color", "#ececec");
 	}
+
+	$("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
 }
 
 </script>
@@ -212,9 +215,10 @@ body {
   width: 100%;
 }
 
-h1 {
+h3,h4 {
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
 }
 
 select {
