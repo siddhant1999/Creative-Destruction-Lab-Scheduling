@@ -113,10 +113,9 @@ function startSearch(){
         }
     });
 }
+var prev1, prev2;
 
-function timeConverter(time){
-	//var time = "16:30:00"; // your input
-
+function helper(time){
 	time = time.split(':'); // convert to array
 	
 	// fetch
@@ -129,9 +128,21 @@ function timeConverter(time){
 	timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
 	//timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;  // get seconds
 	timeValue += (hours >= 12) ? " PM" : " AM";  // get AM/PM
-	
+}
+
+function timeConverter(time1, time2){
+	//var time = "16:30:00"; // your input
+	if (time1 == prev1 && time2==prev2) {
+		return false;
+	}
+
+	var a = helper(time1);
+	var b = helper(time2);
+	var c = "<td>" + a + " - " + b + "</td>";
+	prev1 = a;
+	prev2 = b;
 	// show
-	return timeValue;
+	return c;
 }
 
 function process(obj){
@@ -140,7 +151,14 @@ function process(obj){
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
 		distable += "<tr>";
-		distable += "<td>" + timeConverter(arr["Time_Start"]) + " - " + timeConverter(arr["Time_End"]) + "</td>";
+		var abc = timeConverter(arr["Time_Start"], arr["Time_End"]);
+		if (abc) {
+			distable += c;
+			//right now this will not work "as intended" becuase it doesnt know what the rowspan needs to be 
+		}
+		 
+
+
 		//inserting a small converter
 
 
