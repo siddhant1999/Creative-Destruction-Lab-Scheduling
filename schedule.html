@@ -136,7 +136,7 @@ function timeConverter(time){
 
 function process(obj){
 
-	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Agenda/Venture</th></tr></thead><tbody>"
+	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Agenda/Venture</th><th>Discussion Leads</th></tr></thead><tbody>"
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
 		distable += "<tr>";
@@ -145,21 +145,21 @@ function process(obj){
 
 
 		if (arr["Meeting_Number"]) {
-			distable += "<td>Individual Meeting with " + arr["Lead_1"];
+			distable += "<td colspan='2'>Individual Meeting with " + arr["Lead_1"];
 			for (var l = 2;l<4; l++) {
 				var tt = "Lead_" + l;
 				if (arr[tt]) {
-					distable += "and "  + arr[tt];
+					distable += " and "  + arr[tt];
 				}else break;
 			}
 
 			distable += " in <b>Room " + arr["Room_Number"] + "</b></td>";
 		}
 		else if (arr["Description"]) {
-			distable += "<td>" + arr["Description"] + "</td>";
+			distable += "<td colspan='2'>" + arr["Description"] + "</td>";
 		}
 		else {
-			distable += "<td>" + arr["Venture_Name"] + " Lead by: " + arr["Lead_1"] + "</td>";
+			distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
 		}
 		
 		/*for (var key in obj){
