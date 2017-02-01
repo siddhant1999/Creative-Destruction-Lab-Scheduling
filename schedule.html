@@ -23,7 +23,7 @@
 
 <select id="venture" class="selectpicker">
 
-<option value="A&K Robotics" >A&#38K Robotics</option>
+<option value="A&#38amp;K Robotics" >A&#38K Robotics</option>
 <option value="Acerta" > Acerta</option>
 <option value="Ada">Ada</option>
 <option value="Aerial" >Aerial</option>
@@ -107,7 +107,7 @@ function startSearch(){
         },
         success: function( data ) {
         	//console.log("Here is the data retrived:");
-            console.log(data);
+            //console.log(data);
             process(data);
             //console.log(allstrings);
             //alert("Complete");
@@ -136,17 +136,30 @@ var isGrey = [];
 
 function process(obj){
 
-	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Agenda/Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
+	var distable = "<table class='mytable'><thead><tr><th>Time</th><th>Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
 	var prev1 = "";
 	var prev2 = "";
 
 
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
-		distable += "<tr id='row_" + i + "'>";
+		distable += "<tr class='row_" + i + "'>";
 		var a = helper(arr["Time_Start"]);
 		var b = helper(arr["Time_End"]);
+
+		//k so now that we have the times this is a good time to put in the breaks
+		//just check if the end time doesnt match up with the next start time, and if not add a break
+
+
+
 		if (prev1!=a && prev2 !=b) {
+
+			if (prev2 != a && prev2) {
+				//add break
+				//console.log("Need break here");
+				distable += "<td style='background-color: #ececec;'>" + prev2 + " - " + a +"</td><td style='background-color: #ececec;' colspan='2'>Break</td></tr>" + "<tr class='row_" + i + "'>";
+			}
+
 			prev1 = a;
 			prev2 = b;
 			var k = i+1;
@@ -193,10 +206,10 @@ function process(obj){
 	}
 	distable += "</tbody></table>";
 
-	$("#scheduleTable").append("<h3><b><u>Schedule: " + har + "</u></b></h3>");
+	$("#scheduleTable").append("<h3><b><u>" + har + "</u></b></h3>");
 	$("#scheduleTable").append(distable);
 	for (var j = 0; j < isGrey.length; j++) {
-		var theid = "#row_" + isGrey[j];
+		var theid = ".row_" + isGrey[j];
 
 		$(theid).css("background-color", "#ececec");
 	}
