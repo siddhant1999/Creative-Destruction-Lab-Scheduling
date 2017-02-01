@@ -11,21 +11,27 @@
 
 <body>
 
-<textarea id="inserted" style="width: 60%; height: 20%; margin-top: 20px;" placeholder="Please Enter the Meeting Schedule with Leads, Room Numbers, and Meetings"></textarea>
+<button id="ad" onclick="adding();">Adding</button><br>
+<button id="dl" onclick="deleting();">Deleting</button>
 
-<button id="text_complete" onclick="processFirst()">Import</button>
-<div id="firsttable"></div>
-<div id="timeimport"></div>
-<div id="secondtable"></div>
-<div id="completetracks"></div>
-<div id="allgroups"></div>
-<div id="finalImport"></div>
 
 
 </body>
 </html>
 
 <script type="text/javascript">
+
+function adding(){
+	var wer = "<textarea id='inserted' style='width: 60%; height: 20%; margin-top: 20px;'' placeholder='Please Enter the Meeting Schedule with Leads, Room Numbers, and Meetings'></textarea><button id='text_complete' onclick='processFirst()'>Import</button> <div id='firsttable'></div><div id='timeimport'></div><div id='secondtable'></div><div id='completetracks'></div><div id='allgroups'></div><div id='finalImport'></div>";
+
+	$("body").append(wer);
+	$("#ad").remove();
+	$("#dl").remove();	
+}
+
+function deleting(){
+
+}
 
 function processFirst() {
 	var lines = $('#inserted').val().split('\n');
