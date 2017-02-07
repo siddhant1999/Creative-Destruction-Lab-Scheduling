@@ -135,6 +135,7 @@ function processSecond(){
 	$("#timeimport").remove();
 	$("#timings").remove();
 	$("#allgroups").append("<button id='addtrack' onclick='addTrack()'>Add a Group Meeting</button><br>");
+	$("#allgroups").append("<button id='addCustom' onclick='addCustom()'>Add a Custom Event</button><br>");
 
 	
 	//console.log($("#lead_count option:selected").val());
@@ -146,6 +147,20 @@ function processSecond(){
 	//actually it might be okay to do this now because we should probably just push the track meetings to the database as they come in
 	//Then we will also need a way delete all rows that pretain to a track meeting because I can't really think of another way of doing this otherwise
 
+}
+
+function addCustom(){
+
+	var tin = "<br><div id='timepid' >Start Time: <input id='pstime' type='time'></input> End Time: <input id='petime' type='time'></input></div><br>";
+
+	tin += "<div id='sdate'>Date: <input id='thesdate' type='date'></input></div>";
+	tin += "<br><div id='des' >Description: <textarea id='desc'></textarea></div>";
+	tin += "<br><div id='ven' >Ventures Included: <textarea id='vens'></textarea></div>";
+	tin += "<br><div id='led' >Leads Included Included: <textarea id='leds'></textarea></div>";
+
+	$("#allgroups").append(tin);
+
+	//at the end of this function you need the option to import, but also the option to add another function
 }
 
 
@@ -333,7 +348,6 @@ function processTables(numLeads, numMeets){
 		}
 	}
 	$("#finalImport").append("<button id='beginImport' onclick='finalsubmit()'>Import Just Meetings and Times (Not Track)</button>");
-	// I have only done meetings so far, not break and other things in the schedule
 }
 //function processTables ends here
 
