@@ -23,12 +23,14 @@
 <script type="text/javascript">
 
 function adding(){
-	var wer = "<textarea id='inserted' style='width: 60%; height: 20%; margin-top: 20px;'' placeholder='Please Enter the Meeting Schedule with Leads, Room Numbers, and Meetings'></textarea><button id='text_complete' onclick='processFirst()'>Import</button> <div id='firsttable'></div><div id='timeimport'></div><div id='secondtable'></div><div id='completetracks'></div><div id='allgroups'></div><div id='finalImport'></div>";
+	var wer = "<br><div id='date'>Date: <input id='thedate' type='date'></input> AM or PM: <select id='when'><option value='AM'>AM</option><option value='PM'>PM</option></select></div><br><textarea id='inserted' style='width: 60%; height: 20%; margin-top: 20px;'' placeholder='Please Enter the Meeting Schedule with Leads, Room Numbers, and Meetings'></textarea><button id='text_complete' onclick='processFirst()'>Import</button> <div id='firsttable'></div><div id='timeimport'></div><div id='secondtable'></div><div id='completetracks'></div><div id='allgroups'></div><div id='finalImport'></div>";
 
 	$("body").append(wer);
 	$("#ad").remove();
 	$("#dl").remove();	
 }
+
+//we can either do AM or PM or ask when the morning ends and the afternoon begans
 
 function deleting(){
 	var sure = prompt("Please enter \"DELETE\" to delete ALL entries", "");
@@ -156,6 +158,8 @@ function addTrack(){
 
 var trackcounter = 2;
 
+var is_morn = false;
+
 
 function processTrack(){
 	//here is where we will push to the database immediately
@@ -175,8 +179,12 @@ function processTrack(){
 	for(var i = 0;i < lines.length;i++){
 		var vals = lines[i].split(/[\t]/);
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
-		
-		var insertions  = "INSERT INTO Meetings (Time_Start, Time_End,Venture_Name, Lead_1 ) VALUES ('" + $("#gstime").val() + "' , '" + $("#getime").val() + "', '" + vals[0] + "' , '" + vals[1] + "');";
+		//check if is AM
+
+		if ($("#when option:selected").val() == "AM") {
+			is_morn = true;
+		}
+		var insertions  = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End,Venture_Name, Lead_1 ) VALUES ('" + $("#thedate").val() + "' , '" + is_morn + "' , '" + $("#gstime").val() + "' , '" + $("#getime").val() + "', '" + vals[0] + "' , '" + vals[1] + "');";
 		if(i){
 			alltrackstrings.push(insertions);
 		}
@@ -260,9 +268,12 @@ function processTables(numLeads, numMeets){
 	/*console.log(meeting_identification);
 	console.log(start_times);
 	console.log(end_times);*/
+	if ($("#when option:selected").val() == "AM") {
+		is_morn = true;
+	}
 
 	for (var i = 1, row; row = meets.rows[i]; i++) {
-		var insertions = "INSERT INTO Meetings (Room_Number, Lead_1, Lead_2, Lead_3, Time_Start, Time_End, Venture_Name, Meeting_Number) VALUES (";
+		var insertions = "INSERT INTO Meetings (Date, is_AM, Room_Number, Lead_1, Lead_2, Lead_3, Time_Start, Time_End, Venture_Name, Meeting_Number) VALUES ('" + $("#thedate").val() + "' , ' " + is_morn + "', ";
 
 		//skips the header row (i starting at 1)
 		var c = '0';
@@ -316,7 +327,7 @@ function processTables(numLeads, numMeets){
 			console.log(globalMeetCount);
 
 		if (isNaN(meeting_identification[w])) {
-			var inser = "INSERT INTO Meetings (Time_Start, Time_End, Description) VALUES ('" + start_times[w] + "', '" + end_times[w] + "', '" + meeting_identification[w] + "');"
+			var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description) VALUES ('" + $("#thedate").val() + "' , '"  + is_morn + "' , '" + start_times[w] + "', '" + end_times[w] + "', '" + meeting_identification[w] + "');"
 			allstrings.push(inser);
 			//basically if it is not really a "meeting" but still considered to be one of the things we have to add to the database (things like breakfast, or break)
 		}

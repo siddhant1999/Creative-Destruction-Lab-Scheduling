@@ -11,14 +11,6 @@
 
 <body>
 
-<!-- okay let's break this down
-	the first thing we need is a dropdown for the ventures so that they are able to choose
-	then we need to query all the info we need
-	display it all
-	add breaks
-
--->
-
 <!-- do all to lowercase first, before querying-->
 
 <select id="venture" class="selectpicker">
@@ -178,6 +170,8 @@ function process(obj){
 
 
 		if (arr["Meeting_Number"]) {
+			//meaning this is a specific individual meeting
+
 			distable += "<td colspan='2'>Individual Meeting with " + arr["Lead_1"];
 			for (var l = 2;l<4; l++) {
 				var tt = "Lead_" + l;
@@ -191,10 +185,12 @@ function process(obj){
 			distable += " in <b>Room " + arr["Room_Number"] + "</b></td>";
 		}
 		else if (arr["Description"]) {
+			//this is a general activity to all
 			distable += "<td colspan='2'>" + arr["Description"] + "</td>";
 			isGrey.push(i);
 		}
-		else {
+		else if(arr["Venture_Name"] && arr["Lead_1"]) {
+			//this is a track meeting
 			distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
 		}
 		
