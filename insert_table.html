@@ -151,13 +151,13 @@ function processSecond(){
 
 function addCustom(){
 
-	var tin = "<div id='sdate'>Date: <input id='thesdate' type='date'></input></div> AM or PM: <select id='amorpm'><option value='AM'>AM</option><option value='PM'>PM</option></select>";
+	var tin = "<br><div id='sdate'>Date: <input id='thesdate' type='date'></input></div> AM or PM: <select id='amorpm'><option value='AM'>AM</option><option value='PM'>PM</option></select>";
 
 	tin += "<br><div id='timepid' >Start Time: <input id='pstime' type='time'></input> End Time: <input id='petime' type='time'></input></div><br>";
 	tin += "<br><div id='des' >Description <br><textarea id='desc'></textarea></div>";
 	tin += "<br><div id='ven' >Ventures Included <br><textarea id='vens' placeholder='newline seperated'></textarea></div>";
 	tin += "<br><div id='led' >Leads Included <br><textarea id='leds' placeholder='newline seperated'></textarea></div>";
-	tin += "<br><button onclick='customImport()'>Import to Database</button></br>"
+	tin += "<br><button onclick='customImport()'>Import Custom Event</button></br>"
 
 	$("#allgroups").append(tin);
 
@@ -181,7 +181,7 @@ function customImport(){
 	for(var i = 0; i < venturesincluded.length; i++){
 		//every one of these needs its own insertion
 
-		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name) VALUES ('" + curdate + "' , '" + isAM + "' , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "';"
+		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name) VALUES ('" + curdate + "' , " + isAM + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "';"
 
 		array.push(inser);
 		
@@ -189,10 +189,11 @@ function customImport(){
 	for(var i = 0; i < leadsincluded.length; i++){
 		//every one of these needs its own insertion
 
-		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1) VALUES ('" + curdate + "' , '" + isAM + "' , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[i] + "';"
+		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1) VALUES ('" + curdate + "' , " + isAM + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[i] + "';"
 
 		array.push(inser);
 	}
+	console.log(array);
 
 	$.ajax({
    	    type: 'post',
@@ -201,7 +202,7 @@ function customImport(){
    	        sqlInserts: array
    	    },
    	    success: function( data ) {
-   	        //console.log(data);
+   	        console.log(data);
    	    }
    	});
 
