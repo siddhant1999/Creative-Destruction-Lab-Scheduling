@@ -151,18 +151,21 @@ function processSecond(){
 
 function addCustom(){
 
-	var tin = "<br><div id='timepid' >Start Time: <input id='pstime' type='time'></input> End Time: <input id='petime' type='time'></input></div><br>";
+	var tin = "<div id='sdate'>Date: <input id='thesdate' type='date'></input></div>";
 
-	tin += "<div id='sdate'>Date: <input id='thesdate' type='date'></input></div>";
-	tin += "<br><div id='des' >Description: <textarea id='desc'></textarea></div>";
-	tin += "<br><div id='ven' >Ventures Included: <textarea id='vens'></textarea></div>";
-	tin += "<br><div id='led' >Leads Included Included: <textarea id='leds'></textarea></div>";
-
+	tin += "<br><div id='timepid' >Start Time: <input id='pstime' type='time'></input> End Time: <input id='petime' type='time'></input></div><br>";
+	tin += "<br><div id='des' >Description <br><textarea id='desc'></textarea></div>";
+	tin += "<br><div id='ven' >Ventures Included <br><textarea id='vens'></textarea></div>";
+	tin += "<br><div id='led' >Leads Included <br><textarea id='leds'></textarea></div>";
+	tin += "<br><button onclick='customImport()'>Import to Database</button></br>"
 	$("#allgroups").append(tin);
 
 	//at the end of this function you need the option to import, but also the option to add another function
 }
 
+function customImport(){
+	//here is where the import will take place
+}
 
 
 function addTrack(){
