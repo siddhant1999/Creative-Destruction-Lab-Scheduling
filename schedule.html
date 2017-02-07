@@ -18,10 +18,10 @@
 <option value="A&#38amp;K Robotics" >A&#38K Robotics</option>
 <option value="Acerta" > Acerta</option>
 <option value="Ada">Ada</option>
-<option value="Aerial" >Aerial</option>
 <option value="Alumni X	"> Alumni X</option>
 <option value="Automat" >Automat</option>
 <option value="Bridge Genomics" >Bridge Genomics</option>
+<option value="Citizen Hex" >Citizen Hex</option>
 <option value="Cohesic" >Cohesic</option>
 <option value="Datalogue" >Datalogue</option>
 <option value="Dat-uh" >Dat-uh</option>
@@ -49,7 +49,6 @@
 <option value="Pegasus" >Pegasus</option>
 <option value="Pervazive" > Pervazive</option>
 <option value="Plantiga" >Plantiga</option>
-<option value="Protocol Fund" >Protocol Fund</option>
 <option value="QuWare" > QuWare</option>
 <option value="Retrievium" >Retrievium</option>
 <option value="Semantix" >Semantix</option>
@@ -76,12 +75,42 @@
 
 var allstrings = [];
 var har;
+
+function determineTime(obj){
+	for (var i = 0; i < obj.length; i++) {
+		var poi = obj[i];
+		poi["Date"]
+		poi["is_AM"]
+	}
+}
+
 function startSearch(){
 
 	var name = $("#venture option:selected").val();
 	har = name;
 	//create the query
 	//console.log(name);
+
+	//First thing to determine is the date and AM or PM
+
+	var deterdate = "SELECT Date, is_AM FROM Meetings WHERE Venture_Name='" + name + "' AND Meeting_ID IS NOT NULL;";
+
+	$.ajax({
+        type: 'post',
+        url: 'processQuery.php',
+        data: {
+            sqlQuery: deterdate
+        },
+        success: function( data ) {
+        	console.log("Here is the data retrived:");
+            console.log(data);
+            determineTime(data);
+            //console.log(allstrings);
+            //alert("Complete");
+        }
+    });
+
+
 
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Venture_Name)=LOWER('" + name + "');";
 	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
