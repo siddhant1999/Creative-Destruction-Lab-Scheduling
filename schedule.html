@@ -79,8 +79,8 @@ var har;
 function determineTime(obj){
 	for (var i = 0; i < obj.length; i++) {
 		var poi = obj[i];
-		poi["Date"]
-		poi["is_AM"]
+		var queryDate = poi["Date"];
+		var queryAM = poi["is_AM"];//30 or 31
 	}
 }
 
@@ -93,7 +93,7 @@ function startSearch(){
 
 	//First thing to determine is the date and AM or PM
 
-	var deterdate = "SELECT Date, is_AM FROM Meetings WHERE Venture_Name='" + name + "' AND Meeting_ID IS NOT NULL;";
+	var deterdate = "SELECT * FROM Meetings WHERE Venture_Name='" + name + "' AND Meeting_Number IS NOT NULL;";
 
 	$.ajax({
         type: 'post',
@@ -128,7 +128,7 @@ function startSearch(){
         },
         success: function( data ) {
         	//console.log("Here is the data retrived:");
-            //console.log(data);
+            console.log(data);
             process(data);
             //console.log(allstrings);
             //alert("Complete");
