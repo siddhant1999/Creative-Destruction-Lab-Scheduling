@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="shortcut icon" type="image/png" href="/dots.png"/>
+<title>Schedule</title>
 
 </head>
 
@@ -18,11 +20,11 @@
 <option value="A&#38amp;K Robotics" >A&#38K Robotics</option>
 <option value="Acerta" > Acerta</option>
 <option value="Ada">Ada</option>
-<option value="Alumni X	"> Alumni X</option>
 <option value="Automat" >Automat</option>
 <option value="Bridge Genomics" >Bridge Genomics</option>
 <option value="Citizen Hex" >Citizen Hex</option>
 <option value="Cohesic" >Cohesic</option>
+<option value="Cube" >Cube</option>
 <option value="Datalogue" >Datalogue</option>
 <option value="Dat-uh" >Dat-uh</option>
 <option value="Deep Diagnostics" >Deep Diagnostics</option>
@@ -38,6 +40,7 @@
 <option value="Gbatteries" >Gbatteries</option>
 <option value="H2nanO" >H2nanO</option>
 <option value="ICSPI">ICSPI</option>
+<option value="Innovere">Innovere</option>
 <option value="Knote" >Knote</option>
 <option value="Kyndi" >Kyndi</option>
 <option value="Landmine Boys" >Landmine Boys</option>
@@ -79,14 +82,38 @@ var queryDate;
 var queryAM;
 
 function determineTime(obj){
+	console.log("I am here right now");
 	for (var i = 0; i < obj.length; i++) {
 		var poi = obj[i];
+		console.log("poi is: " + poi);
+		console.log(poi["is_AM"]);
 		queryDate = poi["Date"];
 		queryAM = poi["is_AM"];//30 or 31
 
 		//now that we know the date and am or pm we should query everything only pretaining to that date and only am or pm except when the actual name of the company appears in the name
 	}
 }
+
+function temp(str){
+	console.log("Here too");
+	$.ajax({
+        type: 'post',
+        async: false,
+        url: 'processQuery.php',
+        data: {
+            sqlQuery: str
+        },
+        success: function( data ) {
+        	console.log("Here is the data man:");
+            console.log(data);
+            console.log("transfering");
+            determineTime(data);
+            //console.log(allstrings);
+            //alert("Complete");
+        }
+    });
+}
+
 
 function startSearch(){
 
@@ -99,45 +126,38 @@ function startSearch(){
 
 	var deterdate = "SELECT * FROM Meetings WHERE Venture_Name='" + name + "' AND Meeting_Number IS NOT NULL;";
 
-	$.ajax({
-        type: 'post',
-        url: 'processQuery.php',
-        data: {
-            sqlQuery: deterdate
-        },
-        success: function( data ) {
-        	console.log("Here is the data retrived:");
-            console.log(data);
-            determineTime(data);
-            //console.log(allstrings);
-            //alert("Complete");
-        }
-    });
+	temp(deterdate);
 
 
 
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Venture_Name)=LOWER('" + name + "');";
-	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Data='"+ queryDate +"' ) ORDER BY Time_Start;" ;
+	var query = "SELECT * FROM Meetings WHERE Venture_Name='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
 	//this query doesn't query everything we actually need
 	//we still need to query the track meetings and the general breaks/lunch etc...
 	//console.log(query);
 	//allstrings.push(query);
-
+	
+	theQuery(query);
+	
+}
+function theQuery(query){
+	console.log(query);
 	$.ajax({
-        type: 'post',
-        url: 'processQuery.php',
-        data: {
-            sqlQuery: query
-            //sqlInserts: allstrings
-        },
-        success: function( data ) {
-        	//console.log("Here is the data retrived:");
-            console.log(data);
-            process(data);
-            //console.log(allstrings);
-            //alert("Complete");
-        }
-    });
+	        type: 'post',
+	        url: 'processQuery.php',
+	        async: false,
+	        data: {
+	            sqlQuery: query
+	            //sqlInserts: allstrings
+	        },
+	        success: function( data ) {
+	        	//console.log("Here is the data retrived:");
+	            console.log(data);
+	            process(data);
+	            //console.log(allstrings);
+	            //alert("Complete");
+	        }
+	    });
 }
 var prev1, prev2;
 
@@ -218,9 +238,21 @@ function process(obj){
 			distable += " in <b>Room " + arr["Room_Number"] + "</b></td>";
 		}
 		else if (arr["Description"]) {
-			//this is a general activity to all
-			distable += "<td colspan='2'>" + arr["Description"] + "</td>";
-			isGrey.push(i);
+			if (arr['is_Custom']) {
+				console.log("isCustom");
+				console.log(har + " + " + arr['Venture_Name']);
+				var ty = har;
+				if (har == "A&amp;K Robotics") {ty = "A&K Robotics"}
+				if (arr['Venture_Name']==ty) {
+					distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+					console.log("Yay");
+				}
+			}
+			else {
+				//this is a general activity to all
+				distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+				isGrey.push(i);
+			}
 		}
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
 			//this is a track meeting
@@ -246,6 +278,8 @@ function process(obj){
 	}
 
 	$("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
+	$("#venture").remove();
+	$("#subven").remove();
 }
 
 </script>
@@ -286,7 +320,7 @@ select {
 	font-size: 140%;
 }
 table {
-	width: 70%;
+	width: 80%;
 		margin-left: auto;
 		margin-right: auto;
 		max-width: 800px;

@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "cl44-siddhant";
+$username = "cl27-siddhant";
 $password = "123456";
-$dbname = "cl44-siddhant";
+$dbname = "cl27-siddhant";
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -40,6 +40,9 @@ while ($row = $result->fetch_array()){
     $row1["Room_Number"] = $row['Room_Number'];
     $row1["Description"] = $row['Description'];
     $row1["Venture_Name"] = $row['Venture_Name'];
+    $row1["Date"] = $row['Date'];
+    $row1["is_AM"] = $row['is_AM'];
+    $row1["is_Custom"] = $row['is_Custom'];
     
     //array_push($fullArray, $row1);
     //trying bracket notation

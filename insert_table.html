@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="shortcut icon" type="image/png" href="/dots.png"/>
 
 </head>
 
@@ -63,6 +64,9 @@ function processFirst() {
 	var lines = $('#inserted').val().split('\n');
 	//header
 	var inserted_table = "<table id='table_1' class='mytable'><thead>";
+	if ($("#when option:selected").val() == "AM") {
+		is_morn = 0;
+	}
 	
 	for(var i = 0;i < lines.length;i++){
 		var vals = lines[i].split(/[\t]/);
@@ -165,6 +169,11 @@ function addCustom(){
 }
 
 function customImport(){
+	var is_morni = 1;
+	if ($("#amorpm option:selected").val() == "AM") {
+		is_morni = 0;
+	}
+
 	//here is where the import will take place
 	var curdate = $("#thesdate").val();
 	var starttime = $("#pstime").val();
@@ -176,24 +185,23 @@ function customImport(){
 
 	var array = [];
 
-	var isAM = $("#amorpm option:selected").val() == "AM";
 
 	for(var i = 0; i < venturesincluded.length; i++){
 		//every one of these needs its own insertion
 
-		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name) VALUES ('" + curdate + "' , " + isAM + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "');"
+		var inse = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name, is_Custom) VALUES ('" + curdate + "' , " + is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "' , '1');";
 
-		array.push(inser);
+		array.push(inse);
 		
 	}
-	for(var i = 0; i < leadsincluded.length; i++){
+	for(var pp = 0; pp < leadsincluded.length; pp++){
 		//every one of these needs its own insertion
-
-		//var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1) VALUES ('" + curdate + "' , " + isAM + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[i] + "');"
+		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1, is_Custom) VALUES ('" + curdate + "' , " + is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[pp] + "' , '1');";
 
 		array.push(inser);
 	}
 	//console.log(array);
+	//still has some issues I think
 
 	$("#sdate").remove();
 	$("#timepid").remove();
@@ -228,12 +236,13 @@ function addTrack(){
 
 var trackcounter = 2;
 
-var is_morn = false;
+var is_morn = 1;
 
 
 function processTrack(){
 	//here is where we will push to the database immediately
 	//that way we don't have to store all the tables on hand and have it be a hastle
+	
 	var lines = $('#groupinsert').val().split('\n');
 	trackcounter++;
 	//header
@@ -251,10 +260,11 @@ function processTrack(){
 		inserted_table= inserted_table.concat("<tr class='row-"+ i +"'>");
 		//check if is AM
 
-		if ($("#when option:selected").val() == "AM") {
-			is_morn = true;
-		}
+		
 		var insertions  = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End,Venture_Name, Lead_1 ) VALUES ('" + $("#thedate").val() + "' , '" + is_morn + "' , '" + $("#gstime").val() + "' , '" + $("#getime").val() + "', '" + vals[0] + "' , '" + vals[1] + "');";
+
+		console.log("is_morn:");
+		console.log(is_morn);
 		if(i){
 			alltrackstrings.push(insertions);
 		}
@@ -338,9 +348,7 @@ function processTables(numLeads, numMeets){
 	/*console.log(meeting_identification);
 	console.log(start_times);
 	console.log(end_times);*/
-	if ($("#when option:selected").val() == "AM") {
-		is_morn = true;
-	}
+	
 
 	for (var i = 1, row; row = meets.rows[i]; i++) {
 		var insertions = "INSERT INTO Meetings (Date, is_AM, Room_Number, Lead_1, Lead_2, Lead_3, Time_Start, Time_End, Venture_Name, Meeting_Number) VALUES ('" + $("#thedate").val() + "' , ' " + is_morn + "', ";
