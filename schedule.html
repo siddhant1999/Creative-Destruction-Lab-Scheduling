@@ -276,7 +276,7 @@ function process(obj){
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
 			//this is a track meeting
 			if (arr["Venture_Name"] == har) {
-				distable += "<td><b>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</b></td>";
+				distable += "<td><b>" + arr["Venture_Name"] + "<b></td><td><b>" + arr["Lead_1"] + "</b></td>";
 			}
 			else distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
 		}
@@ -300,6 +300,7 @@ function process(obj){
 	}
 
 	$("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
+	$("#scheduleTable").append("<h4><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
 	$("#venture").remove();
 	$("#subven").remove();
 }
