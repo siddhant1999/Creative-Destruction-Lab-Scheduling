@@ -82,11 +82,11 @@ var queryDate;
 var queryAM;
 
 function determineTime(obj){
-	console.log("I am here right now");
+	//console.log("I am here right now");
 	for (var i = 0; i < obj.length; i++) {
 		var poi = obj[i];
-		console.log("poi is: " + poi);
-		console.log(poi["is_AM"]);
+		//console.log("poi is: " + poi);
+		//console.log(poi["is_AM"]);
 		queryDate = poi["Date"];
 		queryAM = poi["is_AM"];//30 or 31
 
@@ -95,7 +95,7 @@ function determineTime(obj){
 }
 
 function temp(str){
-	console.log("Here too");
+	//console.log("Here too");
 	$.ajax({
         type: 'post',
         async: false,
@@ -104,9 +104,9 @@ function temp(str){
             sqlQuery: str
         },
         success: function( data ) {
-        	console.log("Here is the data man:");
+        	//console.log("Here is the data man:");
             console.log(data);
-            console.log("transfering");
+            //console.log("transfering");
             determineTime(data);
             //console.log(allstrings);
             //alert("Complete");
@@ -141,7 +141,7 @@ function startSearch(){
 	
 }
 function theQuery(query){
-	console.log(query);
+	//console.log(query);
 	$.ajax({
 	        type: 'post',
 	        url: 'processQuery.php',
@@ -152,7 +152,7 @@ function theQuery(query){
 	        },
 	        success: function( data ) {
 	        	//console.log("Here is the data retrived:");
-	            console.log(data);
+	            //console.log(data);
 	            process(data);
 	            //console.log(allstrings);
 	            //alert("Complete");
@@ -160,6 +160,7 @@ function theQuery(query){
 	    });
 }
 var prev1, prev2;
+var subtracting = false;
 
 function helper(time){
 	time = time.split(':'); // convert to array
@@ -168,7 +169,15 @@ function helper(time){
 	var hours = Number(time[0]);
 	var minutes = Number(time[1]);
 	//var seconds = Number(time[2]);
-	
+	if (subtracting) {
+		if (minutes<30) {
+			minutes = (minutes + 30);
+			hours--;
+		}
+		else {
+			minutes -= 30;
+		}
+	}
 	// calculate
 	var timeValue = "" + ((hours >12) ? hours - 12 : hours);  // get hours
 	timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
@@ -191,6 +200,16 @@ function process(obj){
 		distable += "<tr class='row_" + i + "'>";
 		var a = helper(arr["Time_Start"]);
 		var b = helper(arr["Time_End"]);
+
+		if (i==0) {
+			var tempa = arr["Time_Start"];
+			subtracting =true;
+			tempa = helper(tempa);
+			subtracting = false;
+
+			distable += "<td style='background-color: #ececec;'>" + tempa + " - " + a +"</td><td style='background-color: #ececec;' colspan='2'>Check In at CDL Office <b>(Room 2052)</b></td></tr>" + "<tr>";
+
+		}
 
 		//k so now that we have the times this is a good time to put in the breaks
 		//just check if the end time doesnt match up with the next start time, and if not add a break
@@ -239,7 +258,7 @@ function process(obj){
 		}
 		else if (arr["Description"]) {
 			if (arr['is_Custom']) {
-				console.log("isCustom");
+				//console.log("isCustom");
 				console.log(har + " + " + arr['Venture_Name']);
 				var ty = har;
 				if (har == "A&amp;K Robotics") {ty = "A&K Robotics"}
@@ -269,7 +288,7 @@ function process(obj){
 	}
 	distable += "</tbody></table>";
 
-	$("#scheduleTable").append("<h3><b><u>" + har + "</u></b></h3>");
+	$("#scheduleTable").append("<h3><b><u>" + har + "</u><i> - " + queryDate +"</i></b></h3>");
 	$("#scheduleTable").append(distable);
 	for (var j = 0; j < isGrey.length; j++) {
 		var theid = ".row_" + isGrey[j];
