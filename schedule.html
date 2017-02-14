@@ -38,7 +38,7 @@
 <option value="Fundmetric" >Fundmetric</option>
 <option value="Galaxy.Ai" >Galaxy.Ai</option>
 <option value="Gbatteries" >Gbatteries</option>
-<option value="H2nanO" >H2nanO</option>
+<option value="H2NanO" >H2NanO</option>
 <option value="ICSPI">ICSPI</option>
 <option value="Innovere">Innovere</option>
 <option value="Knote" >Knote</option>
@@ -275,7 +275,10 @@ function process(obj){
 		}
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
 			//this is a track meeting
-			distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
+			if (arr["Venture_Name"] == har) {
+				distable += "<td><b>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</b></td>";
+			}
+			else distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
 		}
 		
 		/*for (var key in obj){
