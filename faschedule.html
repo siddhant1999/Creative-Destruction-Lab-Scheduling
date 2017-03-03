@@ -11,7 +11,7 @@
 
 <body>
 
-<select id="venture" class="selectpicker">
+<select id="fa" class="selectpicker">
 
 
 <option value="Andy Burgess" >Andy Burgess</option>
@@ -65,10 +65,34 @@ Also since these are the leads we need to add an extra "reception" at the end of
 </body>
 </html>
 <script>
-// we also need the ability for the FAs to toggle betwen days (right now I will hard code that, but in the future we really should be querying that from database, and by that I mean that we see what are the differecnts that appear in the database)
+// we also need the ability for the FAs to toggle between days (right now I will hard code that, but in the future, we really should be querying that from database, and by that I mean that we see what are the differences that appear in the database)
 
 function startSearch(){
+	var name = $("#fa option:selected").val();
+	name = name.toLowerCase();
 
+	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
+
+
+	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' ORDER BY Time_Start;" ;
+	executeQuery(query);
+	
 }
-
+function executeQuery(query){
+	$.ajax({
+		        type: 'post',
+		        url: 'processQuery.php',
+		        async: false,
+		        data: {
+		            sqlQuery: query
+		            //sqlInserts: allstrings
+		        },
+		        success: function( data ) {
+		        	console.log("Here is the data retrived:");
+		            console.log(data);
+		            //console.log(allstrings);
+		            //alert("Complete");
+		        }
+		    });
+}
 </script>
