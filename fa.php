@@ -7,8 +7,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+<link rel="shortcut icon" type="image/png" href="/dots.png"/>
 </head>
+
+<div id="scheduleTable">ok</div>
 
 <?php
 
@@ -107,9 +109,43 @@ function executeQuery(query){
 		        success: function( data ) {
 		        	console.log("Here is the data retrived:");
 		        	console.log(data);
-
+		        	process(data);
 		        }
 		    });
+}
+
+var prev1, prev2;
+var subtracting = false;
+var isGrey = [];
+
+function helper(time){
+	time = time.split(':'); // convert to array
+	
+	// fetch
+	var hours = Number(time[0]);
+	var minutes = Number(time[1]);
+	//var seconds = Number(time[2]);
+	/*if (subtracting) {
+		if (queryAM == 0) {
+			hours = 8;
+			minutes = 0;
+		}
+		else {
+			if (minutes<30) {
+				minutes = (minutes + 30);
+				hours--;
+			}
+			else {
+				minutes -= 30;
+			}
+		}
+	}*/
+	// calculate
+	var timeValue = "" + ((hours >12) ? hours - 12 : hours);  // get hours
+	timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
+	//timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;  // get seconds
+	timeValue += (hours >= 12) ? " PM" : " AM";  // get AM/PM
+	return timeValue;
 }
 
 function process(obj){
@@ -119,6 +155,10 @@ function process(obj){
 	var prev2 = "";
 
 	var idk = true;
+	var har = name;
+
+	$("#scheduleTable").append("<h3><b><u>" + har + "</u><i> - " + date +"</i></b></h3>");
+
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
 		distable += "<tr class='row_" + i + "'>";
@@ -130,16 +170,16 @@ function process(obj){
 					continue;
 				}
 		}
-
+		console.log("Here 1");
 		var a = helper(arr["Time_Start"]);
 		var b = helper(arr["Time_End"]);
 
 		if (i==0 || idk) {
 			idk = false;
 			var tempa = arr["Time_Start"];
-			subtracting =true;
+			//subtracting =true;
 			tempa = helper(tempa);
-			subtracting = false;
+			//subtracting = false;
 
 			distable += "<td style='background-color: #ececec; text-align:center;'>" + tempa + " - " + a +"</td><td style='background-color: #ececec;' colspan='2'>Check In at CDL Office <b>(Room 2052)</b></td></tr>" + "<tr>";
 
@@ -147,7 +187,7 @@ function process(obj){
 
 		//k so now that we have the times this is a good time to put in the breaks
 		//just check if the end time doesnt match up with the next start time, and if not add a break
-
+		console.log("Here 2");
 
 
 		if (prev1!=a && prev2 !=b) {
@@ -174,10 +214,11 @@ function process(obj){
 			}distable += "<td style='text-align:center;' rowspan='"+ count +"'>" + a + " - " + b +"</td>";
 		}
 
+		console.log("Here 3");
 
 		if (arr["Meeting_Number"]) {
 			//meaning this is a specific individual meeting
-
+			console.log("Here 4");
 			distable += "<td colspan='2'>Individual Meeting with " + arr["Lead_1"];
 			for (var l = 2;l<4; l++) {
 				var tt = "Lead_" + l;
@@ -191,6 +232,7 @@ function process(obj){
 			distable += " in <b>Room " + arr["Room_Number"] + "</b></td>";
 		}
 		else if (arr["Description"]) {
+			console.log("Here 5");
 			if (arr['is_Custom']) {
 				//console.log("isCustom");
 				//console.log(har + " + " + arr['Venture_Name']);
@@ -202,12 +244,14 @@ function process(obj){
 				}
 			}
 			else {
+				console.log("Here 6");
 				//this is a general activity to all
 				distable += "<td colspan='2'>" + arr["Description"] + "</td>";
 				isGrey.push(i);
 			}
 		}
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
+			console.log("Here 7");
 			//this is a track meeting
 			if (arr["Venture_Name"] == har) {
 				distable += "<td><b>" + arr["Venture_Name"] + "<b></td><td><b>" + arr["Lead_1"] + "</b></td>";
@@ -224,9 +268,11 @@ function process(obj){
   		//document.write("<br> ");
 	}
 	distable += "</tbody></table>";
+	console.log("Here Final");
 
-	$("#scheduleTable").append("<h3><b><u>" + har + "</u><i> - " + queryDate +"</i></b></h3>");
+	
 	$("#scheduleTable").append(distable);
+	console.log("Here Final2");
 	for (var j = 0; j < isGrey.length; j++) {
 		var theid = ".row_" + isGrey[j];
 
@@ -290,7 +336,7 @@ endif;
 function startSearch(){
 	var name = $("#fa option:selected").val();
 	name = name.toLowerCase();
-	str = "?faname=" + name + "&date=2017-12-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
+	str = "?faname=" + name + "&date=2017-02-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
 
 	window.location.replace(str);
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
