@@ -85,14 +85,15 @@ else :
 
 <script>
 //This is where we will process all requests
-function searching() {
-	var name = <?php echo $leadName; ?>;
-	alert(name);
-	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
 
-	executeQuery(query);
+var name = "<?php echo $leadName; ?>";
+alert(name);
+
+
+var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
+
+executeQuery(query);
 	
-}
 function executeQuery(query){
 	$.ajax({
 		        type: 'post',
