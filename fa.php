@@ -86,7 +86,7 @@ else :
 <script>
 //This is where we will process all requests
 function searching() {
-	var name = <?php $leadName ?>;
+	var name = <?php echo $leadName; ?>;
 	alert(name);
 	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
 
@@ -124,7 +124,7 @@ endif;
 function startSearch(){
 	var name = $("#fa option:selected").val();
 	name = name.toLowerCase();
-	str = "cdlscedules.com?faname=" + name + "&date=2017-12-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
+	str = "?faname=" + name + "&date=2017-12-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
 
 	window.location.replace(str);
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
