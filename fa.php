@@ -1,16 +1,5 @@
 
 <html>
-
-<?php
-
-$leadName = $_GET["faname"]; 
-$curDate = $_GET["date"];
-
-if (is_null($leadName) && is_null($curDate)){
-?>
-
-
-
 <head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -20,6 +9,19 @@ if (is_null($leadName) && is_null($curDate)){
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 </head>
+
+<?php
+
+$leadName = $_GET["faname"]; 
+$curDate = $_GET["date"];
+
+if (is_null($leadName) And is_null($curDate)):
+
+?>
+
+
+
+
 
 <body>
 
@@ -78,14 +80,14 @@ Also since these are the leads we need to add an extra "reception" at the end of
 </html>
 
 <?php 
-}
-
-else {
+else :
 ?>
 
 <script>
 //This is where we will process all requests
 function searching() {
+	var name = <?php $leadName ?>;
+	alert(name);
 	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
 
 	executeQuery(query);
@@ -102,7 +104,9 @@ function executeQuery(query){
 		        },
 		        success: function( data ) {
 		        	console.log("Here is the data retrived:");
-		            console.log(data);
+		        	document.write(data);
+
+		            //console.log(data);
 		            //console.log(allstrings);
 		            //alert("Complete");
 		        }
@@ -111,8 +115,8 @@ function executeQuery(query){
 
 </script>
 
-<php
-}
+<?php
+endif;
 ?>
 <script>
 // we also need the ability for the FAs to toggle between days (right now I will hard code that, but in the future, we really should be querying that from database, and by that I mean that we see what are the differences that appear in the database)
