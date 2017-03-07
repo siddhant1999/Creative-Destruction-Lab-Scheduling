@@ -70,11 +70,12 @@ Also since these are the leads we need to add an extra "reception" at the end of
 function startSearch(){
 	var name = $("#fa option:selected").val();
 	name = name.toLowerCase();
-
+	window.location.replace("http://stackoverflow.com");
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
 
 
-	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' ORDER BY Time_Start;" ;
+	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' ORDER BY Time_Start;" ;
+	
 	executeQuery(query);
 	
 }
