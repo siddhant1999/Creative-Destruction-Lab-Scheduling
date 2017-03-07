@@ -81,22 +81,12 @@ Also since these are the leads we need to add an extra "reception" at the end of
 }
 
 else {
-	//This is where we will process all requests
-}
 ?>
+
 <script>
-// we also need the ability for the FAs to toggle between days (right now I will hard code that, but in the future, we really should be querying that from database, and by that I mean that we see what are the differences that appear in the database)
-
-function startSearch(){
-	var name = $("#fa option:selected").val();
-	name = name.toLowerCase();
-	str = "cdlscedules.com?faname=" + name + "&date=2017-12-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
-
-	window.location.replace(str);
-	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
-
-
-	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' ORDER BY Time_Start;" ;
+//This is where we will process all requests
+function searching() {
+	var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL ORDER BY Time_Start;" ;
 
 	executeQuery(query);
 	
@@ -117,5 +107,22 @@ function executeQuery(query){
 		            //alert("Complete");
 		        }
 		    });
+}
+
+</script>
+
+<php
+}
+?>
+<script>
+// we also need the ability for the FAs to toggle between days (right now I will hard code that, but in the future, we really should be querying that from database, and by that I mean that we see what are the differences that appear in the database)
+
+function startSearch(){
+	var name = $("#fa option:selected").val();
+	name = name.toLowerCase();
+	str = "cdlscedules.com?faname=" + name + "&date=2017-12-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
+
+	window.location.replace(str);
+	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
 }
 </script>
