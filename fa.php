@@ -1,6 +1,16 @@
 
-
 <html>
+
+<?php
+
+$leadName = $_GET["faname"]; 
+$curDate = $_GET["date"];
+
+if (is_null($leadName) && is_null($curDate)){
+?>
+
+
+
 <head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -23,7 +33,7 @@
 <option value="Boris Wertz">Boris Wertz</option>
 <option value="Dennis Bennie" >Dennis Bennie</option>
 <option value="Dror Berman" >Dror Berman</option>
-<option value="Geordir Rose" >Geordir Rose</option>
+<option value="Geordie Rose" >Geordie Rose</option>
 <option value="Haig Ferris" >Haig Ferris</option>
 <option value="Johann Koss" >Johann Koss</option>
 <option value="Johann Koss" >Johann Koss</option>
@@ -67,7 +77,13 @@ Also since these are the leads we need to add an extra "reception" at the end of
 </body>
 </html>
 
+<?php 
+}
 
+else {
+	//This is where we will process all requests
+}
+?>
 <script>
 // we also need the ability for the FAs to toggle between days (right now I will hard code that, but in the future, we really should be querying that from database, and by that I mean that we see what are the differences that appear in the database)
 
