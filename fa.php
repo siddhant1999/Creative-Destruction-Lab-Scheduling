@@ -152,7 +152,7 @@ function helper(time){
 
 function process(obj){
 
-	var distable = "<table class='mytable'><thead><tr><th style='min-width: 9.2em;'>Time</th><th>Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
+	var distable = "<table class='mytable'><thead><tr><th style='width: 11.2em; min-width: 9.2em;'>Time</th><th>Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
 	var prev1 = "";
 	var prev2 = "";
 
@@ -191,8 +191,10 @@ function process(obj){
 		//just check if the end time doesnt match up with the next start time, and if not add a break
 		console.log("Here 2");
 
-
-		if (prev1!=a && prev2 !=b) {
+		if (a == b) {
+			distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a +"</td>";
+		}
+		else if (prev1!=a && prev2 !=b) {
 
 			if (prev2 != a && prev2) {
 				//add break
