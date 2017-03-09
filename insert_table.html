@@ -61,6 +61,7 @@ function deleting(){
 }
 
 function processFirst() {
+	console.log("Here");
 	var lines = $('#inserted').val().split('\n');
 	//header
 	var inserted_table = "<table id='table_1' class='mytable'><thead>";
@@ -183,7 +184,7 @@ function customImport(){
 	var venturesincluded = $("#vens").val().split('\n');
 	var leadsincluded = $("#leds").val().split('\n');
 	alert("Size of vens: " + venturesincluded.length + " \n Size of leds" + leadsincluded.length);
-	
+
 	var array = [];
 
 	for(var pp = 0; pp < leadsincluded.length; pp++){
