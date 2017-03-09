@@ -183,29 +183,29 @@ function customImport(){
 	var description1 = $("#desc").val();
 	var venturesincluded = $("#vens").val().split('\n');
 	var leadsincluded = $("#leds").val().split('\n');
-	//alert("Size of vens: " + venturesincluded.length + " \n Size of leds" + leadsincluded.length);
+	alert("Size of vens: " + venturesincluded.length + " \n Size of leds" + leadsincluded.length);
 
 	var array = [];
 
-	if(leadsincluded.leadsincluded > 0) {
-		for(var pp = 0; pp < leadsincluded.length; pp++){
-			//every one of these needs its own insertion
-			console.log("Over here, importing custom lead event");
-			var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1, is_Custom) VALUES ('" + curdate + "' , " + is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[pp] + "' , '1');";
-			//console.log(inser);
-			array.push(inser);
-		}
+	for(var pp = 0; pp < leadsincluded.length; pp++){
+		if (leadsincluded[pp].length < 1) {break;}
+		//every one of these needs its own insertion
+		console.log("Over here, importing custom lead event");
+		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1, is_Custom) VALUES ('" + curdate + "' , " +is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[pp] + "' , '1');";
+		//console.log(inser);
+		array.push(inser);
 	}
-	if (venturesincluded.leadsincluded > 0) {
-		for(var i = 0; i < venturesincluded.length; i++){
-			//every one of these needs its own insertion
-			console.log("Over here, importing custom venture event");
-			var inse = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name, is_Custom) VALUES ('" + curdate + "' , " + 	is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "' , '1');";
 	
-			array.push(inse);
-			
-		}
+	for(var i = 0; i < venturesincluded.length; i++){
+		//every one of these needs its own insertion
+		if (venturesincluded[i].length < 1) {break;}
+		console.log("Over here, importing custom venture event");
+		var inse = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name, is_Custom) VALUES ('" + curdate + "' , " + is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "' , '1');";
+
+		array.push(inse);
+		
 	}
+	
 
 	//console.log(array);
 	//still has some issues I think
