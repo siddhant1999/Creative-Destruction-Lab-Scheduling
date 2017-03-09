@@ -167,13 +167,11 @@ function process(obj){
 		distable += "<tr class='row_" + i + "'>";
 		if (arr['is_Custom']) {
 			var ty = har;
-			if (har == "A&amp;K Robotics") {ty = "A&K Robotics"}
-
-				if (arr['Venture_Name']!=ty) {
-					continue;
-				}
+			if (arr['Venture_Name']!=ty) {
+				continue;
+			}
 		}
-		console.log("Here 1");
+		
 		var a = helper(arr["Time_Start"]);
 		var b = helper(arr["Time_End"]);
 
@@ -181,7 +179,7 @@ function process(obj){
 
 		//k so now that we have the times this is a good time to put in the breaks
 		//just check if the end time doesnt match up with the next start time, and if not add a break
-		console.log("Here 2");
+		
 
 		if (a == b) {
 			distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a +"</td>";
@@ -210,18 +208,18 @@ function process(obj){
 			}distable += "<td style='text-align:center;' rowspan='"+ count +"'>" + a + " - " + b +"</td>";
 		}
 
-		console.log("Here 3");
+		
 
 		if (arr["Meeting_Number"]) {
 			//meaning this is a specific individual meeting
-			console.log("Here 4");
+			
 			distable += "<td colspan='2'>" + arr["Venture_Name"];
 			
 
 			distable += " <b>(Room " + arr["Room_Number"] + ")</b></td>";
 		}
 		else if (arr["Description"]) {
-			console.log("Here 5");
+			
 			if (arr['is_Custom']) {
 				//console.log("isCustom");
 				//console.log(har + " + " + arr['Venture_Name']);
@@ -233,7 +231,7 @@ function process(obj){
 				}
 			}
 			else {
-				console.log("Here 6");
+				
 				//this is a general activity to all
 				distable += "<td colspan='2'>" + arr["Description"] + "</td>";
 				console.log("Outputing the array isGrey: " + isGrey);
@@ -242,7 +240,7 @@ function process(obj){
 			}
 		}
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
-			console.log("Here 7");
+			
 			//this is a track meeting
 			if (arr["Lead_1"].toLowerCase() == har.toLowerCase()) {
 				distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b>" + arr["Lead_1"] + "</b></td>";
@@ -259,11 +257,10 @@ function process(obj){
   		//document.write("<br> ");
 	}
 	distable += "</tbody></table>";
-	console.log("Here Final");
 
 	
 	$("#scheduleTable").append(distable);
-	console.log("Here Final2");
+	
 	for (var j = 0; j < isGrey.length; j++) {
 		var theid = ".row_" + isGrey[j];
 
