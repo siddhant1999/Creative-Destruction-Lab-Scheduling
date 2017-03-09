@@ -10,7 +10,7 @@
 <link rel="shortcut icon" type="image/png" href="/dots.png"/>
 </head>
 
-<div id="scheduleTable">ok</div>
+<div id="scheduleTable"></div>
 
 <?php
 
@@ -90,6 +90,12 @@ else :
 
 var name = "<?php echo $leadName; ?>";
 var date = "<?php echo $curDate; ?>";
+var har = name;
+name = name.toLowerCase();
+var prev1, prev2;
+var subtracting = false;
+
+var isGrey = [];
 
 // we still need to implement a method of toggling between dates
 
@@ -113,10 +119,6 @@ function executeQuery(query){
 		        }
 		    });
 }
-
-var prev1, prev2;
-var subtracting = false;
-var isGrey = [];
 
 function helper(time){
 	time = time.split(':'); // convert to array
@@ -155,12 +157,12 @@ function process(obj){
 	var prev2 = "";
 
 	var idk = true;
-	var har = name;
 
 	$("#scheduleTable").append("<h3><b><u>" + har + "</u><i> - " + date +"</i></b></h3>");
 
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
+		console.log("i : " + i);
 		distable += "<tr class='row_" + i + "'>";
 		if (arr['is_Custom']) {
 			var ty = har;
@@ -219,17 +221,10 @@ function process(obj){
 		if (arr["Meeting_Number"]) {
 			//meaning this is a specific individual meeting
 			console.log("Here 4");
-			distable += "<td colspan='2'>Individual Meeting with " + arr["Lead_1"];
-			for (var l = 2;l<4; l++) {
-				var tt = "Lead_" + l;
-				if (arr[tt]) {
-					distable += " and "  + arr[tt];
-				}
-				else break;
+			distable += "<td colspan='2'>" + arr["Venture_Name"];
+			
 
-			}
-
-			distable += " in <b>Room " + arr["Room_Number"] + "</b></td>";
+			distable += " <b>(Room " + arr["Room_Number"] + ")</b></td>";
 		}
 		else if (arr["Description"]) {
 			console.log("Here 5");
@@ -247,14 +242,16 @@ function process(obj){
 				console.log("Here 6");
 				//this is a general activity to all
 				distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+				console.log("Outputing the array isGrey: " + isGrey);
 				isGrey.push(i);
+				console.log("Is still working");
 			}
 		}
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
 			console.log("Here 7");
 			//this is a track meeting
-			if (arr["Venture_Name"] == har) {
-				distable += "<td><b>" + arr["Venture_Name"] + "<b></td><td><b>" + arr["Lead_1"] + "</b></td>";
+			if (arr["Lead_1"].toLowerCase() == har.toLowerCase()) {
+				distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b>" + arr["Lead_1"] + "</b></td>";
 			}
 			else distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
 		}
@@ -281,45 +278,7 @@ function process(obj){
 
 	$("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
 
-	var ut, pw;
-
-	if (har[0] <= 'B') {
-		ut = "qq190481";
-		pw = "Uve2eothaa";
-	}
-	else if (har[0] == 'C' || (har[0] == 'D' && har[0] == 'a')) {
-		ut = "qq190482";
-		pw = "eu2Kapeisi"
-	}
-	else if (har[0] < 'F') {
-		ut = "qq190483";
-		pw = "jo5Uqueima";
-	}
-	else if (har[0] <= 'G') {
-		ut = "qq190484";
-		pw = "ahT5reegee";
-	}
-	else if (har[0] <= 'K') {
-		ut = "qq190469";
-		pw = "ieCe8pheek";
-	}
-	else if (har[0] <= 'N') {
-		ut = "qq190476";
-		pw = "quiexai7It";
-	}
-	else if (har[0] <= 'R') {
-		ut = "qq190479";
-		pw = "phiaLira7r";
-	}	
-	else if (har[0] <= 'T') {
-		ut = "qq190480";
-		pw = "eth2oeLees";
-	}
-	else {
-		ut = "qq190485";
-		pw = "Jix5aiquai";
-	}
-	$("#scheduleTable").append("<h4>Network: <b>UofT</b> | Username: <b>"+ ut + "</b> | Password: <b>" + pw + "</b></h4>");
+	
 	$("#scheduleTable").append("<h4><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
 	$("#venture").remove();
 	$("#subven").remove();
@@ -335,10 +294,65 @@ endif;
 
 function startSearch(){
 	var name = $("#fa option:selected").val();
-	name = name.toLowerCase();
+	
 	str = "?faname=" + name + "&date=2017-02-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
 
 	window.location.replace(str);
+	//this is redirecting to the next page in the case where the selection page is presented
+
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
 }
 </script>
+<style type="text/css">
+
+body {
+	font-size: 140%;
+	font-family: Calibri,Arial, Helvetica, sans-serif;
+	  -webkit-appearance: none; -moz-appearance: none;
+  /*display: block;*/
+  width: 100%;
+}
+
+h3,h4 {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+@media (max-width: 767px) {
+
+select {
+  font-size: 240%;
+}
+
+
+}
+
+select {
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 140%;
+}
+table {
+	width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 800px;
+}
+	table.mytable {
+		font-size: 130%;
+		border: 1px solid #CCC; 
+		font-family: Calibri, Arial, Helvetica, sans-serif;
+		margin-top: 5px;
+	} 
+	.mytable td {
+		padding: 4px;
+		margin: 3px;
+		border: 1px solid #000;
+	}
+	.mytable th {
+		background-color: #000; 
+		color: #FFF;
+		font-weight: bold;
+	}
+</style>
