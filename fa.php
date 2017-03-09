@@ -10,6 +10,7 @@
 <link rel="shortcut icon" type="image/png" href="/dots.png"/>
 </head>
 
+
 <div id="scheduleTable"></div>
 
 <?php
@@ -176,16 +177,7 @@ function process(obj){
 		var a = helper(arr["Time_Start"]);
 		var b = helper(arr["Time_End"]);
 
-		if (i==0 || idk) {
-			idk = false;
-			var tempa = arr["Time_Start"];
-			//subtracting =true;
-			tempa = helper(tempa);
-			//subtracting = false;
 
-			distable += "<td style='background-color: #ececec; text-align:center;'>" + tempa + " - " + a +"</td><td style='background-color: #ececec;' colspan='2'>Check In at CDL Office <b>(Room 2052)</b></td></tr>" + "<tr>";
-
-		}
 
 		//k so now that we have the times this is a good time to put in the breaks
 		//just check if the end time doesnt match up with the next start time, and if not add a break
