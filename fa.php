@@ -82,6 +82,26 @@ Also since these are the leads we need to add an extra "reception" at the end of
 </body>
 </html>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+   	$("#fa").change(function(){
+    	var theName = $(this).val(); /* GET THE VALUE OF THE SELECTED DATA */
+     	var dataString = "SELECT * FROM Meetings WHERE Lead_1 IS NOT NULL"; /* STORE THAT TO A DATA STRING */
+     	$.ajax({ /* THEN THE AJAX CALL */
+       		type: "POST",
+       		url: "processQuery.php"
+       		async: false,
+       		data: dataString,
+
+       		success: function(result){ /* GET THE TO BE RETURNED DATA */
+        		$("#show").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
+       		}
+     	});
+   	});
+  });
+</script>
+
 <?php 
 else :
 ?>
@@ -286,13 +306,15 @@ endif;
 function startSearch(){
 	var name = $("#fa option:selected").val();
 	
-	str = "?faname=" + name + "&date=2017-02-14"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
+	str = "?faname=" + name + "&date=2017-02-15"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
 
 	window.location.replace(str);
 	//this is redirecting to the next page in the case where the selection page is presented
 
 	//var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;
 }
+
+
 </script>
 <style type="text/css">
 
