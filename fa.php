@@ -30,7 +30,7 @@ if (is_null($leadName) And is_null($curDate)):
 <select id="fa" class="selectpicker">
 
 
-<option value="Andy Burgess" >Andy Burgess</option>
+<!--<option value="Andy Burgess" >Andy Burgess</option>
 <option value="Arielle Zuckerberg" >Arielle Zuckerberg</option>
 <option value="Ashmeet Sidana" >Ashmeet Sidana</option>
 <option value="Barney Pell" >Barney Pell</option>
@@ -60,6 +60,8 @@ if (is_null($leadName) And is_null($curDate)):
 <option value="Tyson Clark" >Tyson Clark</option>
 <option value="William Tunstall-Pedoe">William Tunstall-Pedoe</option>
 <option value="Zavain Dar" >Zavain Dar</option>
+-->
+
 
 <!--
 
@@ -94,7 +96,7 @@ $(document).ready(function(){
        		data: dataString,
 
        		success: function(result){ /* GET THE TO BE RETURNED DATA */
-        		$("#show").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
+        		$("#scheduleTable").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
        		}
      	});
    	});
