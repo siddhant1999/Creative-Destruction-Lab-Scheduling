@@ -86,6 +86,7 @@ Also since these are the leads we need to add an extra "reception" at the end of
 <script type="text/javascript">
 
 $(document).ready(function(){
+	alert("over here");
    	$("#fa").change(function(){
     	var theName = $(this).val(); /* GET THE VALUE OF THE SELECTED DATA */
      	var dataString = "SELECT * FROM Meetings WHERE Lead_1 IS NOT NULL"; /* STORE THAT TO A DATA STRING */
