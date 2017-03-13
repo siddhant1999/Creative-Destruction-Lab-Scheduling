@@ -75,7 +75,7 @@ Also since these are the leads we need to add an extra "reception" at the end of
 
 </select>
 
-<button id="subven" onclick="startSearch()">Submit</button>
+<button id="subven" onclick="abc()">Submit</button>
 
 <div id="scheduleTable"></div>
 
@@ -85,23 +85,23 @@ Also since these are the leads we need to add an extra "reception" at the end of
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-	alert("over here");
-   	$("#fa").change(function(){
-    	var theName = $(this).val(); /* GET THE VALUE OF THE SELECTED DATA */
-     	var dataString = "SELECT * FROM Meetings WHERE Lead_1 IS NOT NULL"; /* STORE THAT TO A DATA STRING */
+function abc(){
+	console.log("over here");
+     	var dataString = "returnLeads"; /* STORE THAT TO A DATA STRING */
+     	console.log(dataString);
      	$.ajax({ /* THEN THE AJAX CALL */
        		type: "POST",
-       		url: "processQuery.php"
-       		async: false,
-       		data: dataString,
+       		url: "processQuery.php",
+       		data: {
+		            sqlQuery: dataString
+		        },
 
        		success: function(result){ /* GET THE TO BE RETURNED DATA */
-        		$("#scheduleTable").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
+       			console.log(result);
+        		//$("#scheduleTable").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
        		}
      	});
-   	});
-  });
+}
 </script>
 
 <?php 
