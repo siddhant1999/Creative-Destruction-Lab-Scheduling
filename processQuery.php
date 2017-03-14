@@ -19,14 +19,13 @@ if ($conn->connect_error) {
 
 $src1= $_POST['sqlQuery'];
 
-echo "starting here";
-return;
+//echo "starting here\n";
+//echo $src1;
+
 if ($src1 == "returnLeads"){
-    echo "we are here";
-    $str = "SELECT Lead_1, Lead_2, Lead_3 FROM Meetings WHERE Lead_1 IS NOT NULL;";
+    $str = "SELECT Lead_1, Lead_2, Lead_3 FROM Meetings WHERE LENGTH(Lead_1) > 0 AND Lead_1 IS NOT NULL;";
     $result = $conn->query($str);
-    
-    
+
     $fullArray = array();
     
     // there are 3 queries that I have to make
@@ -34,26 +33,40 @@ if ($src1 == "returnLeads"){
     
     while ($row = $result->fetch_array()){
         $row1 = array();
-    
+        array_push($fullArray, $row['Lead_1']);
+        if(strlen($row['Lead_2'])){
+            array_push($fullArray, $row['Lead_2']);
+        }
+        if(strlen($row['Lead_3'])){
+            array_push($fullArray, $row['Lead_3']);
+        }
+        /*
         $row1["Lead_1"] = $row['Lead_1'];
-        //$row1["Lead_1"] = $row['Lead_2'];
-        //$row1["Lead_1"] = $row['Lead_3'];
-        
-        //I'm trying this, but I don't really know if it will work or not (Lead_1, Lead_1, Lead_1)
         $fullArray[] = $row1;
+        if(strlen($row['Lead_2'])){
+            $row1["Lead_1"] = $row['Lead_2'];
+            $fullArray[] = $row1;
+        }
+        if(strlen($row['Lead_3'])){
+            $row1["Lead_1"] = $row['Lead_3'];
+            $fullArray[] = $row1;
+        }*/
+
+        //I'm trying this, but I don't really know if it will work or not (Lead_1, Lead_1, Lead_1)
+        
 
     }
 
     
     // hold on before returning this lets make sure it is entirely unique and sorted alphabetically
     header('Content-Type: application/json');
-    //$abc = json_encode(array_unique($fullArray));
-    $abc = json_encode($fullArray);
+    $abc = json_encode(array_unique($fullArray));
+    //$abc = json_encode($fullArray);
+    //$abc = $fullArray;
     echo $abc;
 }
+
 else {
-    echo "we are right here";
-    //echo $scr1;
     //$src1 = "SELECT * FROM Meetings WHERE Venture_Name='ICSPI' ORDER BY Time_Start;" ;
     $result = $conn->query($src1);
     
