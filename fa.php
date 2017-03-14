@@ -14,6 +14,7 @@
 
 <?php
 
+
 $leadName = $_GET["faname"]; 
 $curDate = $_GET["date"];
 
@@ -29,67 +30,15 @@ if (is_null($leadName) And is_null($curDate)):
 
 <select id="fa" class="selectpicker">
 
-
-<!--<option value="Andy Burgess" >Andy Burgess</option>
-<option value="Arielle Zuckerberg" >Arielle Zuckerberg</option>
-<option value="Ashmeet Sidana" >Ashmeet Sidana</option>
-<option value="Barney Pell" >Barney Pell</option>
-<option value="Boris Wertz">Boris Wertz</option>
-<option value="Dennis Bennie" >Dennis Bennie</option>
-<option value="Dror Berman" >Dror Berman</option>
-<option value="Geordie Rose" >Geordie Rose</option>
-<option value="Haig Ferris" >Haig Ferris</option>
-<option value="Johann Koss" >Johann Koss</option>
-<option value="Johann Koss" >Johann Koss</option>
-<option value="John Francis" >John Francis</option>
-<option value="Ken Nickerson" >Ken Nickerson</option>
-<option value="Lally Renentilla" >Lally Renentilla</option>
-<option value="Lisa Shields" >Lisa Shields</option>
-<option value="Lyon Wong" >Lyon Wong</option>
-<option value="Micah Siegal" >Micah Siegal</option>
-<option value="Michael Hyatt">Michael Hyatt</option>
-<option value="Mike Serbinis">Mike Serbinis</option>
-<option value="Nicolas Chapados" >Nicolas Chapados</option>
-<option value="Richard Hyatt">Richard Hyatt</option>
-<option value="Sally Daub" >Sally Daub</option>
-<option value="Satish Kanwar" >Satish Kanwar</option>
-<option value="Shivon Zilis" >Shivon Zilis</option>
-<option value="Stephan Uhrenbacher">Stephan Uhrenbacher</option>
-<option value="Ted Livingston" >Ted Livingston</option>
-<option value="Tomi Poutanen" >Tomi Poutanen</option>
-<option value="Tyson Clark" >Tyson Clark</option>
-<option value="William Tunstall-Pedoe">William Tunstall-Pedoe</option>
-<option value="Zavain Dar" >Zavain Dar</option>
--->
-
-
-<!--
-
-Plan
-Query everything where this person is listed as lead1, lead2, or lead3
-Display the times as usual, but just display the venture name and do not worry about the other leads
-Then query everything else as well, things that are general to everyone
-
-Also since these are the leads we need to add an extra "reception" at the end of the day, manually
--->
-
 </select>
-
-<button id="subven" onclick="abc()">Submit</button>
-
-<div id="scheduleTable"></div>
-
-
-</body>
-</html>
 
 <script type="text/javascript">
 
-function abc(){
+$(document).ready()
 	console.log("over here");
-     	var dataString = "returnLeads"; /* STORE THAT TO A DATA STRING */
+     	var dataString = "returnLeads";
      	console.log(dataString);
-     	$.ajax({ /* THEN THE AJAX CALL */
+     	$.ajax({
        		type: "POST",
        		url: "processQuery.php",
        		data: {
@@ -99,11 +48,27 @@ function abc(){
        		success: function(result){ /* GET THE TO BE RETURNED DATA */
        			console.log("Here is the result: ");
        			console.log(result);
-        		//$("#scheduleTable").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
+       			var curstr = "";
+        		for (var i = 0; i < result.length; i++) {
+					var arr = result[i];
+					curstr += "<option value='" + arr + "'>" + arr + "</option>" ;
+				}
+				$("#fa").append(curstr);
+				//console.log("done");
        		}
      	});
-}
+
 </script>
+
+
+<button id="subven" onclick="startSearch()">Submit</button>
+
+<div id="scheduleTable"></div>
+
+
+</body>
+</html>
+
 
 <?php 
 else :
@@ -150,23 +115,7 @@ function helper(time){
 	// fetch
 	var hours = Number(time[0]);
 	var minutes = Number(time[1]);
-	//var seconds = Number(time[2]);
-	/*if (subtracting) {
-		if (queryAM == 0) {
-			hours = 8;
-			minutes = 0;
-		}
-		else {
-			if (minutes<30) {
-				minutes = (minutes + 30);
-				hours--;
-			}
-			else {
-				minutes -= 30;
-			}
-		}
-	}*/
-	// calculate
+	
 	var timeValue = "" + ((hours >12) ? hours - 12 : hours);  // get hours
 	timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
 	//timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;  // get seconds
@@ -197,12 +146,6 @@ function process(obj){
 		
 		var a = helper(arr["Time_Start"]);
 		var b = helper(arr["Time_End"]);
-
-
-
-		//k so now that we have the times this is a good time to put in the breaks
-		//just check if the end time doesnt match up with the next start time, and if not add a break
-		
 
 		if (a == b) {
 			distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a +"</td>";

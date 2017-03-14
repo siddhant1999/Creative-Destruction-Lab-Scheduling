@@ -17,8 +17,8 @@ if ($conn->connect_error) {
 
 //Execute the query and store it in $result
 
-$src1= $_POST['sqlQuery'];
-
+//$src1= $_POST['sqlQuery'];
+$src1 = "returnLeads";
 //echo "starting here\n";
 //echo $src1;
 
@@ -40,29 +40,28 @@ if ($src1 == "returnLeads"){
         if(strlen($row['Lead_3'])){
             array_push($fullArray, $row['Lead_3']);
         }
-        /*
-        $row1["Lead_1"] = $row['Lead_1'];
-        $fullArray[] = $row1;
-        if(strlen($row['Lead_2'])){
-            $row1["Lead_1"] = $row['Lead_2'];
-            $fullArray[] = $row1;
-        }
-        if(strlen($row['Lead_3'])){
-            $row1["Lead_1"] = $row['Lead_3'];
-            $fullArray[] = $row1;
-        }*/
-
-        //I'm trying this, but I don't really know if it will work or not (Lead_1, Lead_1, Lead_1)
-        
 
     }
 
-    
-    // hold on before returning this lets make sure it is entirely unique and sorted alphabetically
     header('Content-Type: application/json');
-    $abc = json_encode(array_unique($fullArray));
-    //$abc = json_encode($fullArray);
-    //$abc = $fullArray;
+    $uniq = array_unique($fullArray);
+    sort($uniq);
+    //$farray = array();
+    $rr = 0;
+    /*$largestr = "&#60;select&#62;";
+    foreach($uniq as &$val){
+        $astr = "&#60;option value&#61;&#34;" . $val . "&#34;&#62;" . $val . "&#60;&#47;option&#62;";
+        
+        //echo $astr;
+        //$rr = $rr +1;
+        //$farray[] = $astr;
+        $largestr .= $astr;
+        //array_push($farray, $astr);
+    }
+    $largestr .= "&#60;&#47;select&#62;";*/
+    //echo $rr;
+    $abc = json_encode($uniq);
+    //echo $largestr;
     echo $abc;
 }
 
