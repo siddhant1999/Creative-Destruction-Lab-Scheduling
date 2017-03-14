@@ -97,6 +97,7 @@ function abc(){
 		        },
 
        		success: function(result){ /* GET THE TO BE RETURNED DATA */
+       			console.log("Here is the result: ");
        			console.log(result);
         		//$("#scheduleTable").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
        		}
