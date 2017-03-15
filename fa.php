@@ -93,7 +93,7 @@ var query = "SELECT * FROM Meetings WHERE Date='"+ date +"' AND (LOWER(Lead_1)='
 executeQuery(query);
 	
 function executeQuery(query){
-	$("#header").append("<div id='titleHead' class='col-sm-4' ><h3><b><u>" + har + "</u><i> - " + date +"</i></b></h3>");
+	$("#header").append("<div id='titleHead' class='col-sm-4' ><h3><b>G7/ML7 Meeting<i> - "+ date + "</i><br>" + har + "</b></h3>");
 
 	var dateQuery = "SELECT * FROM Meetings;";
 	$.ajax({
@@ -193,7 +193,7 @@ function process(obj){
 			if (prev2 != a && prev2) {
 				//add break
 				//console.log("Need break here");
-				distable += "<td style='background-color: #ececec; text-align:center;'>" + prev2 + " - " + a +"</td><td style='background-color: #ececec;' colspan='2'>Break</td></tr>" + "<tr class='row_" + i + "'>";
+				distable += "<td style='text-align:center;' class='greyback'>" + prev2 + " - " + a +"</td><td class='greyback' colspan='2'>Break</td></tr>" + "<tr class='row_" + i + "'>";
 			}
 
 			prev1 = a;
@@ -268,7 +268,10 @@ function process(obj){
 	for (var j = 0; j < isGrey.length; j++) {
 		var theid = ".row_" + isGrey[j];
 
-		$(theid).css("background-color", "#ececec");
+		$(theid).addClass("greyback");
+		//$(theid).css("background-color", "#ececec");
+		//$(theid).css("background-color", "#ececec !important", "print");
+		//$(theid).append('<style type="text/css" media="print">background-color: #ececec !important</style>');
 	}
 
 	$("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
@@ -305,6 +308,22 @@ function startSearch(){
 <style type="text/css">
 
 @media print{
+	h3 {
+		font-size: 150%;
+		/*we can mess with this value for size*/
+	}
+	th {
+		background-color: #000 !important; 
+		color: #FFF !important;
+		font-weight: bold !important;
+		font-size: 100%;
+	}
+	.greyback {
+		background-color: #ececec !important;
+	}
+	h4 {
+		display: none;
+	}
 	#logocon {
 		max-height: 30pt;
 		max-width: 30pt;
@@ -345,6 +364,9 @@ img, #logocon {
 	max-width: 104px;
 	min-height: 108px;
 	min-width: 104px;
+}
+.greyback {
+	background-color: #ececec;
 }
 h3,h4, #titleHead {
 	margin-left: auto;
