@@ -9,7 +9,7 @@
 <link rel="shortcut icon" type="image/png" href="/dots.png"/>
 </head>
 
-
+<img id="printlogo" src="/dots.png"/>
 
 <?php
 
@@ -41,9 +41,7 @@ $(document).ready()
      		data: {
             sqlQuery: "returnLeads"
         },
-     	success: function(result){ /* GET THE TO BE RETURNED DATA */
-     		//console.log("Here is the result: ");
-     		//console.log(result);
+     	success: function(result){
      		var curstr = "";
       		for (var i = 0; i < result.length; i++) {
 				var arr = result[i];
@@ -70,7 +68,7 @@ else :
 ?>
 <div id="header" class="row">
 <div class="col-sm-3"></div>
-<img height="30%" src="/dots.png" class="col-sm-1"/>
+<div id="logocon" class="col-sm-1" ><img id="logo" src="/dots.png"/></div>
 
 
 </div>
@@ -306,19 +304,47 @@ function startSearch(){
 
 <style type="text/css">
 
+@media print{
+	#logocon {
+		max-height: 30pt;
+		max-width: 30pt;
+		width: 30pt;
+		height: 30pt;
+		float: left;
+		/*display: none !important;*/
+	}
+	#printlogo {
+		/*height: 10%;
+		max-height: 10pt;
+		max-width: 10pt;
+		width: 10pt;
+		display: inline-block !important;
+		position: left;*/
+		
+	}
+	#scheduleTable {
+		font-size: 60%;
+	}
+	
+}
+
+#printlogo {
+	display: none;
+	position: left;
+}
+
 body {
 	font-size: 140%;
 	font-family: Calibri,Arial, Helvetica, sans-serif;
 	  -webkit-appearance: none; -moz-appearance: none;
-  /*display: block;*/
   width: 100%;
 }
-img {
+img, #logocon {
 	height: auto;
-	max-height: 100px;
-	max-width: 150px;
-	min-height: 100px;
-	min-width: 150px;
+	max-height: 108px;
+	max-width: 104px;
+	min-height: 108px;
+	min-width: 104px;
 }
 h3,h4, #titleHead {
 	margin-left: auto;
@@ -328,12 +354,10 @@ h3,h4, #titleHead {
 
 @media (max-width: 767px) {
 
-select {
-  font-size: 240%;
-}
-
-
-}
+	select {
+  		font-size: 240%;
+	}
+}	
 
 select {
 	margin-left: auto;
