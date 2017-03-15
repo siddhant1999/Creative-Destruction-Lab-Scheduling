@@ -15,22 +15,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-//Execute the query and store it in $result
-
-//$src1= $_POST['sqlQuery'];
-$src1 = "returnLeads";
-//echo "starting here\n";
-//echo $src1;
+$src1= $_POST['sqlQuery'];
 
 if ($src1 == "returnLeads"){
     $str = "SELECT Lead_1, Lead_2, Lead_3 FROM Meetings WHERE LENGTH(Lead_1) > 0 AND Lead_1 IS NOT NULL;";
     $result = $conn->query($str);
 
     $fullArray = array();
-    
-    // there are 3 queries that I have to make
-    //
-    
     while ($row = $result->fetch_array()){
         $row1 = array();
         array_push($fullArray, $row['Lead_1']);
@@ -40,40 +31,20 @@ if ($src1 == "returnLeads"){
         if(strlen($row['Lead_3'])){
             array_push($fullArray, $row['Lead_3']);
         }
-
     }
-
     header('Content-Type: application/json');
     $uniq = array_unique($fullArray);
     sort($uniq);
-    //$farray = array();
-    $rr = 0;
-    /*$largestr = "&#60;select&#62;";
-    foreach($uniq as &$val){
-        $astr = "&#60;option value&#61;&#34;" . $val . "&#34;&#62;" . $val . "&#60;&#47;option&#62;";
-        
-        //echo $astr;
-        //$rr = $rr +1;
-        //$farray[] = $astr;
-        $largestr .= $astr;
-        //array_push($farray, $astr);
-    }
-    $largestr .= "&#60;&#47;select&#62;";*/
-    //echo $rr;
     $abc = json_encode($uniq);
-    //echo $largestr;
     echo $abc;
 }
 
 else {
-    //$src1 = "SELECT * FROM Meetings WHERE Venture_Name='ICSPI' ORDER BY Time_Start;" ;
     $result = $conn->query($src1);
     
     
     $fullArray = array();
     
-    // there are 3 queries that I have to make
-    //
     
     while ($row = $result->fetch_array()){
         $row1 = array();
@@ -102,6 +73,4 @@ else {
     $abc = json_encode($fullArray);
     echo $abc;
 }
-//echo var_dump($fullArray);
-//echo 
 ?>

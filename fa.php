@@ -10,7 +10,6 @@
 </head>
 
 
-<div id="scheduleTable"></div>
 
 <?php
 
@@ -35,28 +34,24 @@ if (is_null($leadName) And is_null($curDate)):
 <script type="text/javascript">
 
 $(document).ready()
-	console.log("over here");
-     	var dataString = "returnLeads";
-     	console.log(dataString);
-     	$.ajax({
-       		type: "POST",
-       		url: "processQuery.php",
-       		data: {
-		            sqlQuery: dataString
-		        },
-
-       		success: function(result){ /* GET THE TO BE RETURNED DATA */
-       			console.log("Here is the result: ");
-       			console.log(result);
-       			var curstr = "";
-        		for (var i = 0; i < result.length; i++) {
-					var arr = result[i];
-					curstr += "<option value='" + arr + "'>" + arr + "</option>" ;
-				}
-				$("#fa").append(curstr);
-				//console.log("done");
-       		}
-     	});
+   	$.ajax({
+     		type: "POST",
+     		url: "processQuery.php",
+     		async: false,
+     		data: {
+            sqlQuery: "returnLeads"
+        },
+     	success: function(result){ /* GET THE TO BE RETURNED DATA */
+     		//console.log("Here is the result: ");
+     		//console.log(result);
+     		var curstr = "";
+      		for (var i = 0; i < result.length; i++) {
+				var arr = result[i];
+				curstr += "<option value='" + arr + "'>" + arr + "</option>" ;
+			}
+			$("#fa").append(curstr);      		
+		}
+   	});
 
 </script>
 
@@ -73,7 +68,14 @@ $(document).ready()
 <?php 
 else :
 ?>
+<div id="header" class="row">
+<div class="col-sm-3"></div>
+<img height="30%" src="/dots.png" class="col-sm-1"/>
 
+
+</div>
+
+<div id="scheduleTable"></div>
 <script>
 //This is where we will process all requests
 
@@ -93,20 +95,58 @@ var query = "SELECT * FROM Meetings WHERE Date='"+ date +"' AND (LOWER(Lead_1)='
 executeQuery(query);
 	
 function executeQuery(query){
+	$("#header").append("<div id='titleHead' class='col-sm-4' ><h3><b><u>" + har + "</u><i> - " + date +"</i></b></h3>");
+
+	var dateQuery = "SELECT * FROM Meetings;";
 	$.ajax({
 		        type: 'post',
 		        url: 'processQuery.php',
 		        async: false,
 		        data: {
-		            sqlQuery: query
+		            sqlQuery: dateQuery
 		            //sqlInserts: allstrings
 		        },
-		        success: function( data ) {
-		        	console.log("Here is the data retrived:");
-		        	console.log(data);
-		        	process(data);
-		        }
+		        success: function( dateData ) {
+		        	console.log(dateData);
+		        	var mySet = new Set();
+		        	for (var i = 0; i < dateData.length; i++) {
+						var arr = dateData[i];
+						console.log(arr['Date']);
+
+						//$("#scheduleTable").append("<a href='"+ arr['Date'] +"''>"+ arr['Date'] +"</a><br>");
+						if (arr['Date'] != date)
+							mySet.add(arr['Date']);
+					}
+					for (let item of mySet){
+						str = "?faname=" + har + "&date=" + item;
+						$("#titleHead").append("<h4><a href='"+ str +"''>View: <u>"+ item +"</a></u></h4>");
+					} 
+				$("#titleHead").append("</div>");
+					
+
+					$.ajax({
+		    		    type: 'post',
+		    		    url: 'processQuery.php',
+		    		    async: false,
+		    		    data: {
+		    		        sqlQuery: query
+		    		        //sqlInserts: allstrings
+		    		    },
+		    		    success: function( data ) {
+		    		    	console.log("Here is the data retrived:");
+		    		    	console.log(data);
+		    		    	process(data);
+		    		    }
+		    		});
+
+
+		        },
+		        error: function(){
+    				alert('error!');
+  				}
 		    });
+
+	
 }
 
 function helper(time){
@@ -131,11 +171,11 @@ function process(obj){
 
 	var idk = true;
 
-	$("#scheduleTable").append("<h3><b><u>" + har + "</u><i> - " + date +"</i></b></h3>");
+	
 
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
-		console.log("i : " + i);
+		//console.log("i : " + i);
 		distable += "<tr class='row_" + i + "'>";
 		if (arr['is_Custom']) {
 			var ty = har;
@@ -262,6 +302,8 @@ function startSearch(){
 
 
 </script>
+
+
 <style type="text/css">
 
 body {
@@ -271,8 +313,14 @@ body {
   /*display: block;*/
   width: 100%;
 }
-
-h3,h4 {
+img {
+	height: auto;
+	max-height: 100px;
+	max-width: 150px;
+	min-height: 100px;
+	min-width: 150px;
+}
+h3,h4, #titleHead {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
