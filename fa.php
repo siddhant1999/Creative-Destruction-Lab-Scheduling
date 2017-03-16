@@ -7,6 +7,7 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="shortcut icon" type="image/png" href="/dots.png"/>
+<link rel="stylesheet" type="text/css" href="fastyle.css">
 </head>
 
 <img id="printlogo" src="/dots.png"/>
@@ -20,10 +21,6 @@ $curDate = $_GET["date"];
 if (is_null($leadName) And is_null($curDate)):
 
 ?>
-
-
-
-
 
 <body>
 
@@ -169,8 +166,6 @@ function process(obj){
 
 	var idk = true;
 
-	
-
 	for (var i = 0; i < obj.length; i++) {
 		var arr = obj[i];
 		//console.log("i : " + i);
@@ -304,108 +299,3 @@ function startSearch(){
 
 </script>
 
-
-<style type="text/css">
-
-@media print{
-	h3 {
-		font-size: 150%;
-		/*we can mess with this value for size*/
-	}
-	th {
-		background-color: #000 !important; 
-		color: #FFF !important;
-		font-weight: bold !important;
-		font-size: 100%;
-	}
-	.greyback {
-		background-color: #ececec !important;
-	}
-	h4 {
-		display: none;
-	}
-	#logocon {
-		max-height: 30pt;
-		max-width: 30pt;
-		width: 30pt;
-		height: 30pt;
-		float: left;
-		/*display: none !important;*/
-	}
-	#printlogo {
-		/*height: 10%;
-		max-height: 10pt;
-		max-width: 10pt;
-		width: 10pt;
-		display: inline-block !important;
-		position: left;*/
-		
-	}
-	#scheduleTable {
-		font-size: 60%;
-	}
-	
-}
-
-#printlogo {
-	display: none;
-	position: left;
-}
-
-body {
-	font-size: 140%;
-	font-family: Calibri,Arial, Helvetica, sans-serif;
-	  -webkit-appearance: none; -moz-appearance: none;
-  width: 100%;
-}
-img, #logocon {
-	height: auto;
-	max-height: 108px;
-	max-width: 104px;
-	min-height: 108px;
-	min-width: 104px;
-}
-.greyback {
-	background-color: #ececec;
-}
-h3,h4, #titleHead {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
-@media (max-width: 767px) {
-
-	select {
-  		font-size: 240%;
-	}
-}	
-
-select {
-	margin-left: auto;
-	margin-right: auto;
-	font-size: 140%;
-}
-table {
-	width: 80%;
-		margin-left: auto;
-		margin-right: auto;
-		max-width: 800px;
-}
-	table.mytable {
-		font-size: 130%;
-		border: 1px solid #CCC; 
-		font-family: Calibri, Arial, Helvetica, sans-serif;
-		margin-top: 5px;
-	} 
-	.mytable td {
-		padding: 4px;
-		margin: 3px;
-		border: 1px solid #000;
-	}
-	.mytable th {
-		background-color: #000; 
-		color: #FFF;
-		font-weight: bold;
-	}
-</style>
