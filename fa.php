@@ -30,7 +30,26 @@ if (is_null($leadName) And is_null($curDate)):
 <button id="subven" onclick="startSearch()">Submit</button>
 <div id="scheduleTable"></div>
 </body>
+<script type="text/javascript">
+	$(document).ready()
+   	$.ajax({
+     		type: "POST",
+     		url: "processQuery.php",
+     		async: false,
+     		data: {
+            sqlQuery: "returnLeads"
+        },
+     	success: function(result){
+     		var curstr = "";
+      		for (var i = 0; i < result.length; i++) {
+				var arr = result[i];
+				curstr += "<option value='" + arr + "'>" + arr + "</option>" ;
+			}
+			$("#fa").append(curstr);      		
+		}
+   	});
 
+</script>
 
 
 <?php 
