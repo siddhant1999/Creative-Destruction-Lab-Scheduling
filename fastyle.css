@@ -1,7 +1,10 @@
 @media print{
 	h3 {
-		font-size: 150%;
+		font-size: 140%;
 		/*we can mess with this value for size*/
+	}
+	h4 {
+		font-size: 120%;
 	}
 	th {
 		background-color: #000 !important; 
@@ -33,7 +36,7 @@
 		
 	}
 	#scheduleTable {
-		font-size: 60%;
+		font-size: 50%;
 	}
 	
 }
@@ -87,7 +90,7 @@ table {
 }
 	table.mytable {
 		font-size: 130%;
-		border: 1px solid #CCC; 
+		border: 1px solid black; 
 		font-family: Calibri, Arial, Helvetica, sans-serif;
 		margin-top: 5px;
 	} 

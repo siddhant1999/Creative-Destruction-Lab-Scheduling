@@ -24,7 +24,7 @@ function executeQuery(query){
             str = "?faname=" + har + "&date=" + item;
             $("#titleHead").append("<h4 class='printRemove'><a href='"+ str +"''>View: <u>"+ item +"</a></u></h4>");
           } 
-        $("#titleHead").append("</div>");
+        
           
 
           $.ajax({
@@ -146,9 +146,12 @@ function process(obj){
         }
       }
       else {
-        
-        //this is a general activity to all
-        distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+        if (arr['Room_Number']) {
+          distable += "<td>" + arr["Description"] + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
+        }
+        else {
+          distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+        }
         isGrey.push(i);
       }
     }
@@ -181,7 +184,7 @@ function process(obj){
 
   if (leadfor.length > 1) {
     leadfortitle = "<h4><b>Lead for: <i>" + leadfor + "</i></b></h4>";
-    $("#scheduleTable").append(leadfortitle);
+    $("#titleHead").append(leadfortitle + "</div>");
   }
   
   $("#scheduleTable").append(distable);
