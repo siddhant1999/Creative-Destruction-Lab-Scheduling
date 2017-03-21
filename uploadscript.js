@@ -134,6 +134,7 @@ function addCustom(){
 	var tin = "<div id='sdate'><br>Date: <input id='thesdate' type='date'></input> AM or PM: <select id='amorpm'><option value='AM'>AM</option><option value='PM'>PM</option></select></div>";
 
 	tin += "<div id='timepid' ><br>Start Time: <input id='pstime' type='time'></input> End Time: <input id='petime' type='time'></input><br></div>";
+	tin += "<div id='roomnum' ><br>Room: <input id='roomnums'></input>";
 	tin += "<div id='des' ><br>Description <br><textarea id='desc'></textarea></div>";
 	tin += "<div id='ven' ><br>Ventures Included <br><textarea id='vens' placeholder='newline seperated'></textarea></div>";
 	tin += "<div id='led' ><br>Leads Included <br><textarea id='leds' placeholder='newline seperated'></textarea><br></div>";
@@ -154,11 +155,12 @@ function customImport(){
 	var curdate = $("#thesdate").val();
 	var starttime = $("#pstime").val();
 	var endtime = $("#petime").val();
+	var room = $("#roomnums").val();
 
 	var description1 = $("#desc").val();
 	var venturesincluded = $("#vens").val().split('\n');
 	var leadsincluded = $("#leds").val().split('\n');
-	alert("Size of vens: " + venturesincluded.length + " \n Size of leds" + leadsincluded.length);
+	//alert("Size of vens: " + venturesincluded.length + " \n Size of leds" + leadsincluded.length);
 
 	var array = [];
 
@@ -166,7 +168,7 @@ function customImport(){
 		if (leadsincluded[pp].length < 1) {break;}
 		//every one of these needs its own insertion
 		console.log("Over here, importing custom lead event");
-		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1, is_Custom) VALUES ('" + curdate + "' , " +is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[pp] + "' , '1');";
+		var inser = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Lead_1, is_Custom, Room_Number) VALUES ('" + curdate + "' , " +is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + leadsincluded[pp] + "' , '1', '" + room + "');";
 		//console.log(inser);
 		array.push(inser);
 	}

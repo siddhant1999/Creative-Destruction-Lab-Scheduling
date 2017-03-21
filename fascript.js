@@ -134,7 +134,12 @@ function process(obj){
         if (har == "A&amp;K Robotics") {ty = "A&K Robotics"}
 
         if (arr['Lead_1']==ty) {
-          distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+          if (arr['Room_Number']) {
+            distable += "<td colspan='2'>" + arr["Description"] + "<b> (Room " + arr['Room_Number'] + ")</b>"+ "</td>";
+          }
+          else {
+            distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+          }
           //console.log("Yay");
         }
       }
