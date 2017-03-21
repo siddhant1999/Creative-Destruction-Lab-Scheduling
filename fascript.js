@@ -132,7 +132,8 @@ function process(obj){
         //console.log(har + " + " + arr['Venture_Name']);
         var ty = har;
         if (har == "A&amp;K Robotics") {ty = "A&K Robotics"}
-        if (arr['Venture_Name']==ty) {
+
+        if (arr['Lead_1']==ty) {
           distable += "<td colspan='2'>" + arr["Description"] + "</td>";
           //console.log("Yay");
         }
