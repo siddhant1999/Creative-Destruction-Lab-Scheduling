@@ -123,7 +123,7 @@ function process(obj){
       distable += "<td>" + arr["Venture_Name"] + "</td><b><td>Room " + arr['Room_Number'] + "</b></td>";
       
 
-      distable += " <b>(Room " + arr["Room_Number"] + ")</b></td>";
+      //distable += " <b>(Room " + arr["Room_Number"] + ")</b></td>";
     }
     else if (arr["Description"]) {
       
@@ -156,7 +156,7 @@ function process(obj){
       if (arr["Lead_1"].toLowerCase() == har.toLowerCase()) {
         distable += "<td colspan='2'><b>" + arr["Venture_Name"] + "</b></td>";
       }
-      else distable += "<td colspan='2'><b>" + arr["Venture_Name"] + "</b></td>";
+      else distable += "<td colspan='2'>" + arr["Venture_Name"] + "</td>";
     }
     
     /*for (var key in obj){
