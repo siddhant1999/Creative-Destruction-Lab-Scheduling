@@ -16,7 +16,7 @@ function executeQuery(query){
               var mySet = new Set();
               for (var i = 0; i < dateData.length; i++) {
             var arr = dateData[i];
-            console.log(arr['Date']);
+            //console.log(arr['Date']);
 
             //$("#scheduleTable").append("<a href='"+ arr['Date'] +"''>"+ arr['Date'] +"</a><br>");
             if (arr['Date'] != date)
@@ -143,9 +143,9 @@ function process(obj){
         
         //this is a general activity to all
         distable += "<td colspan='2'>" + arr["Description"] + "</td>";
-        console.log("Outputing the array isGrey: " + isGrey);
+        //console.log("Outputing the array isGrey: " + isGrey);
         isGrey.push(i);
-        console.log("Is still working");
+        //console.log("Is still working");
       }
     }
     else if(arr["Venture_Name"] && arr["Lead_1"]) {
