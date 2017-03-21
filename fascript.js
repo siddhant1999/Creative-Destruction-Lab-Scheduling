@@ -68,7 +68,7 @@ function helper(time){
 
 function process(obj){
 
-  var distable = "<table class='mytable'><thead><tr><th style='width: 11.2em; min-width: 9.2em;'>Time</th><th>Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
+  var distable = "<table class='mytable'><thead><tr><th style='width: 11.2em; min-width: 9.2em;'>Time</th><th>Venture</th><th>Rooms</th></tr></thead><tbody>";
   var prev1 = "";
   var prev2 = "";
 
@@ -120,7 +120,7 @@ function process(obj){
     if (arr["Meeting_Number"]) {
       //meaning this is a specific individual meeting
       
-      distable += "<td>" + arr["Venture_Name"] + "</td><b><td>Room " + arr['Room_Number'] + "</b></td>";
+      distable += "<td>" + arr["Venture_Name"] + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
       
 
       //distable += " <b>(Room " + arr["Room_Number"] + ")</b></td>";
@@ -135,7 +135,7 @@ function process(obj){
 
         if (arr['Lead_1']==ty) {
           if (arr['Room_Number']) {
-            distable += "<td>" + arr["Description"] + "</td><b><td>Room " + arr['Room_Number'] + "</b></td>";
+            distable += "<td>" + arr["Description"] + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
           }
           else {
             distable += "<td colspan='2'>" + arr["Description"] + "</td>";
