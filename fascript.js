@@ -68,9 +68,10 @@ function helper(time){
 
 function process(obj){
 
-  var distable = "<table class='mytable'><thead><tr><th style='width: 11.2em; min-width: 9.2em;'>Time</th><th>Venture</th><th>Rooms</th></tr></thead><tbody>";
+  var distable = "<table class='mytable'><thead><tr><th style='width: 11.2em; min-width: 9.2em;'>&nbspTime</th><th>&nbspVenture</th><th>&nbspRooms</th></tr></thead><tbody>";
   var prev1 = "";
   var prev2 = "";
+  var leadfor = "";
 
   var idk = true;
 
@@ -115,7 +116,7 @@ function process(obj){
       }distable += "<td style='text-align:center;' rowspan='"+ count +"'>" + a + " - " + b +"</td>";
     }
 
-    
+    var isFirstLedVenture = false;
 
     if (arr["Meeting_Number"]) {
       //meaning this is a specific individual meeting
@@ -153,9 +154,16 @@ function process(obj){
     else if(arr["Venture_Name"] && arr["Lead_1"]) {
       
       //this is a track meeting
+      
       if (arr["Lead_1"].toLowerCase() == har.toLowerCase()) {
+        if (isFirstLedVenture) {
+          leadfor += " , ";
+        }
         distable += "<td colspan='2'><b>" + arr["Venture_Name"] + "</b></td>";
+        leadfor += "<h6><b>" + arr['Venture_Name'] + ", </b></h6>";
+        isFirstLedVenture = true;
       }
+
       else distable += "<td colspan='2'>" + arr["Venture_Name"] + "</td>";
     }
     
@@ -169,6 +177,11 @@ function process(obj){
   }
   distable += "</tbody></table>";
 
+  if (leadfor.length() > 1) {
+    leadfortitle = "Lead for:&nbsp";
+    $("#scheduleTable").append(leadfortitle);
+    $("#scheduleTable").append(leadfor);
+  }
   
   $("#scheduleTable").append(distable);
   
