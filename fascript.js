@@ -22,7 +22,7 @@ function executeQuery(query){
           }
           for (let item of mySet){
             str = "?faname=" + har + "&date=" + item;
-            $("#titleHead").append("<h4><a href='"+ str +"''>View: <u>"+ item +"</a></u></h4>");
+            $("#titleHead").append("<h4 class='printRemove'><a href='"+ str +"''>View: <u>"+ item +"</a></u></h4>");
           } 
         $("#titleHead").append("</div>");
           
@@ -72,7 +72,7 @@ function process(obj){
   var prev1 = "";
   var prev2 = "";
   var leadfor = "";
-
+  var isFirstLedVenture = 0;
   var idk = true;
 
   for (var i = 0; i < obj.length; i++) {
@@ -104,6 +104,7 @@ function process(obj){
       prev2 = b;
       var k = i+1;
       var count =1;
+      
 
       if (k < obj.length) {
         while(a == helper(obj[k]["Time_Start"]) && b== helper(obj[k]["Time_End"])){
@@ -116,7 +117,7 @@ function process(obj){
       }distable += "<td style='text-align:center;' rowspan='"+ count +"'>" + a + " - " + b +"</td>";
     }
 
-    var isFirstLedVenture = false;
+    
 
     if (arr["Meeting_Number"]) {
       //meaning this is a specific individual meeting
@@ -156,12 +157,13 @@ function process(obj){
       //this is a track meeting
       
       if (arr["Lead_1"].toLowerCase() == har.toLowerCase()) {
-        if (isFirstLedVenture) {
-          leadfor += " , ";
+        console.log(isFirstLedVenture);
+        if (isFirstLedVenture == 1) {
+          leadfor += "</i> | <i>";
         }
         distable += "<td colspan='2'><b>" + arr["Venture_Name"] + "</b></td>";
-        leadfor += "<h6><b>" + arr['Venture_Name'] + ", </b></h6>";
-        isFirstLedVenture = true;
+        leadfor += arr['Venture_Name'];
+        isFirstLedVenture = 1;
       }
 
       else distable += "<td colspan='2'>" + arr["Venture_Name"] + "</td>";
@@ -177,10 +179,9 @@ function process(obj){
   }
   distable += "</tbody></table>";
 
-  if (leadfor.length() > 1) {
-    leadfortitle = "Lead for:&nbsp";
+  if (leadfor.length > 1) {
+    leadfortitle = "<h4><b>Lead for: <i>" + leadfor + "</i></b></h4>";
     $("#scheduleTable").append(leadfortitle);
-    $("#scheduleTable").append(leadfor);
   }
   
   $("#scheduleTable").append(distable);
@@ -194,10 +195,10 @@ function process(obj){
     //$(theid).append('<style type="text/css" media="print">background-color: #ececec !important</style>');
   }
 
-  $("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
+  $("#scheduleTable").append("<br><h4 class='printRemove'><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
 
   
-  $("#scheduleTable").append("<h4><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
+  $("#scheduleTable").append("<h4 class='printRemove'><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
   $("#venture").remove();
   $("#subven").remove();
 }

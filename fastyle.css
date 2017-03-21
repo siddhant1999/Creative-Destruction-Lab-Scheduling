@@ -12,7 +12,7 @@
 	.greyback {
 		background-color: #ececec !important;
 	}
-	h4 {
+	.printRemove {
 		display: none;
 	}
 	#logocon {
@@ -37,7 +37,9 @@
 	}
 	
 }
-
+/*
+Print CSS ends
+*/
 #printlogo {
 	display: none;
 	position: left;
