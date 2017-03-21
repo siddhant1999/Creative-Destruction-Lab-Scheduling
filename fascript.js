@@ -82,7 +82,7 @@ function process(obj){
     distable += "<tr class='row_" + i + "'>";
     if (arr['is_Custom']) {
       var ty = har;
-      if (arr['Venture_Name']!=ty) {
+      if (arr['Lead_1']!=ty) {
         continue;
       }
     }
