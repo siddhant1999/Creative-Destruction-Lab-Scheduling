@@ -120,7 +120,7 @@ function process(obj){
     if (arr["Meeting_Number"]) {
       //meaning this is a specific individual meeting
       
-      distable += "<td colspan='2'>" + arr["Venture_Name"];
+      distable += "<td>" + arr["Venture_Name"] + "</td><b><td>Room " + arr['Room_Number'] + "</b></td>";
       
 
       distable += " <b>(Room " + arr["Room_Number"] + ")</b></td>";
@@ -135,7 +135,7 @@ function process(obj){
 
         if (arr['Lead_1']==ty) {
           if (arr['Room_Number']) {
-            distable += "<td colspan='2'>" + arr["Description"] + "<b> (Room " + arr['Room_Number'] + ")</b>"+ "</td>";
+            distable += "<td>" + arr["Description"] + "</td><b><td>Room " + arr['Room_Number'] + "</b></td>";
           }
           else {
             distable += "<td colspan='2'>" + arr["Description"] + "</td>";
@@ -154,9 +154,9 @@ function process(obj){
       
       //this is a track meeting
       if (arr["Lead_1"].toLowerCase() == har.toLowerCase()) {
-        distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b>" + arr["Lead_1"] + "</b></td>";
+        distable += "<td colspan='2'><b>" + arr["Venture_Name"] + "</b></td>";
       }
-      else distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
+      else distable += "<td colspan='2'><b>" + arr["Venture_Name"] + "</b></td>";
     }
     
     /*for (var key in obj){
