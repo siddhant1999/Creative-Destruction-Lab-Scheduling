@@ -8,24 +8,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="shortcut icon" type="image/png" href="/dots.png"/>
 <link rel="stylesheet" type="text/css" href="fastyle.css">
-<script src="fascript.js"></script>
+<!--<script src="fascript.js"></script>-->
 </head>
 
 <img id="printlogo" src="/dots.png"/>
 
 <body>
 
-<select multiple id="fa" class="selectpicker"></select>
-<button id="subven" onclick="startSearch()">Submit</button>
+<div id="fa"></div>
 
 <div id="scheduleTable"></div>
 </body>
+
 <script type="text/javascript">
 	$(document).ready()
    	$.ajax({
      		type: "POST",
      		url: "processQuery.php",
-     		async: false,
      		data: {
             sqlQuery: "returnLeads"
         },
@@ -34,8 +33,30 @@
       		for (var i = 0; i < result.length; i++) {
 				var arr = result[i];
 				curstr += "<li value='" + arr + "'>" + arr + "</li>" ;
+				curstr += "<ul>";
+				var dateQuery = "SELECT * FROM Meetings WHERE Lead_1='"+ arr +"' OR Lead_2='"+ arr +"' OR Lead_3='"+ arr +"';"; 
+
+				$.ajax({
+            		type: 'post',
+            		url: 'processQuery.php',
+            		data: {
+                		sqlQuery: dateQuery
+                		//sqlInserts: allstrings
+            		},
+            		success: function( dateData ) {
+              			//console.log(dateData);
+              			var mySet = new Set();
+              			for (var ll = 0; ll < dateData.length; ll++) {
+            				var tst = dateData[ll];
+            				mySet.add(tst['Date']);
+          				}
+          				for (let item of mySet){
+            				$("#curstr").append("<li><a href=''><u>"+ item +"</u></a></li>");
+          				} 
+					}
+					
+				curstr += "</ul>";
 			}
-			curstr += "</ul>";
 			$("#fa").append(curstr);      		
 		}
    	});
@@ -64,7 +85,7 @@ var isGrey = [];
 
 var query = "SELECT * FROM Meetings WHERE Date='"+ date +"' AND (LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL) ORDER BY Time_Start;" ;
 
-executeQuery(query);
+//executeQuery(query);
 </script>
 
 </html>

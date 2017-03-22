@@ -22,7 +22,7 @@ function executeQuery(query){
           }
           for (let item of mySet){
             str = "?faname=" + har + "&date=" + item;
-            $("#titleHead").append("<h4 class='printRemove'><a href='"+ str +"'>View: <u>"+ item +"</a></u></h4>");
+            $("#titleHead").append("<h4><a href=''><u>"+ item +"</u></a></h4>");
           } 
         
           
