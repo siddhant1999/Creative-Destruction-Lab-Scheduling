@@ -22,15 +22,18 @@
 
 <script type="text/javascript">
 var curstr = "";
+
 $(document).ready()
    	$.ajax({
      		type: "POST",
      		url: "processQuery.php",
+     		async: false,
      		data: {
-            sqlQuery: "returnLeads"
-        },
+            	sqlQuery: "returnLeads"
+        	},
      	success: function(result){
      		secondCall(result);
+     		console.log(curstr);
 			$("#fa").append(curstr);      		
 		}
    	});
@@ -43,30 +46,35 @@ function secondCall(result){
 		var arr = result[i];
 		curstr += "<li value='" + arr + "'>" + arr + "</li>" ;
 		curstr += "<ul>";
-		dateQuery = "SELECT * FROM Meetings WHERE Lead_1='"+ arr +"' OR Lead_2='"+ arr +"' OR Lead_3='"+ arr +"';"; 
-			
-		curstr += "</ul>";
-	
+		dateQuery = "SELECT * FROM Meetings WHERE Lead_1='"+ arr +"' OR Lead_2='"+ arr +"' OR Lead_3='"+ arr +"' ORDER BY Date ASC;"; 
 
-	$.ajax({
-        type: 'post',
-        url: 'processQuery.php',
-        data: {
-            sqlQuery: dateQuery
-        },
-        success: function( dateData ) {
-            //console.log(dateData);
-            var mySet = new Set();
-            for (var ll = 0; ll < dateData.length; ll++) {
-           		var tst = dateData[ll];
-           		mySet.add(tst['Date']);
-         	}
-         	for (let item of mySet){
-           		curstr += "<li><a href=''><u>"+ item +"</u></a></li>";
-         	} 
-		}
-	});
-}
+		$.ajax({
+    	    type: 'post',
+    	    url: 'processQuery.php',
+    	    async: false,
+    	    data: {
+    	        sqlQuery: dateQuery
+    	    },
+    	    success: function( dateData ) {
+    	        //console.log(dateData);
+    	        var mySet = new Set();
+    	        for (var ll = 0; ll < dateData.length; ll++) {
+    	       		var tst = dateData[ll];
+    	       		mySet.add(tst['Date']);
+    	     	}
+    	     	var trew = "";
+    	     	for (let item of mySet){
+    	       		trew += "<li><a href=''><u>"+ item +"</u></a></li>";
+    	       		//trew += "<li>Testing</li>";
+    	       		//curstr += trew;
+    	       		//console.log(trew);
+    	     	}
+    	     	console.log(trew);
+    	     	curstr += trew;
+			}
+		});
+		curstr += "</ul>";
+	}
 }
 </script>
 
