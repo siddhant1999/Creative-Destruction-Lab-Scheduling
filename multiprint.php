@@ -21,7 +21,8 @@
 </body>
 
 <script type="text/javascript">
-	$(document).ready()
+var curstr = "";
+$(document).ready()
    	$.ajax({
      		type: "POST",
      		url: "processQuery.php",
@@ -29,38 +30,44 @@
             sqlQuery: "returnLeads"
         },
      	success: function(result){
-     		var curstr = "<ul>";
-      		for (var i = 0; i < result.length; i++) {
-				var arr = result[i];
-				curstr += "<li value='" + arr + "'>" + arr + "</li>" ;
-				curstr += "<ul>";
-				var dateQuery = "SELECT * FROM Meetings WHERE Lead_1='"+ arr +"' OR Lead_2='"+ arr +"' OR Lead_3='"+ arr +"';"; 
-
-				$.ajax({
-            		type: 'post',
-            		url: 'processQuery.php',
-            		data: {
-                		sqlQuery: dateQuery
-                		//sqlInserts: allstrings
-            		},
-            		success: function( dateData ) {
-              			//console.log(dateData);
-              			var mySet = new Set();
-              			for (var ll = 0; ll < dateData.length; ll++) {
-            				var tst = dateData[ll];
-            				mySet.add(tst['Date']);
-          				}
-          				for (let item of mySet){
-            				$("#curstr").append("<li><a href=''><u>"+ item +"</u></a></li>");
-          				} 
-					}
-					
-				curstr += "</ul>";
-			}
+     		secondCall(result);
 			$("#fa").append(curstr);      		
 		}
    	});
 
+function secondCall(result){
+
+	curstr = "<ul>";
+	var dateQuery = "";
+    for (var i = 0; i < result.length; i++) {
+		var arr = result[i];
+		curstr += "<li value='" + arr + "'>" + arr + "</li>" ;
+		curstr += "<ul>";
+		dateQuery = "SELECT * FROM Meetings WHERE Lead_1='"+ arr +"' OR Lead_2='"+ arr +"' OR Lead_3='"+ arr +"';"; 
+			
+		curstr += "</ul>";
+	
+
+	$.ajax({
+        type: 'post',
+        url: 'processQuery.php',
+        data: {
+            sqlQuery: dateQuery
+        },
+        success: function( dateData ) {
+            //console.log(dateData);
+            var mySet = new Set();
+            for (var ll = 0; ll < dateData.length; ll++) {
+           		var tst = dateData[ll];
+           		mySet.add(tst['Date']);
+         	}
+         	for (let item of mySet){
+           		curstr += "<li><a href=''><u>"+ item +"</u></a></li>";
+         	} 
+		}
+	});
+}
+}
 </script>
 
 <div id="header" class="row">
