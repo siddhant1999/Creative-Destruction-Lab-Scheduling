@@ -69,7 +69,7 @@ function secondCall(result){
     	       		//curstr += trew;
     	       		//console.log(trew);
     	     	}
-    	     	console.log(trew);
+    	     	//console.log(trew);
     	     	curstr += trew;
 			}
 		});
