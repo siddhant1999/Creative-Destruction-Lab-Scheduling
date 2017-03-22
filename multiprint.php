@@ -21,37 +21,59 @@
 </body>
 
 <script type="text/javascript">
-var curstr = "";
 
+theLeads = [];
+theList = [];
 $(document).ready()
    	$.ajax({
      		type: "POST",
      		url: "processQuery.php",
-     		async: false,
      		data: {
             	sqlQuery: "returnLeads"
         	},
      	success: function(result){
-     		secondCall(result);
-     		console.log(curstr);
-			$("#fa").append(curstr);      		
+     		leadArray = [];
+     		var dateQuery = "";
+    		for (var i = 0; i < result.length; i++) {
+    			//iterate over every Lead
+				var arr = result[i];
+				var ttt = "<li>" + arr + "</li>" ;
+				theLeads.push(ttt);
+				leadArray.push(arr);
+			}
+			for (var lll = 0; lll < leadArray.length; lll++) {
+				secondCall(leadArray[lll])
+			}
+
+     		//console.log(curstr);
+     		var curr = "<ul>";
+     		console.log("Lists: ");
+     		for (var qq = 0; qq < theLeads.length; qq++) {
+     			curr += theLeads[qq];
+     			curr += "<ul>" + theList[qq] + "</ul>";
+     			console.log(theList[qq]);
+     		}
+     		curr += "</ul>";
+     		console.log("curr");
+     		console.log(curr);
+     		console.log(theLeads);
+     		console.log(theList);
+			$("#fa").append(curr);      		
 		}
    	});
 
 function secondCall(result){
+	console.log("result");
+	console.log(result);
 
-	curstr = "<ul>";
 	var dateQuery = "";
-    for (var i = 0; i < result.length; i++) {
-		var arr = result[i];
-		curstr += "<li value='" + arr + "'>" + arr + "</li>" ;
-		curstr += "<ul>";
+    	//iterate over every Lead
+		var arr = result;
 		dateQuery = "SELECT * FROM Meetings WHERE Lead_1='"+ arr +"' OR Lead_2='"+ arr +"' OR Lead_3='"+ arr +"' ORDER BY Date ASC;"; 
-
+		console.log(dateQuery);
 		$.ajax({
     	    type: 'post',
     	    url: 'processQuery.php',
-    	    async: false,
     	    data: {
     	        sqlQuery: dateQuery
     	    },
@@ -65,16 +87,15 @@ function secondCall(result){
     	     	var trew = "";
     	     	for (let item of mySet){
     	       		trew += "<li><a href=''><u>"+ item +"</u></a></li>";
-    	       		//trew += "<li>Testing</li>";
-    	       		//curstr += trew;
-    	       		//console.log(trew);
     	     	}
-    	     	//console.log(trew);
-    	     	curstr += trew;
+    	     	console.log("trew" + trew);
+    	     	theList.push(trew);
+    	     	console.log(arr);
+    	     	console.log(trew);
 			}
 		});
-		curstr += "</ul>";
-	}
+		//curstr += "</ul>";
+	
 }
 </script>
 
