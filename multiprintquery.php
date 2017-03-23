@@ -58,11 +58,28 @@ if ($conn->connect_error) {
             //$tst .= $rr . "<br>";
         }
         //$tst .= "<br>";
-       
-        array_push($dateArray,array($i => $smallArray));
+
+        //array_push($dateArray,array("name" => $i));
+        //array_push($dateArray,array("dates" => $smallArray));
+        $tem = array(
+            'name' => $i,
+            'dates' => $smallArray
+            );
+
+        array_push($dateArray, $tem);
+
+
+        /*$post_data = array(
+            'item' => array(
+            'name' => $i,
+            'dates' => $smallArray
+            )
+        );*/
     }
     //$abc = json_encode($uniq);
-    $cba = json_encode(array('leads' => $dateArray));
+    //$cba = json_encode(array('leads' => $dateArray));
+    //$cba = json_encode($post_data);
+    $cba = json_encode($dateArray);
     //echo $abc;
     echo $cba;
 ?>
