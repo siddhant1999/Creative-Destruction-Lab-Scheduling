@@ -15,16 +15,19 @@
 
 <body>
 
+<div id="header" class="row">
+<div class="col-sm-3"></div>
+<div id="logocon" class="col-sm-1" ><img id="logo" src="/dots.png"/></div>
+</div>
+
+<div id="scheduleTable"></div>
+
 <div id="fa"></div>
 
 <div id="scheduleTable"></div>
 </body>
 
 <script type="text/javascript">
-
-theLeads = [];
-theList = [];
-var lll = 0;
 
 $(document).ready(function(){
    	$.ajax({
@@ -37,31 +40,6 @@ $(document).ready(function(){
    	});
 });
 
-</script>
-
-<div id="header" class="row">
-<div class="col-sm-3"></div>
-<div id="logocon" class="col-sm-1" ><img id="logo" src="/dots.png"/></div>
-</div>
-
-<div id="scheduleTable"></div>
-<script>
-//This is where we will process all requests
-
-var name = "<?php echo $leadName; ?>";
-var date = "<?php echo $curDate; ?>";
-var har = name;
-name = name.toLowerCase();
-var prev1, prev2;
-var subtracting = false;
-
-var isGrey = [];
-
-// we still need to implement a method of toggling between dates
-
-var query = "SELECT * FROM Meetings WHERE Date='"+ date +"' AND (LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL) ORDER BY Time_Start;" ;
-
-//executeQuery(query);
 </script>
 
 </html>
