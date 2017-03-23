@@ -16,7 +16,6 @@
 <body>
 
 <div id="header" class="row">
-<div class="col-sm-3"></div>
 <div id="logocon" class="col-sm-1" ><img id="logo" src="/dots.png"/></div>
 </div>
 
@@ -27,6 +26,8 @@
 <div id="scheduleTable"></div>
 </body>
 
+</html>
+
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -36,22 +37,32 @@ $(document).ready(function(){
      		url: "multiprintquery.php",
 
      	success: function(result){
-     		console.log(result);
+     		//console.log(result);
      		for (var i = 0; i < result.length; i++) {
-    			var arr = obj[i];
+    			var arr = result[i];
+    			console.log(arr);
     			var leadName = arr["name"];
+    			console.log("Lead: " + leadName);
     			str += "<li>"+ leadName +"</li><ul>";
 
-    			for (var j = 0; j < arr["date"].length; j++) {
-    				var theDate = arr["date"][j];
-    				str += "<li><a>"+ theDate +"</a></li>";
+    			for (var j = 0; j < arr["dates"].length; j++) {
+    				var theDate = arr["dates"][j];
+    				console.log("theDate: " + theDate);
+
+    				str += "<li><a href=''>"+ theDate +"</a></li>";
     			}
     			str+="</ul>";
-    		}str="</ul>";
+    		}
+    		str+="</ul>";
+    		console.log(str);
+    		$("#fa").append(str);
 		}
    	});
 });
 
 </script>
-
-</html>
+<style>
+ul {
+  list-style-type: none;
+}	
+</style>
