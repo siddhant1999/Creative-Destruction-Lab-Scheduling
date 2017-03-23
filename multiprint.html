@@ -30,12 +30,24 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	var str = "<ul>";
    	$.ajax({
      		type: "get",
      		url: "multiprintquery.php",
 
      	success: function(result){
-     		console.log(result);     		
+     		console.log(result);
+     		for (var i = 0; i < result.length; i++) {
+    			var arr = obj[i];
+    			var leadName = arr["name"];
+    			str += "<li>"+ leadName +"</li><ul>";
+
+    			for (var j = 0; j < arr["date"].length; j++) {
+    				var theDate = arr["date"][j];
+    				str += "<li><a>"+ theDate +"</a></li>";
+    			}
+    			str+="</ul>";
+    		}str="</ul>";
 		}
    	});
 });
