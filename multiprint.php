@@ -28,85 +28,15 @@ var lll = 0;
 
 $(document).ready(function(){
    	$.ajax({
-     		type: "POST",
-     		url: "processQuery.php",
-     		data: {
-            	sqlQuery: "returnLeads"
-        	},
+     		type: "get",
+     		url: "multiprintquery.php",
+
      	success: function(result){
-     		leadArray = [];
-     		var dateQuery = "";
-    		for (var i = 0; i < result.length; i++) {
-    			//iterate over every Lead
-				var arr = result[i];
-				var ttt = "<li>" + arr + "</li>" ;
-				theLeads.push(ttt);
-				leadArray.push(arr);
-			}
-			for (; lll < leadArray.length; lll++) {
-				secondCall(leadArray[lll])
-			}
-			
-     		//console.log(curstr);
-     		     		
+     		console.log(result);     		
 		}
    	});
-   	//finished();
 });
-function finished(){
-	var curr = "<ul>";
-     	console.log("Lists: ");
-     	for (var qq = 0; qq < theLeads.length; qq++) {
-     		curr += theLeads[qq];
-     		curr += "<ul>" + theList[qq] + "</ul>";
-     		console.log(theList[qq]);
-     	}
-     	curr += "</ul>";
-     	console.log("curr");
-     	console.log(curr);
-     	console.log(theLeads);
-     	console.log(theList);
-		$("#fa").append(curr); 
-}
 
-function secondCall(result){
-	console.log("result");
-	console.log(result);
-
-	var dateQuery = "";
-    	//iterate over every Lead
-		var arr = result;
-		dateQuery = "SELECT * FROM Meetings WHERE Lead_1='"+ arr +"' OR Lead_2='"+ arr +"' OR Lead_3='"+ arr +"' ORDER BY Date ASC;"; 
-		console.log(dateQuery);
-		$.ajax({
-    	    type: 'post',
-    	    url: 'processQuery.php',
-    	    data: {
-    	        sqlQuery: dateQuery
-    	    },
-    	    success: function( dateData ) {
-    	        //console.log(dateData);
-    	        var mySet = new Set();
-    	        for (var ll = 0; ll < dateData.length; ll++) {
-    	       		var tst = dateData[ll];
-    	       		mySet.add(tst['Date']);
-    	     	}
-    	     	var trew = "";
-    	     	for (let item of mySet){
-    	       		trew += "<li><a href=''><u>"+ item +"</u></a></li>";
-    	     	}
-    	     	console.log("trew" + trew);
-    	     	theList.push(trew);
-    	     	console.log(arr);
-    	     	console.log(trew);
-    	     	console.log("This is the value of lll: " + lll);
-    	     	
-    	     	
-			}
-		});if (lll == 29) {finished();}
-		//curstr += "</ul>";
-	
-}
 </script>
 
 <div id="header" class="row">
