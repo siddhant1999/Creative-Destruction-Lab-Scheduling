@@ -24,7 +24,9 @@
 
 theLeads = [];
 theList = [];
-$(document).ready()
+var lll = 0;
+
+$(document).ready(function(){
    	$.ajax({
      		type: "POST",
      		url: "processQuery.php",
@@ -41,26 +43,31 @@ $(document).ready()
 				theLeads.push(ttt);
 				leadArray.push(arr);
 			}
-			for (var lll = 0; lll < leadArray.length; lll++) {
+			for (; lll < leadArray.length; lll++) {
 				secondCall(leadArray[lll])
 			}
-
+			
      		//console.log(curstr);
-     		var curr = "<ul>";
-     		console.log("Lists: ");
-     		for (var qq = 0; qq < theLeads.length; qq++) {
-     			curr += theLeads[qq];
-     			curr += "<ul>" + theList[qq] + "</ul>";
-     			console.log(theList[qq]);
-     		}
-     		curr += "</ul>";
-     		console.log("curr");
-     		console.log(curr);
-     		console.log(theLeads);
-     		console.log(theList);
-			$("#fa").append(curr);      		
+     		     		
 		}
    	});
+   	//finished();
+});
+function finished(){
+	var curr = "<ul>";
+     	console.log("Lists: ");
+     	for (var qq = 0; qq < theLeads.length; qq++) {
+     		curr += theLeads[qq];
+     		curr += "<ul>" + theList[qq] + "</ul>";
+     		console.log(theList[qq]);
+     	}
+     	curr += "</ul>";
+     	console.log("curr");
+     	console.log(curr);
+     	console.log(theLeads);
+     	console.log(theList);
+		$("#fa").append(curr); 
+}
 
 function secondCall(result){
 	console.log("result");
@@ -92,8 +99,11 @@ function secondCall(result){
     	     	theList.push(trew);
     	     	console.log(arr);
     	     	console.log(trew);
+    	     	console.log("This is the value of lll: " + lll);
+    	     	
+    	     	
 			}
-		});
+		});if (lll == 29) {finished();}
 		//curstr += "</ul>";
 	
 }
