@@ -21,7 +21,7 @@
 
 <div id="scheduleTable"></div>
 
-<div id="fa"></div>
+<div id="fa" style="margin-top: 10px;"></div>
 
 <div id="scheduleTable"></div>
 </body>
@@ -43,13 +43,14 @@ $(document).ready(function(){
     			console.log(arr);
     			var leadName = arr["name"];
     			console.log("Lead: " + leadName);
-    			str += "<li>"+ leadName +"</li><ul>";
+    			str += "<li style='font-size:140%;'>"+ leadName +"</li><ul>";
 
     			for (var j = 0; j < arr["dates"].length; j++) {
     				var theDate = arr["dates"][j];
     				console.log("theDate: " + theDate);
+    				str+="<div class='col-xs-4 col-sm-3 col-md-2 col-md-offset-2 everything-checkbox'> <div class='checkbox'>";
 
-    				str += "<li><a href=''>"+ theDate +"</a></li>";
+    				str += "<li for='checkbox'><a href=''>"+ theDate +"</a><input type='checkbox' id='checkbox1' class='checkbox style-2 pull-right' checked='checked'/></li>";
     			}
     			str+="</ul>";
     		}
