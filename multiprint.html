@@ -15,15 +15,26 @@
 
 <body>
 
-<div id="header" class="row">
-<div id="logocon" class="col-sm-1" ><img id="logo" src="/dots.png"/></div>
+
+
+<div class="container">
+    <div id="header" class="row">
+        <div id="logocon" class="col-sm-1" ><img id="logo" src="/dots.png"/></div>
+    </div>
+    <div class="row">
+        <ul class="col-sm-5">
+            <li  style="font-size:120%; margin-top: 7px;"><b>Multi-Selects</b></li>
+            <ul style="margin-top: 4px;">
+                <li style="min-width: 150px;" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 everything-checkbox"><a href=""><b>Select All</b></a><input name="select-all" id="select-all" type="checkbox" class="checkbox style-2 pull-right" /></li><br>
+            </ul>
+        </ul>
+    </div>
+
+    <div id="fa" class="row" style="margin-top: 10px;">
+        <!--this is where the ul is-->
+    </div>
 </div>
 
-<div id="scheduleTable"></div>
-
-<div id="fa" style="margin-top: 10px;"></div>
-
-<div id="scheduleTable"></div>
 </body>
 
 </html>
@@ -31,7 +42,9 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var str = "<ul>";
+	var str = "<ul class='col-sm-5'>";
+
+
    	$.ajax({
      		type: "get",
      		url: "multiprintquery.php",
@@ -40,25 +53,39 @@ $(document).ready(function(){
      		//console.log(result);
      		for (var i = 0; i < result.length; i++) {
     			var arr = result[i];
-    			console.log(arr);
+    			//console.log(arr);
     			var leadName = arr["name"];
-    			console.log("Lead: " + leadName);
-    			str += "<li style='font-size:140%;'>"+ leadName +"</li><ul>";
+    			//console.log("Lead: " + leadName);
+    			str += "<li style='font-size:120%; margin-top: 7px;'>"+ leadName +"</li><ul  style='margin-top: 4px;'>";
 
     			for (var j = 0; j < arr["dates"].length; j++) {
     				var theDate = arr["dates"][j];
-    				console.log("theDate: " + theDate);
-    				str+="<div class='col-xs-4 col-sm-3 col-md-2 col-md-offset-2 everything-checkbox'> <div class='checkbox'>";
 
-    				str += "<li for='checkbox'><a href=''>"+ theDate +"</a><input type='checkbox' id='checkbox1' class='checkbox style-2 pull-right' checked='checked'/></li>";
+                    str += '<li style="min-width: 150px;" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 everything-checkbox"><a href="">'+ theDate +'</a><input type="checkbox" class="checkbox style-2 pull-right" /></li><br>';
     			}
     			str+="</ul>";
     		}
     		str+="</ul>";
-    		console.log(str);
+    		//console.log(str);
     		$("#fa").append(str);
 		}
    	});
+
+});
+
+$('#select-all').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    }
+    if(!(this.checked)) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = false;                        
+        });
+    }
 });
 
 </script>
