@@ -16,6 +16,7 @@ if ($conn->connect_error) {
 }
 
 $src1= $_POST['sqlQuery'];
+//$src1= "returnVentures";
 
 if ($src1 == "returnLeads"){
     $str = "SELECT Lead_1, Lead_2, Lead_3 FROM Meetings WHERE LENGTH(Lead_1) > 0 AND Lead_1 IS NOT NULL;";
@@ -38,7 +39,21 @@ if ($src1 == "returnLeads"){
     $abc = json_encode($uniq);
     echo $abc;
 }
+else if ($src1 == "returnVentures"){
+    $str = "SELECT Venture_Name FROM Meetings WHERE LENGTH(Venture_Name) > 0 AND Venture_Name IS NOT NULL;";
+    $result = $conn->query($str);
 
+    $fullArray = array();
+    while ($row = $result->fetch_array()){
+        $row1 = array();
+        array_push($fullArray, $row['Venture_Name']);
+    }
+    header('Content-Type: application/json');
+    $uniq = array_unique($fullArray);
+    sort($uniq);
+    $abc = json_encode($uniq);
+    echo $abc;
+}
 else {
     $result = $conn->query($src1);
     

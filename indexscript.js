@@ -93,6 +93,8 @@ lookupProfile["Shelley Zhuang"	https://www.creativedestructionlab.com/people/she
 function startSearch(){
 
 	var name = $("#venture option:selected").val();
+	console.log(name);
+	name = name.replace("&", "&amp;");
 	har = name;
 	//create the query
 	//console.log(name);
@@ -205,9 +207,12 @@ function process(obj){
 		//k so now that we have the times this is a good time to put in the breaks
 		//just check if the end time doesnt match up with the next start time, and if not add a break
 
-
-
-		if (prev1!=a && prev2 !=b) {
+		
+		if (a == b) {
+      distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a +"</td>";
+    }
+    else if (prev1!=a && prev2 !=b) {
+		
 
 			if (prev2 != a && prev2) {
 				//add break
@@ -330,7 +335,7 @@ function process(obj){
 		ut = "qq190485";
 		pw = "Jix5aiquai";
 	}
-	$("#scheduleTable").append("<h4>Network: <b>UofT</b> | Username: <b>"+ ut + "</b> | Password: <b>" + pw + "</b></h4>");
+	//$("#scheduleTable").append("<h4>Network: <b>UofT</b> | Username: <b>"+ ut + "</b> | Password: <b>" + pw + "</b></h4>");
 	$("#scheduleTable").append("<h4><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
 	$("#venture").remove();
 	$("#subven").remove();

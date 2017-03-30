@@ -19,19 +19,25 @@
 
 <div class="container">
     <div id="header" class="row">
-        <div id="logocon" class="col-sm-1" ><img id="logo" src="/dots.png"/></div>
+        <div id="logocon" class="col-lg-1" ><img id="logo" src="/dots.png"/></div><div class="col-lg-11"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><button id="submitChecked" onclick="submitted()">Submit</button></div>
     </div>
     <div class="row">
         <ul class="col-sm-5">
-            <li  style="font-size:120%; margin-top: 7px;"><b>Multi-Selects</b></li>
+            <li  style="font-size:140%; margin-top: 7px;"><b>Multi-Selects</b></li>
             <ul style="margin-top: 4px;">
-                <li style="min-width: 150px;" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 everything-checkbox"><a href=""><b>Select All</b></a><input name="select-all" id="select-all" type="checkbox" class="checkbox style-2 pull-right" /></li><br>
+                <li style="min-width: 150px; font-size: 120%;" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 everything-checkbox"><a href=""><b>Select All</b></a><input name="select-all" id="select-all" type="checkbox" class="checkbox style-2 pull-right" /></li><br>
             </ul>
         </ul>
     </div>
 
     <div id="fa" class="row" style="margin-top: 10px;">
         <!--this is where the ul is-->
+    </div>
+    <div class="row">
+        <div class=""><button onclick="submitted()">Submit</button></div>
     </div>
 </div>
 
@@ -56,12 +62,14 @@ $(document).ready(function(){
     			//console.log(arr);
     			var leadName = arr["name"];
     			//console.log("Lead: " + leadName);
-    			str += "<li style='font-size:120%; margin-top: 7px;'>"+ leadName +"</li><ul  style='margin-top: 4px;'>";
+    			str += "<li style='font-size:120%; margin-top: 7px;'>"+ leadName +"</li>";
+
+                str+="<ul id='"+ leadName.replace(" ", "") +"' style='margin-top: 4px;'>";
 
     			for (var j = 0; j < arr["dates"].length; j++) {
     				var theDate = arr["dates"][j];
 
-                    str += '<li style="min-width: 150px;" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 everything-checkbox"><a href="">'+ theDate +'</a><input type="checkbox" class="checkbox style-2 pull-right" /></li><br>';
+                    str += '<li id="'+ leadName.replace(" ", "") + "_" + theDate.replace(" ", "") +'" style="min-width: 150px;" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 everything-checkbox"><a href="">'+ theDate.replace(" ", "") +'</a><input type="checkbox" class="checkbox style-2 pull-right" /></li><br>';
     			}
     			str+="</ul>";
     		}
@@ -87,6 +95,21 @@ $('#select-all').click(function(event) {
         });
     }
 });
+
+function submitted(){
+    console.log("here");
+        $(':checkbox').each(function() {
+            if(this.checked) {
+                var dateID = $(this).parent('li').attr('id');
+                var tempid = "#" + dateID; 
+                console.log(tempid);
+                var leadID = $(tempid).parent('ul').attr('id');
+                console.log(dateID);
+            // find the li and ul ids and run the process 
+            }                      
+        });
+    
+}
 
 </script>
 <style>

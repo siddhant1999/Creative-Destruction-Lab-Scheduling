@@ -19,7 +19,7 @@
 
 <select id="venture" class="selectpicker">
 
-<option value="A&#38amp;K Robotics" >A&#38K Robotics</option>
+<!--<option value="A&#38amp;K Robotics" >A&#38K Robotics</option>
 <option value="Acerta" > Acerta</option>
 <option value="Ada">Ada</option>
 <option value="Automat" >Automat</option>
@@ -74,7 +74,7 @@
 <option value="Vention" >Vention</option>
 <option value="Vertex.AI" >Vertex.AI</option>
 <option value="Xanadu" >Xanadu</option>
-<option value="Yazabi" >Yazabi</option>
+<option value="Yazabi" >Yazabi</option>-->
 </select>
 
 <button id="subven" onclick="startSearch()">Submit</button>
@@ -84,3 +84,23 @@
 </body>
 </html>
 
+<script type="text/javascript">
+$(document).ready()
+   	$.ajax({
+     		type: "POST",
+     		url: "processQuery.php",
+     		async: false,
+     		data: {
+            sqlQuery: "returnVentures"
+        },
+     	success: function(result){
+     		var curstr = "";
+      		for (var i = 0; i < result.length; i++) {
+				var arr = result[i];
+				curstr += "<option value='" + arr + "'>" + arr + "</option>" ;
+			}
+			$("#venture").append(curstr);      		
+		}
+   	});
+
+</script>

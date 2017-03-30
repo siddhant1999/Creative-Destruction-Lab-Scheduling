@@ -21,8 +21,10 @@ function executeQuery(query){
               mySet.add(arr['Date']);
           }
           for (let item of mySet){
-            str = "?faname=" + har + "&date=" + item;
-            $("#titleHead").append("<h4 class='printRemove'><a href='"+ str +"'>View: <u>"+ item +"</a></u></h4>");
+
+            str = '?faname=' + har+ '&date=' + item;
+            //console.log("item: " + str);
+            $("#titleHead").append('<h4 class="printRemove"><a href="'+ str +'">View: <u>'+ item +'</a></u></h4>');
           } 
         
           
@@ -208,10 +210,10 @@ function process(obj){
 
 function startSearch(){
   var name = $("#fa option:selected").val();
-  
-  str = "?faname=" + name + "&date=2017-02-15"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
+  //alert(name);
+  str = "http://cdlschedules.com/fa.php?faname=" + name + "&date=2017-04-05"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
 
-  window.location.replace(str);
+  window.location.assign(str);
   //this is redirecting to the next page in the case where the selection page is presented
 
   //var query = "SELECT * FROM Meetings WHERE LOWER(Lead_1)='" + name +"' OR (Meeting_Number IS NULL AND is_AM='" + queryAM +  "' AND Date='"+ queryDate +"' ) ORDER BY Time_Start;" ;

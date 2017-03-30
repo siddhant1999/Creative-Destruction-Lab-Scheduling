@@ -20,6 +20,7 @@ function deleting(){
     	$.ajax({
     	    type: 'post',
     	    url: 'processQuery.php',
+    	    async: false,
     	    data: {
     	        sqlQuery: del
     	    },
@@ -190,11 +191,14 @@ function customImport(){
 	$("#ven").remove();
 	$("#led").remove();
 	$("#custombutton").remove();
-	
-
+	console.log("inserting");
+	for (var i = 0; i < array.length; i++) {
+		console.log(array[i]);
+	}
 	$.ajax({
    	    type: 'post',
    	    url: 'processTables.php',
+   	    async: false,
    	    data: {
    	        sqlInserts: array
    	    },
@@ -397,10 +401,14 @@ function processTables(numLeads, numMeets){
 
 function finalsubmit () {
 	$("#finalImport").remove();
-
+	console.log("inserting");
+	for (var i = 0; i < allstrings.length; i++) {
+		console.log(allstrings[i]);
+	}
     $.ajax({
         type: 'post',
         url: 'processTables.php',
+        async: false,
         data: {
             sqlInserts: allstrings
         },

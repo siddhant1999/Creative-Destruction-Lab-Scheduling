@@ -1,6 +1,6 @@
 <html>
 <head>
-
+<title>FA Schedule</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -26,7 +26,7 @@ if (is_null($leadName) And is_null($curDate)):
 
 <body>
 
-<select id="fa" class="selectpicker"></select>
+<select id="fa" class="selectpicker col-sm-6 col-md-4 col-lg-3 col-xs-6"></select>
 <button id="subven" onclick="startSearch()">Submit</button>
 <div id="scheduleTable"></div>
 </body>
@@ -43,7 +43,7 @@ if (is_null($leadName) And is_null($curDate)):
      		var curstr = "";
       		for (var i = 0; i < result.length; i++) {
 				var arr = result[i];
-				curstr += "<option value='" + arr + "'>" + arr + "</option>" ;
+				curstr += '<option value="' + arr + '">' + arr + '</option>';
 			}
 			$("#fa").append(curstr);      		
 		}
@@ -68,6 +68,8 @@ else :
 var name = "<?php echo $leadName; ?>";
 var date = "<?php echo $curDate; ?>";
 var har = name;
+name = name.replace("'", "/'");
+//alert("name is: " + name);
 name = name.toLowerCase();
 var prev1, prev2;
 var subtracting = false;
@@ -76,8 +78,8 @@ var isGrey = [];
 
 // we still need to implement a method of toggling between dates
 
-var query = "SELECT * FROM Meetings WHERE Date='"+ date +"' AND (LOWER(Lead_1)='" + name +"' OR LOWER(Lead_2)='" + name +"' OR LOWER(Lead_3)='" + name +"' OR Meeting_Number IS NULL) ORDER BY Time_Start;" ;
-
+var query = 'SELECT * FROM Meetings WHERE Date="'+ date +'" AND (LOWER(Lead_1)="' + har.toLowerCase() +'" OR LOWER(Lead_2)="' + har.toLowerCase() +'" OR LOWER(Lead_3)="' + har.toLowerCase() +'" OR Meeting_Number IS NULL) ORDER BY Time_Start;' ;
+//alert(query);
 executeQuery(query);
 </script>
 

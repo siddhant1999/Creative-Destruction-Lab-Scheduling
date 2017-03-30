@@ -70,11 +70,18 @@ h3,h4, #titleHead {
 	text-align: center;
 }
 
+
 @media (max-width: 767px) {
 
 	select {
-  		font-size: 240%;
+  		font-size: 900%;
+  		color: red;
+
 	}
+	option {
+		color: red;
+	}
+
 }	
 
 select {
