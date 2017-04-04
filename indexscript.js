@@ -173,7 +173,7 @@ var isGrey = [];
 
 function process(obj){
 
-	var distable = "<table class='mytable'><thead><tr><th style='min-width: 9.2em;'>Time</th><th>Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
+	var distable = "<table class='mytable'><thead><tr><th style='min-width: 9.9em;'>Time</th><th>Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
 	var prev1 = "";
 	var prev2 = "";
 
@@ -300,42 +300,42 @@ function process(obj){
 	var ut, pw;
 
 	if (har[0] <= 'B') {
-		ut = "qq190481";
-		pw = "Uve2eothaa";
+		ut = "qq195145";
+		pw = "Cuati3viti";
 	}
 	else if (har[0] == 'C' || (har[0] == 'D' && har[0] == 'a')) {
-		ut = "qq190482";
-		pw = "eu2Kapeisi"
+		ut = "qq195146";
+		pw = "Vieng4riya"
 	}
 	else if (har[0] < 'F') {
-		ut = "qq190483";
-		pw = "jo5Uqueima";
+		ut = "qq195147";
+		pw = "aegh7Eeyei";
 	}
 	else if (har[0] <= 'G') {
-		ut = "qq190484";
-		pw = "ahT5reegee";
+		ut = "qq195148";
+		pw = "ooSij4sohx";
 	}
 	else if (har[0] <= 'K') {
-		ut = "qq190469";
-		pw = "ieCe8pheek";
+		ut = "qq195149";
+		pw = "oWoo7kaixe";
 	}
 	else if (har[0] <= 'N') {
-		ut = "qq190476";
-		pw = "quiexai7It";
+		ut = "qq195150";
+		pw = "cuf2zouDoo";
 	}
 	else if (har[0] <= 'R') {
-		ut = "qq190479";
-		pw = "phiaLira7r";
+		ut = "qq195151";
+		pw = "tieR4heeng";
 	}	
 	else if (har[0] <= 'T') {
-		ut = "qq190480";
-		pw = "eth2oeLees";
+		ut = "qq195152";
+		pw = "Fiesomah9o";
 	}
 	else {
-		ut = "qq190485";
-		pw = "Jix5aiquai";
+		ut = "qq195153";
+		pw = "yaaZishoh8";
 	}
-	//$("#scheduleTable").append("<h4>Network: <b>UofT</b> | Username: <b>"+ ut + "</b> | Password: <b>" + pw + "</b></h4>");
+	$("#scheduleTable").append("<h4>Network: <b>UofT</b> | Username: <b>"+ ut + "</b> | Password: <b>" + pw + "</b></h4>");
 	$("#scheduleTable").append("<h4><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
 	$("#venture").remove();
 	$("#subven").remove();

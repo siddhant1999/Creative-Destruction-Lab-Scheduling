@@ -49,19 +49,17 @@
 
 $(document).ready(function(){
 	var str = "<ul class='col-sm-5'>";
-    alert("OVER HERE");
 
-   	$.ajax({
-     		type: "get",
+   	$.get({
      		url: "multiprintquery.php",
-
      	success: function(result){
-     		//console.log(result);
+            //alert("here");
+     		console.log(result);
      		for (var i = 0; i < result.length; i++) {
     			var arr = result[i];
-    			//console.log(arr);
+    			console.log(arr);
     			var leadName = arr["name"];
-    			//console.log("Lead: " + leadName);
+    			console.log("Lead: " + leadName);
     			str += "<li style='font-size:120%; margin-top: 7px;'>"+ leadName +"</li>";
 
                 str+="<ul id='"+ leadName.replace(" ", "") +"' style='margin-top: 4px;'>";
@@ -76,7 +74,10 @@ $(document).ready(function(){
     		str+="</ul>";
     		//console.log(str);
     		$("#fa").append(str);
-		}
+		},
+        error: function(){
+            alert("error");
+        }
    	});
 
 });
@@ -97,13 +98,15 @@ $('#select-all').click(function(event) {
 });
 
 function submitted(){
-    console.log("here");
+    //console.log("here");
         $(':checkbox').each(function() {
             if(this.checked) {
+                console.log("here");
                 var dateID = $(this).parent('li').attr('id');
                 var tempid = "#" + dateID; 
-                console.log(tempid);
+                //console.log(tempid);
                 var leadID = $(tempid).parent('ul').attr('id');
+                //var res = leadID.split(" ");
                 console.log(dateID);
             // find the li and ul ids and run the process 
             }                      

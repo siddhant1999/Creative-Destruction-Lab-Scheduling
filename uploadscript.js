@@ -178,7 +178,7 @@ function customImport(){
 		//every one of these needs its own insertion
 		if (venturesincluded[i].length < 1) {break;}
 		console.log("Over here, importing custom venture event");
-		var inse = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name, is_Custom) VALUES ('" + curdate + "' , " + is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "' , '1');";
+		var inse = "INSERT INTO Meetings (Date, is_AM, Time_Start, Time_End, Description, Venture_Name, is_Custom, Room_Number) VALUES ('" + curdate + "' , " + is_morni + " , '" + starttime + "', '" + endtime + "' , '" + description1 + "','" + venturesincluded[i] + "' , '1', '" + room + "');";
 
 		array.push(inse);
 		
@@ -189,6 +189,7 @@ function customImport(){
 	$("#timepid").remove();
 	$("#des").remove();
 	$("#ven").remove();
+	$("#roomnum").remove();
 	$("#led").remove();
 	$("#custombutton").remove();
 	console.log("inserting");

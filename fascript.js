@@ -93,6 +93,7 @@ function process(obj){
 
     if (a == b) {
       distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a +"</td>";
+      
     }
     else if (prev1!=a && prev2 !=b) {
 
@@ -139,10 +140,12 @@ function process(obj){
 
         if (arr['Lead_1']==ty) {
           if (arr['Room_Number']) {
-            distable += "<td>" + arr["Description"] + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
+            distable += "<td class='greyback'>" + arr["Description"] + "</td><td class='greyback'>Room <b>" + arr['Room_Number'] + "</b></td>";
+            isGrey.push(i);
           }
           else {
-            distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+            distable += "<td colspan='2' class='greyback'>" + arr["Description"] + "</td>";
+            isGrey.push(i);
           }
           //console.log("Yay");
         }
