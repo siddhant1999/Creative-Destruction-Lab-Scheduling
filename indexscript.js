@@ -40,58 +40,58 @@ function temp(str){
 var lookupProfile = [];
 
 function makeLookup(){
-/*lookupProfile["Dr. T. Chen Fong"	https://www.creativedestructionlab.com/people/dr-t-chen-fong/	
-lookupProfile["John Francis"	https://www.creativedestructionlab.com/people/john-francis/	
-lookupProfile["Michael Hyatt"https://www.creativedestructionlab.com/people/michael-hyatt/
-lookupProfile["Tony Lacavera"https://www.creativedestructionlab.com/people/tony-lacavera/ 
-lookupProfile["Ted Livingston"	https://www.creativedestructionlab.com/people/ted-livingston/
-lookupProfile["David Ossip"	https://www.creativedestructionlab.com/people/david-ossip/ 
-lookupProfile["Michael Serbinis"	https://www.creativedestructionlab.com/people/michael-serbinis/
-lookupProfile["Lisa Shields"	https://www.creativedestructionlab.com/people/lisa-shields/ 
-lookupProfile["Barney Pell"	https://www.creativedestructionlab.com/people/barney-pell/
-lookupProfile["Shivon Zilis"	https://www.creativedestructionlab.com/people/shivon-zilis/
-lookupProfile["Dror Berman"	https://www.creativedestructionlab.com/people/dror-berman/
-lookupProfile["Ken Nickerson" https://www.creativedestructionlab.com/people/ken-nickerson/
-lookupProfile["Manish Patel"	https://www.creativedestructionlab.com/people/manish-patel/
-lookupProfile["Tomi Poutanen" https://www.creativedestructionlab.com/people/tomi-poutanen/
-lookupProfile["Geordie Rose"	https://www.creativedestructionlab.com/people/geordie-rose/
-lookupProfile["William Tunstall-Pedoe"	https://www.creativedestructionlab.com/people/william-tunstall-pedoe/
-lookupProfile["Lyon Wong"	https://www.creativedestructionlab.com/people/lyon-wong/
-lookupProfile["Nick Adams"	https://www.creativedestructionlab.com/people/nick-adams/
-lookupProfile["Umair Akeel"	https://www.creativedestructionlab.com/people/umair-akeel/
-lookupProfile["Nick Beim"	https://www.creativedestructionlab.com/people/nick-beim/
-lookupProfile["Dennis Bennie"	https://www.creativedestructionlab.com/people/dennis-bennie/
-lookupProfile["Andy Burgess"	https://www.creativedestructionlab.com/people/andy-burgess/
-lookupProfile["Nicolas Chapados"	https://www.creativedestructionlab.com/people/nicolas-chapados/
-lookupProfile["Tyson Clark"	https://www.creativedestructionlab.com/people/tyson-clark/
-lookupProfile["Zavain Dar"	https://www.creativedestructionlab.com/people/zavain-dar/
-lookupProfile["Sally Daub"	https://www.creativedestructionlab.com/people/sally-daub/
-lookupProfile["Dan Debow"	https://www.creativedestructionlab.com/people/dan-debow/
-lookupProfile["Haig Farris"	https://www.creativedestructionlab.com/people/haig-farris/
-lookupProfile["Richard Hyatt"	https://www.creativedestructionlab.com/people/richard-hyatt/
-lookupProfile["Moe Kermani"	https://www.creativedestructionlab.com/people/moe-kermani/
-lookupProfile["Johann Koss"	https://www.creativedestructionlab.com/people/johann-koss/
-lookupProfile["Allen Lau"	https://www.creativedestructionlab.com/people/allen-lau/
-lookupProfile["Lee Lau"	https://www.creativedestructionlab.com/people/lee-lau/
-lookupProfile["Jevon MacDonald"	https://www.creativedestructionlab.com/people/jevon-macdonald/
-lookupProfile["Sanjay Mittal"	https://www.creativedestructionlab.com/people/sanjay-mittal/
-lookupProfile["Ash Munshi"	https://www.creativedestructionlab.com/people/ash-munshi/
-lookupProfile["Lally Rementilla"	https://www.creativedestructionlab.com/people/lally-rementilla/
-lookupProfile["Ashmeet Sidana"	https://www.creativedestructionlab.com/people/ashmeet-sidana/
-lookupProfile["Micah Siegel"	https://www.creativedestructionlab.com/people/micah-siegel/
-lookupProfile["Shahram Tafazoli"	https://www.creativedestructionlab.com/people/shahram-tafazoli/
-lookupProfile["Don Tapscott"	https://www.creativedestructionlab.com/people/don-tapscott/
-lookupProfile["Stephan Uhrenbacher"	https://www.creativedestructionlab.com/people/stephan-uhrenbacher/
-lookupProfile["Adrian Weller" https://www.creativedestructionlab.com/people/adrian-weller/
-lookupProfile["Boris Wertz"	https://www.creativedestructionlab.com/people/boris-wert/
-lookupProfile["Vincent Win"	https://www.creativedestructionlab.com/people/vincent-win/
-lookupProfile["Shelley Zhuang"	https://www.creativedestructionlab.com/people/shelley-zhuang/ 
-*/	
+lookupProfile["Dr. T. Chen Fong"]=	"https://www.creativedestructionlab.com/people/dr-t-chen-fong/";
+lookupProfile["John Francis"]="https://www.creativedestructionlab.com/people/john-francis/";	
+lookupProfile["Michael Hyatt"]="https://www.creativedestructionlab.com/people/michael-hyatt/";
+lookupProfile["Tony Lacavera"]="https://www.creativedestructionlab.com/people/tony-lacavera/ ";
+lookupProfile["Ted Livingston"]="https://www.creativedestructionlab.com/people/ted-livingston/";
+lookupProfile["David Ossip"]="https://www.creativedestructionlab.com/people/david-ossip/";
+lookupProfile["Michael Serbinis"]="https://www.creativedestructionlab.com/people/michael-serbinis/";
+lookupProfile["Lisa Shields"]="https://www.creativedestructionlab.com/people/lisa-shields/";
+lookupProfile["Barney Pell"]="https://www.creativedestructionlab.com/people/barney-pell/";
+lookupProfile["Shivon Zilis"]="https://www.creativedestructionlab.com/people/shivon-zilis/";
+lookupProfile["Dror Berman"]="https://www.creativedestructionlab.com/people/dror-berman/";
+lookupProfile["Ken Nickerson"]="https://www.creativedestructionlab.com/people/ken-nickerson/";
+lookupProfile["Manish Patel"]="https://www.creativedestructionlab.com/people/manish-patel/";
+lookupProfile["Tomi Poutanen"]="https://www.creativedestructionlab.com/people/tomi-poutanen/";
+lookupProfile["Geordie Rose"]="https://www.creativedestructionlab.com/people/geordie-rose/";
+lookupProfile["William Tunstall-Pedoe"]="https://www.creativedestructionlab.com/people/william-tunstall-pedoe/";
+lookupProfile["Lyon Wong"]="https://www.creativedestructionlab.com/people/lyon-wong/";
+lookupProfile["Nick Adams"]="https://www.creativedestructionlab.com/people/nick-adams/";
+lookupProfile["Umair Akeel"]="https://www.creativedestructionlab.com/people/umair-akeel/";
+lookupProfile["Nick Beim"]="https://www.creativedestructionlab.com/people/nick-beim/";
+lookupProfile["Dennis Bennie"]="https://www.creativedestructionlab.com/people/dennis-bennie/";
+lookupProfile["Andy Burgess"]="https://www.creativedestructionlab.com/people/andy-burgess/";
+lookupProfile["Nicolas Chapados"]="https://www.creativedestructionlab.com/people/nicolas-chapados/";
+lookupProfile["Tyson Clark"]="https://www.creativedestructionlab.com/people/tyson-clark/";
+lookupProfile["Zavain Dar"]="https://www.creativedestructionlab.com/people/zavain-dar/";
+lookupProfile["Sally Daub"]="https://www.creativedestructionlab.com/people/sally-daub/";
+lookupProfile["Dan Debow"]="https://www.creativedestructionlab.com/people/dan-debow/";
+lookupProfile["Haig Farris"]="https://www.creativedestructionlab.com/people/haig-farris/";
+lookupProfile["Richard Hyatt"]="https://www.creativedestructionlab.com/people/richard-hyatt/";
+lookupProfile["Moe Kermani"]="https://www.creativedestructionlab.com/people/moe-kermani/";
+lookupProfile["Johann Koss"]="https://www.creativedestructionlab.com/people/johann-koss/";
+lookupProfile["Allen Lau"]="https://www.creativedestructionlab.com/people/allen-lau/";
+lookupProfile["Lee Lau"]="https://www.creativedestructionlab.com/people/lee-lau/";
+lookupProfile["Jevon MacDonald"]="https://www.creativedestructionlab.com/people/jevon-macdonald/";
+lookupProfile["Sanjay Mittal"]="https://www.creativedestructionlab.com/people/sanjay-mittal/";
+lookupProfile["Ash Munshi"]="https://www.creativedestructionlab.com/people/ash-munshi/";
+lookupProfile["Lally Rementilla"]="https://www.creativedestructionlab.com/people/lally-rementilla/";
+lookupProfile["Ashmeet Sidana"]="https://www.creativedestructionlab.com/people/ashmeet-sidana/";
+lookupProfile["Micah Siegel"]="https://www.creativedestructionlab.com/people/micah-siegel/";
+lookupProfile["Shahram Tafazoli"]="https://www.creativedestructionlab.com/people/shahram-tafazoli/";
+lookupProfile["Don Tapscott"]="https://www.creativedestructionlab.com/people/don-tapscott/";
+lookupProfile["Stephan Uhrenbacher"]="https://www.creativedestructionlab.com/people/stephan-uhrenbacher/";
+lookupProfile["Adrian Weller"]="https://www.creativedestructionlab.com/people/adrian-weller/";
+lookupProfile["Boris Wertz"]="https://www.creativedestructionlab.com/people/boris-wert/";
+lookupProfile["Vincent Win"]="https://www.creativedestructionlab.com/people/vincent-win/";
+lookupProfile["Shelley Zhuang"]="https://www.creativedestructionlab.com/people/shelley-zhuang/";
+	
 }
 
 
 function startSearch(){
-
+	makeLookup();
 	var name = $("#venture option:selected").val();
 	console.log(name);
 	name = name.replace("&", "&amp;");
@@ -239,12 +239,20 @@ function process(obj){
 
 		if (arr["Meeting_Number"]) {
 			//meaning this is a specific individual meeting
+			console.log("look: '" + arr["Lead_1"] + "'  " + lookupProfile[arr["Lead_1"]])
+			if (lookupProfile[arr["Lead_1"]]) {
+				//console.log()
+				distable += "<td colspan='2'>Individual Meeting with <a href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a> ";
+			}
+			else distable += "<td colspan='2'>Individual Meeting with " + arr["Lead_1"];
 
-			distable += "<td colspan='2'>Individual Meeting with " + arr["Lead_1"];
 			for (var l = 2;l<4; l++) {
 				var tt = "Lead_" + l;
 				if (arr[tt]) {
-					distable += " and "  + arr[tt];
+					if (lookupProfile[arr[tt]]) {
+						distable += " and <a href='"+ lookupProfile[arr[tt]] +"'>" + arr[tt] + "</a> ";
+					}
+					else distable += " and "  + arr[tt];
 				}
 				else break;
 
@@ -259,7 +267,10 @@ function process(obj){
 				var ty = har;
 				if (har == "A&amp;K Robotics") {ty = "A&K Robotics"}
 				if (arr['Venture_Name']==ty) {
-					distable += "<td colspan='2'>" + arr["Description"] + "</td>";
+					if (arr['Room_Number']) {
+						distable += "<td colspan='2'>" + arr["Description"] + " <b>(Room "+ arr['Room_Number'] +")</b>" + "</td>";
+					}
+					else distable += "<td colspan='2'>" + arr["Description"] + "</td>";
 					//console.log("Yay");
 				}
 			}
@@ -272,7 +283,13 @@ function process(obj){
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
 			//this is a track meeting
 			if (arr["Venture_Name"] == har) {
-				distable += "<td><b>" + arr["Venture_Name"] + "<b></td><td><b>" + arr["Lead_1"] + "</b></td>";
+				if (lookupProfile[arr["Lead_1"]]) {
+					distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b><a href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></b></td>";
+				}
+				else distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b>" + arr["Lead_1"] + "</b></td>";
+			}
+			else if (lookupProfile[arr["Lead_1"]]) {
+				distable += "<td>" + arr["Venture_Name"] + "</td><td><a href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></td>";
 			}
 			else distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
 		}
