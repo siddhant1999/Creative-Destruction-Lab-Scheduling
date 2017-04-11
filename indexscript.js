@@ -242,7 +242,7 @@ function process(obj){
 			console.log("look: '" + arr["Lead_1"] + "'  " + lookupProfile[arr["Lead_1"]])
 			if (lookupProfile[arr["Lead_1"]]) {
 				//console.log()
-				distable += "<td colspan='2'>Individual Meeting with <a href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a> ";
+				distable += "<td colspan='2'>Individual Meeting with <a target='_blank' href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a> ";
 			}
 			else distable += "<td colspan='2'>Individual Meeting with " + arr["Lead_1"];
 
@@ -250,7 +250,7 @@ function process(obj){
 				var tt = "Lead_" + l;
 				if (arr[tt]) {
 					if (lookupProfile[arr[tt]]) {
-						distable += " and <a href='"+ lookupProfile[arr[tt]] +"'>" + arr[tt] + "</a> ";
+						distable += " and <a target='_blank' href='"+ lookupProfile[arr[tt]] +"'>" + arr[tt] + "</a> ";
 					}
 					else distable += " and "  + arr[tt];
 				}
@@ -284,12 +284,12 @@ function process(obj){
 			//this is a track meeting
 			if (arr["Venture_Name"] == har) {
 				if (lookupProfile[arr["Lead_1"]]) {
-					distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b><a href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></b></td>";
+					distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b><a target='_blank' href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></b></td>";
 				}
 				else distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b>" + arr["Lead_1"] + "</b></td>";
 			}
 			else if (lookupProfile[arr["Lead_1"]]) {
-				distable += "<td>" + arr["Venture_Name"] + "</td><td><a href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></td>";
+				distable += "<td>" + arr["Venture_Name"] + "</td><td><a target='_blank' href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></td>";
 			}
 			else distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
 		}
@@ -353,7 +353,7 @@ function process(obj){
 		pw = "yaaZishoh8";
 	}
 	$("#scheduleTable").append("<h4>Network: <b>UofT</b> | Username: <b>"+ ut + "</b> | Password: <b>" + pw + "</b></h4>");
-	$("#scheduleTable").append("<h4><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
+	$("#scheduleTable").append("<h4><a target='_blank' href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
 	$("#venture").remove();
 	$("#subven").remove();
 }
