@@ -70,7 +70,7 @@ function helper(time){
 
 function process(obj){
 
-  var distable = "<table class='mytable'><thead><tr><th style='width: 11.2em; min-width: 9.2em;'>&nbspTime</th><th>&nbspVenture</th><th>&nbspRooms</th></tr></thead><tbody>";
+  var distable = "<table class='mytable'><thead><tr><th style='width: 11.2em; min-width: 9.2em;'>&nbspTime</th><th>&nbspVenture</th><th>&nbspRoom</th></tr></thead><tbody>";
   var prev1 = "";
   var prev2 = "";
   var leadfor = "";
