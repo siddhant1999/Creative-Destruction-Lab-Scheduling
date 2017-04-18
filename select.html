@@ -18,7 +18,7 @@
 		
 			<section class="main">
 				<div class="wrapper-demo">
-					<div id="dd" class="wrapper-dropdown-5" tabindex="1">John Doe
+					<div id="dd" class="wrapper-dropdown-5" tabindex="1">Venture
 						<ul class="dropdown">
 							<li><a href="#"><i class="icon-user"></i>Profile</a></li>
 							<li><a href="#"><i class="icon-cog"></i>Settings</a></li>
@@ -47,9 +47,9 @@ $(document).ready()
      		var curstr = "";
       		for (var i = 0; i < result.length; i++) {
 				var arr = result[i];
-				curstr += "<option value='" + arr + "'>" + arr + "</option>" ;
+				curstr += "<li value='" + arr + "'><a href='#'>" + arr + "</a></li>" ;
 			}
-			$("#dd").append(curstr);      		
+			$(".dropdown").append(curstr);
 		}
    	});
 
