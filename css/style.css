@@ -586,6 +586,7 @@
 
     /* Hiding */
     max-height: 0;
+    overflow:auto;
     overflow: hidden;
 }
 
@@ -635,6 +636,7 @@
 .wrapper-dropdown-5.active .dropdown {
     border-bottom: 1px solid rgba(0,0,0,0.2);
     max-height: 400px;
+    overflow:auto;
 }
 
 /* No CSS3 support: none */
