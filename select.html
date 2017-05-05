@@ -44,7 +44,7 @@ $(document).ready()
      		var curstr = "";
       		for (var i = 0; i < result.length; i++) {
 				var arr = result[i];
-				curstr += "<li value='" + arr + "'><a href='#'>" + arr + "</a></li>" ;
+				curstr += "<li value='" + arr + "'><a href='?"+arr+"'>" + arr + "</a></li>" ; //starting a different implementation
 			}
 			$(".dropdown").append(curstr);
 		}
