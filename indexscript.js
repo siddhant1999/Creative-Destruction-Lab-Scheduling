@@ -20,6 +20,7 @@ function determineTime(obj){
 
 function temp(str){
 	//console.log("Here too");
+	console.log(str);
 	$.ajax({
         type: 'post',
         async: false,
@@ -40,7 +41,7 @@ function temp(str){
 var lookupProfile = [];
 
 function makeLookup(){
-lookupProfile["Dr. T. Chen Fong"]=	"https://www.creativedestructionlab.com/people/dr-t-chen-fong/";
+lookupProfile["Chen Fong"]=	"https://www.creativedestructionlab.com/people/dr-t-chen-fong/";
 lookupProfile["John Francis"]="https://www.creativedestructionlab.com/people/john-francis/";	
 lookupProfile["Michael Hyatt"]="https://www.creativedestructionlab.com/people/michael-hyatt/";
 lookupProfile["Tony Lacavera"]="https://www.creativedestructionlab.com/people/tony-lacavera/ ";
@@ -90,9 +91,9 @@ lookupProfile["Shelley Zhuang"]="https://www.creativedestructionlab.com/people/s
 }
 
 
-function startSearch(){
+function startSearch(name){
 	makeLookup();
-	var name = $("#venture option:selected").val();
+	//var name = $("#venture option:selected").val();
 	console.log(name);
 	name = name.replace("&", "&amp;");
 	har = name;

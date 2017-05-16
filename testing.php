@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "shareddb1b.hosting.stackcp.net";
 $username = "cl27-siddhant";
 $password = "123456";
 $dbname = "cl27-siddhant";

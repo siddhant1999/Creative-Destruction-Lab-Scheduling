@@ -9,6 +9,7 @@
 <link rel="shortcut icon" type="image/png" href="/dots.png"/>
 <link rel="stylesheet" type="text/css" href="fastyle.css">
 <script src="fascript.js"></script>
+<!--<meta http-equiv="refresh" content="0; url=http://cdlschedules.com/standby.html" />-->
 </head>
 
 <img id="printlogo" src="/dots.png"/>
@@ -78,7 +79,7 @@ var isGrey = [];
 
 // we still need to implement a method of toggling between dates
 
-var query = 'SELECT * FROM Meetings WHERE Date="'+ date +'" AND (LOWER(Lead_1)="' + har.toLowerCase() +'" OR LOWER(Lead_2)="' + har.toLowerCase() +'" OR LOWER(Lead_3)="' + har.toLowerCase() +'" OR Meeting_Number IS NULL) ORDER BY Time_Start;' ;
+var query = 'SELECT * FROM Meetings WHERE Date="'+ date +'" AND (LOWER(Lead_1)="' + har.toLowerCase() +'" OR LOWER(Lead_2)="' + har.toLowerCase() +'" OR LOWER(Lead_3)="' + har.toLowerCase() +'" OR Meeting_Number IS NULL) ORDER BY Time_Start, Time_End;' ;
 //alert(query);
 executeQuery(query);
 </script>
