@@ -1,5 +1,3 @@
-
-
 var allstrings = [];
 var har;
 var queryDate;
@@ -20,7 +18,6 @@ function determineTime(obj){
 
 function temp(str){
 	//console.log("Here too");
-	console.log(str);
 	$.ajax({
         type: 'post',
         async: false,
@@ -41,7 +38,7 @@ function temp(str){
 var lookupProfile = [];
 
 function makeLookup(){
-lookupProfile["Chen Fong"]=	"https://www.creativedestructionlab.com/people/dr-t-chen-fong/";
+lookupProfile["Chen Fong"]="https://www.creativedestructionlab.com/people/dr-t-chen-fong/";
 lookupProfile["John Francis"]="https://www.creativedestructionlab.com/people/john-francis/";	
 lookupProfile["Michael Hyatt"]="https://www.creativedestructionlab.com/people/michael-hyatt/";
 lookupProfile["Tony Lacavera"]="https://www.creativedestructionlab.com/people/tony-lacavera/ ";
@@ -174,7 +171,7 @@ var isGrey = [];
 
 function process(obj){
 
-	var distable = "<table class='mytable'><thead><tr><th style='min-width: 9.9em;'>Start Time</th><th style='min-width: 9.9em;'>End Time</th><th>Activity</th><th>Discussion Leads</th></tr></thead><tbody>";
+	var distable = "<table class='mytable'><thead><tr><th style='min-width: 9.9em;'>Time</th><th>Venture</th><th>Discussion Leads</th></tr></thead><tbody>";
 	var prev1 = "";
 	var prev2 = "";
 
@@ -201,7 +198,7 @@ function process(obj){
 			tempa = helper(tempa);
 			subtracting = false;
 
-			distable += "<td style='background-color: #ececec; text-align:center;'>" + tempa + "</td><td style='background-color: #ececec; text-align:center;'>" + a +"</td><td style='background-color: #ececec;' colspan='2'>Check In at CDL Office <b>(Room 2052)</b></td></tr>" + "<tr>";
+			distable += "<td style='background-color: #ececec; text-align:center;'>" + tempa + " - " + a +"</td><td style='background-color: #ececec;' colspan='2'>Check In at CDL Office <b>(Room 2052)</b></td></tr>" + "<tr>";
 
 		}
 
@@ -210,7 +207,7 @@ function process(obj){
 
 		
 		if (a == b) {
-      distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a +"</td><td></td>";
+      distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a +"</td>";
     }
     else if (prev1!=a && prev2 !=b) {
 		
@@ -218,7 +215,7 @@ function process(obj){
 			if (prev2 != a && prev2) {
 				//add break
 				//console.log("Need break here");
-				distable += "<td style='background-color: #ececec; text-align:center;'>" + prev2 + "</td><td style='background-color: #ececec; text-align:center;'>" + a +"</td><td style='background-color: #ececec;' colspan='2'>Break</td></tr>" + "<tr class='row_" + i + "'>";
+				distable += "<td style='background-color: #ececec; text-align:center;'>" + prev2 + " - " + a +"</td><td style='background-color: #ececec;' colspan='2'>Break</td></tr>" + "<tr class='row_" + i + "'>";
 			}
 
 			prev1 = a;
@@ -234,13 +231,7 @@ function process(obj){
 						break;
 					}
 				}
-			}
-			if(arr["Venture_Name"] && arr["Lead_1"]&& !arr["Description"] && !arr["Meeting_Number"]) {
-				distable += "<td style='text-align:center;' rowspan='"+ 1 +"'>" + a + "</td><td style='text-align:center;' rowspan='"+ 1 +"'>" + b +"</td>";
-				distable += "<td>Track Meeting</td><td>" + count+ "</td>";
-			}
-			else
-			distable += "<td style='text-align:center;' rowspan='"+ count +"'>" + a + "</td><td style='text-align:center;' rowspan='"+ count +"'>" + b +"</td>";
+			}distable += "<td style='text-align:center;' rowspan='"+ count +"'>" + a + " - " + b +"</td>";
 		}
 
 
@@ -289,10 +280,7 @@ function process(obj){
 		}
 		else if(arr["Venture_Name"] && arr["Lead_1"]) {
 			//this is a track meeting
-			//distable += "<td>Track Meeting</td><td>" + count+ "</td>";
-			/*
 			if (arr["Venture_Name"] == har) {
-				//this is just to bold the venture name if it is the one that I am on
 				if (lookupProfile[arr["Lead_1"]]) {
 					distable += "<td><b>" + arr["Venture_Name"] + "</b></td><td><b><a target='_blank' href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></b></td>";
 				}
@@ -302,7 +290,6 @@ function process(obj){
 				distable += "<td>" + arr["Venture_Name"] + "</td><td><a target='_blank' href='"+ lookupProfile[arr["Lead_1"]] +"'>" + arr["Lead_1"] + "</a></td>";
 			}
 			else distable += "<td>" + arr["Venture_Name"] + "</td><td>" + arr["Lead_1"] + "</td>";
-			*/
 		}
 		
 		/*for (var key in obj){
