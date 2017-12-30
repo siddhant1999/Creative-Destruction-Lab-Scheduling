@@ -1,0 +1,97 @@
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--<meta http-equiv="refresh" content="0; url=http://cdlschedules.com/standby.html" />-->
+</head>
+<textarea id="ter" ></textarea><button onclick="process()">Import</button>
+<div id="her"></div>
+<style type="text/css">
+	table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;    
+}
+</style>
+</style>
+<script>
+
+//var str = "https://api.hunter.io/v2/email-verifier?email=" + emailad + "&api_key=f9d814bcbdcd13f9a7d51080b9cfc5ef6c0051cb";
+var gg;
+
+function process(){
+	var lines = $('#ter').val().split('\n');
+	//header
+	gg = "<table>";
+	$("#her").append(gg);
+
+	for(var i = 0;i < lines.length;i++){
+		var vals = lines[i].split(/[\t]/);
+		//for (var j = 0; j < vals.length; j++) {
+			fname = vals[0];
+			lname = vals[1];
+			email = vals[2];
+			
+			var address, ttt;
+
+			address = "" + fname + "@" + email;
+			ttt = "<tr><td>"+ vals[0] +"</td><td>"+ vals[1] +"</td><td>"+ address +"</td>";
+			doso(address, ttt);
+
+			address = "" + fname + lname + "@" + email;
+			ttt = "<tr><td>"+ vals[0] +"</td><td>"+ vals[1] +"</td><td>"+ address +"</td>";
+			doso(address, ttt);
+
+			address = "" + fname + "." + lname + "@" + email;
+			ttt = "<tr><td>"+ vals[0] +"</td><td>"+ vals[1] +"</td><td>"+ address +"</td>";
+			doso(address, ttt);
+
+			address = "" + fname + "." + lname.charAt(0) + "@" + email;
+			var ttt = "<tr><td>"+ vals[0] +"</td><td>"+ vals[1] +"</td><td>"+ address +"</td>";
+			doso(address, ttt);
+
+			address = "" + fname + lname.charAt(0) + "@" + email;
+			var ttt = "<tr><td>"+ vals[0] +"</td><td>"+ vals[1] +"</td><td>"+ address +"</td>";
+			doso(address, ttt);
+
+			address = "" + fname.charAt(0) + lname + "@" + email;
+			var ttt = "<tr><td>"+ vals[0] +"</td><td>"+ vals[1] +"</td><td>"+ address +"</td>";
+			doso(address, ttt);
+
+			address = "" + fname.charAt(0) + "." + lname + "@" + email;
+			var ttt = "<tr><td>"+ vals[0] +"</td><td>"+ vals[1] +"</td><td>"+ address +"</td>";
+			doso(address, ttt);
+
+		//}
+	}
+	gg = "</table>";
+	$("#her").append(gg);
+}
+
+function doso(str, pretable) {
+	$.ajax({
+	    type: 'get',
+	    url: 'emailverifier.php',
+	    async: false,
+	    data: {
+	        sqlQuery: str
+	    },
+	    success: function( data ) {
+	      //console.log(data);
+	      console.log(data["data"]["score"]);
+	      
+	      var fds = pretable + "<td>"+ data["data"]["score"] +"</td></tr>";
+	      $("#her").append(fds);
+	      //return "abcd";
+	      //return parseInt(data["data"]["score"]);
+	    }
+	});
+}
+
+
+</script>

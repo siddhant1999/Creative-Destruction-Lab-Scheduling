@@ -1,6 +1,9 @@
+
+    var removing = [];
+    var dateonpage;
 function executeQuery(query){
   $("#header").append("<div id='titleHead' class='col-sm-4' ><h3><b>G7/ML7 Meeting<i> - "+ date + "</i><br>" + har + "</b></h3>");
-
+dateonpage = date;
   var dateQuery = "SELECT * FROM Meetings;";
   $.ajax({
             type: 'post',
@@ -14,12 +17,12 @@ function executeQuery(query){
               console.log(dateData);
               var mySet = new Set();
               for (var i = 0; i < dateData.length; i++) {
-            var arr = dateData[i];
+                var arr = dateData[i];
 
-            //$("#scheduleTable").append("<a href='"+ arr['Date'] +"''>"+ arr['Date'] +"</a><br>");
-            if (arr['Date'] != date)
-              mySet.add(arr['Date']);
-          }
+                //$("#scheduleTable").append("<a href='"+ arr['Date'] +"''>"+ arr['Date'] +"</a><br>");
+                if (arr['Date'] != date && (arr['Lead_1'] == har || arr['Lead_2'] == har || arr['Lead_3'] == har))
+                  mySet.add(arr['Date']);
+                }
           for (let item of mySet){
 
             str = '?faname=' + har+ '&date=' + item;
@@ -120,12 +123,46 @@ function process(obj){
       }distable += "<td style='text-align:center;' rowspan='"+ count +"'>" + a + " - " + b +"</td>";
     }
 
-    
+
 
     if (arr["Meeting_Number"]) {
+      if (!arr["Venture_Name"]) {
+        var stre = ".row_" + i; 
+        //console.log(stre);
+        removing.push(i);
+        console.log(removing);
+        console.log(removing.length);
+        //$(stre).remove();
+
+      }
       //meaning this is a specific individual meeting
-      
-      distable += "<td>" + arr["Venture_Name"] + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
+      //we also want to include the other Leads they are also with
+      var withLeads;
+
+      var strLeads = "";
+
+      var arrayLeads = []; // this is going to store the leads that this person (lead) is sharing the room with in the meeting
+
+      if (arr['Lead_1'] && arr['Lead_1'] != har) {
+        strLeads += arr['Lead_1'] + " ";
+        arrayLeads.push(arr['Lead_1']);
+      }
+      if (arr['Lead_2'] && arr['Lead_2'] != har) {
+        strLeads += arr['Lead_2'] + " ";
+        arrayLeads.push(arr['Lead_2']);
+      }
+      if (arr['Lead_3'] && arr['Lead_3'] != har) {
+        strLeads += arr['Lead_3'] + " ";
+        arrayLeads.push(arr['Lead_3']);
+      }
+      if (arrayLeads.length > 0) {
+        if (arrayLeads.length > 1) {
+          distable += "<td>" + arr["Venture_Name"] + " (with "+ arrayLeads[0] + " & " + arrayLeads[1] +")" + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
+        }
+          else distable += "<td>" + arr["Venture_Name"] + " (with "+ arrayLeads[0] +")" + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
+      }
+      //check to make sure that strLeads is not empty
+      else distable += "<td>" + arr["Venture_Name"] + "</td><td>Room <b>" + arr['Room_Number'] + "</b></td>";
       
 
       //distable += " <b>(Room " + arr["Room_Number"] + ")</b></td>";
@@ -191,8 +228,20 @@ function process(obj){
     leadfortitle = "<h4><b>Lead for: <i>" + leadfor + "</i></b></h4>";
     $("#titleHead").append(leadfortitle + "</div>");
   }
-  
+
   $("#scheduleTable").append(distable);
+  console.log("Over here");
+  console.log(removing.length);
+
+  for (var llii = 0; llii < removing.length; llii++) {
+    console.log("Over here");
+    var stre = ".row_" + removing[llii]; 
+        console.log(stre);
+        //removing.push(i);
+        $(stre).remove();
+        console.log("removed");
+  }
+  
   
   for (var j = 0; j < isGrey.length; j++) {
     var theid = ".row_" + isGrey[j];
@@ -203,18 +252,17 @@ function process(obj){
     //$(theid).append('<style type="text/css" media="print">background-color: #ececec !important</style>');
   }
 
-  $("#scheduleTable").append("<br><h4 class='printRemove'><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
+  $("#scheduleTable").append("<br><h4 class='printRemove'><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early. All afternoon sessions are in 1065.</h4>");
 
   
   $("#scheduleTable").append("<h4 class='printRemove'><a href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
   $("#venture").remove();
   $("#subven").remove();
 }
-
 function startSearch(){
   var name = $("#fa option:selected").val();
   //alert(name);
-  str = "http://cdlschedules.com/fa.php?faname=" + name + "&date=2017-04-05"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
+  str = "http://cdlschedules.com/fa.php?faname=" + name + "&date=2017-10-24"; // <-- this is temporary, in the future I want to be able to query the current date and then make the schedule query based on that
 
   window.location.assign(str);
   //this is redirecting to the next page in the case where the selection page is presented

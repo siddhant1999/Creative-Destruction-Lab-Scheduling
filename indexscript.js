@@ -16,7 +16,7 @@ function determineTime(obj){
 	}
 }
 
-function temp(str){
+function temp(str, nameofven){
 	//console.log("Here too");
 	$.ajax({
         type: 'post',
@@ -29,6 +29,23 @@ function temp(str){
         	//console.log("Here is the data man:");
             //console.log(data);
             //console.log("transfering");
+            if (data.length < 1) {//meaning this company does not have an individual meeting, but they could still have a track meeting
+            	var strabc = "SELECT * FROM Meetings WHERE Venture_Name='" + nameofven + "';";
+            	$.ajax({
+            		type: 'post',
+        			async: false,
+        			url: 'processQuery.php',
+        			data: {
+            			sqlQuery: strabc
+        			},
+        			success: function( dat ) {
+        				console.log("dat is here buddy!");
+        				console.log(dat);
+        				console.log("umm kk");
+        				determineTime(dat);
+        			}
+            	});
+            }
             determineTime(data);
             //console.log(allstrings);
             //alert("Complete");
@@ -101,7 +118,7 @@ function startSearch(name){
 
 	var deterdate = "SELECT * FROM Meetings WHERE Venture_Name='" + name + "' AND Meeting_Number IS NOT NULL;";
 
-	temp(deterdate);
+	temp(deterdate, name);
 
 
 
@@ -310,45 +327,54 @@ function process(obj){
 		$(theid).css("background-color", "#ececec");
 	}
 
-	$("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");
+	if (queryDate == "2017-06-08") {
+		console.log("hia");
+    //var strer = "<br><table class='mytable'><tbody><tr><td style='width: 11.2em; min-width: 9.2em; text-align: center;'>4:30 PM</td><td>Graduation Party</td><td>Desautels Hall</td></tr></tbody></table>";
+    //$("#scheduleTable").append("<br><table style='border-width: 2px; border-color: black;' class='mytable'><tbody><tr><td style='width: 11.2em; min-width: 9.2em; text-align: center;'>4:30 PM</td><td>Graduation Party</td><td>Desautels Hall</td></tr></tbody></table>");
+  }
+  else {
+  	//$("#scheduleTable").append("<br><table style='border-width: 2px; border-color: black;' class='mytable'><tbody><tr><td style='width: 11.2em; min-width: 9.2em; text-align: center;'>4:30 PM</td><td>Graduation Party (June 8)</td><td>Desautels Hall</td></tr></tbody></table>");
+  }
+
+	$("#scheduleTable").append("<br><h4><b><u>REMINDER: </b></u> Please arrive at each of your meeting locations 10 minute early.</h4>");// All afternoon sessions are in 1065.
 
 	var ut, pw;
 
 	if (har[0] <= 'B') {
-		ut = "qq195145";
-		pw = "Cuati3viti";
+		ut = "qq204033";
+		pw = "Ieh5eizich";
 	}
 	else if (har[0] == 'C' || (har[0] == 'D' && har[0] == 'a')) {
-		ut = "qq195146";
-		pw = "Vieng4riya"
+		ut = "qq204034";
+		pw = "ootheS5gei"
 	}
 	else if (har[0] < 'F') {
 		ut = "qq195147";
 		pw = "aegh7Eeyei";
 	}
 	else if (har[0] <= 'G') {
-		ut = "qq195148";
-		pw = "ooSij4sohx";
+		ut = "qq204035";
+		pw = "eeru4veeRo";
 	}
 	else if (har[0] <= 'K') {
-		ut = "qq195149";
-		pw = "oWoo7kaixe";
+		ut = "qq204036";
+		pw = "Ahmi3gohsh";
 	}
 	else if (har[0] <= 'N') {
-		ut = "qq195150";
-		pw = "cuf2zouDoo";
+		ut = "qq204037";
+		pw = "aequae5Sho";
 	}
 	else if (har[0] <= 'R') {
-		ut = "qq195151";
-		pw = "tieR4heeng";
+		ut = "qq204038";
+		pw = "iaY9aeshup";
 	}	
 	else if (har[0] <= 'T') {
-		ut = "qq195152";
-		pw = "Fiesomah9o";
+		ut = "qq204039";
+		pw = "sute4ziaSa";
 	}
 	else {
-		ut = "qq195153";
-		pw = "yaaZishoh8";
+		ut = "qq204040";
+		pw = "Penee6oemom";
 	}
 	$("#scheduleTable").append("<h4>Network: <b>UofT</b> | Username: <b>"+ ut + "</b> | Password: <b>" + pw + "</b></h4>");
 	$("#scheduleTable").append("<h4><a target='_blank' href='https://goo.gl/maps/8uSykS526Q22'>105 St George St, Toronto, ON M5S 2E8</a></h4><br>");
